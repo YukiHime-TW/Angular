@@ -501,17 +501,59 @@ Angular 通過元件的生命週期鉤子，讓開發者能夠對元件在不同
 <div class="ulist">
 <ul>
 <li>
-<p><code>@Input()</code> 裝飾器<br>
-通過 <code>@Input()</code> 裝飾器，父元件可以向子元件傳遞數據。<br>
-子元件可以通過設置 <code>@Input()</code> 屬性來接收父元件傳遞的數據。</p>
-</li>
-<li>
-<p><code>@Output()</code> 裝飾器<br>
-通過 <code>@Output()</code> 裝飾器，子元件可以向父元件發送事件。<br>
-子元件可以通過 <code>EventEmitter</code> 類來發送事件，父元件可以訂閱這些事件。</p>
+<p>數據傳遞<br>
+元件之間的數據傳遞通過 <code>@Input()</code> 裝飾器進行。<br>
+父元件可以將數據傳遞給子元件，使子元件可以根據這些數據渲染自己的視圖。<br>
+這種方式使得元件的使用更加靈活，同時也強化了元件之間的隔離性。</p>
 </li>
 </ul>
 </div>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `&lt;p&gt;子元件數據: {{ data }}&lt;/p&gt;`
+    })
+    export class ChildComponent {
+        @Input() data: string;  // 從父元件接收數據
+    }</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>事件發射<br>
+使用 <code>@Output()</code> 裝飾器，子元件可以發出事件，告知父元件發生了某個操作。<br>
+這種事件驅動的交互方式使得父子元件之間的關係保持疏鬆。</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `&lt;button (click)="notifyParent()"&gt;通知父元件&lt;/button&gt;`
+    })
+    export class ChildComponent {
+        @Output() notify: EventEmitter&lt;void&gt; = new EventEmitter();
+
+        notifyParent() {
+            this.notify.emit();  // 發射事件
+        }
+    }</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>模組化架構</p>
 </li>
 </ol>
 </div>
@@ -528,7 +570,7 @@ Angular 通過元件的生命週期鉤子，讓開發者能夠對元件在不同
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-23 15:14:10 +0800
+Last updated 2024-10-23 15:55:22 +0800
 </div>
 </div>
 </body>
