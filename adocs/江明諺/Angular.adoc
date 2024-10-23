@@ -1,0 +1,217 @@
+= Angular
+
+== 環境設置
+- 安裝https://nodejs.org/en/download/prebuilt-installer[node.js](選擇LTS)
+- 安裝Anguler
+
+----
+npm install -g @angular/cli
+----
+
+- 建立專案
+
+----
+ng new project-name
+----
+
+- 啟動應用程式
+
+----
+cd project-name
+ng serve --open
+----
+[quote]
+____
+預設網域通常為http://localhost:4200/
+____
+
+== 專案結構說明
+
+=== 專案設定檔
+
+[width=75%, cols="1,4"]
+|===
+|.editorconfig |用來設定統一的程式碼風格
+|.gitignore |設定git檔案的忽略清單
+|angular.json |用來配置Angular CLI 所需的設定，定義專案中的應用程式、測試、建置過程和不同環境的設定
+|package.json |用來配置專案所需要使用的依賴套件
+|package-lock.json |用來鎖定依賴項的版本號，確保其他人使用npm install時版本可以保持一致
+|src/ |應用程式源碼區
+|public/ | 用來放置一些可公開的靜態資源
+|node_modules/ |存放專案所有的依賴套件
+|tsconfig.json |用來設定TypeScript的配置
+|===
+
+=== 應用程式原始碼檔案
+放置在src下的檔案
+
+[width=75%, cols="1,4"]
+|===
+|app/ |包含定義應用程式邏輯和資料的元件檔案
+|index.html |預設html主頁面。Angular CLI會自動將專案內的JavaScript和CSS引入到裡面
+|main.ts |執行應用程式的進入點
+|styles.css |全域的CSS配置
+|===
+
+放置在src/app下的檔案
+[width=75%, cols="1,4"]
+|===
+|app.config.ts |用來告訴Angular該如何組裝和啟動應用程式的配置，當有需要新增更多providers時應該要設置在此
+|app.component.ts |應用程式的核心組件與關連的view都會設定在這裡，也就是AppComponent，任何屬性以及事件都會寫在這裡
+|app.component.html |定義與AppComponent關聯的HTML
+|app.component.css |定義AppComponent的樣式
+|app.component.spec.ts |定義AppComponent的單元測試
+|app.routes.ts |定義應用程式的路由配置
+|===
+
+=== 應用程式設定檔
+[width=75%, cols="1,4"]
+|===
+|tsconfig.app.json |用來設定特定應用程式的TypeScript配置
+|tsconfig.spec.json |用來設定應用程式測試的TypeScript配置
+|===
+
+== Angular三大重要開發檔案
+
+=== app.component.ts
+為應用程式的root component，每個Angular應用程式都至少會有一個root component，當Angular啟動應用時，這個根組件會作為整個應用的容器來渲染和展示其他子組件，也負責控制視圖的顯示和行為。
+
+==== 程式碼內容
+[source=typescript]
+----
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+  title = 'test-app';
+}
+----
+
+==== @Component
+
+是從Angular核心模組（@angular/core）引入的裝飾器，是用來定義一個組件的裝飾器，他會告訴Angular這個類應該作為一個組件使用，並且提供了關於這個組件的資料。
+
+----
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+----
+
+- selector: 用來定義這個組件在HTML中的標籤名稱，Angular會將index.html當中的<app-root></app-root>標籤替換為這個組件的內容
+
+- standalone: 此屬性用來宣告組件是否為獨立的組件
+
+- imports: 此屬性用來定義組件要使用的外部模組或功能
+
+- templateUrl: 用來定義這個組件要使用的HTML模板
+
+- styleUrl: 用來定義這個組件要使用的CSS樣式
+
+==== AppComponent類
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+}
+----
+
+這個類主要用來定義組件的各種邏輯與狀態，上述例子就定義了組件的屬性，在html中可使用{{ title }}來取得組件的屬性值
+
+[source,html]
+----
+<p>{{ title }}</p>  <!-- 在頁面上會輸出test-app -->
+----
+
+- 定義方法:
+
+----
+export class AppComponent {
+  title = 'app-root';
+  userName = 'John';
+  isLoggedIn = false;
+
+  // 變更使用者登入狀態
+  toggleLoginStatus() {
+    this.isLoggedIn = !this.isLoggedIn;
+  }
+
+  // 設定新的使用者名稱
+  changeUserName(newName: string) {
+    this.userName = newName;
+  }
+}
+----
+
+在HTML中綁定這些方法來實現按鈕點擊事件
+
+[source,html]
+----
+<h1>{{ title }}</h1>
+<p>User: {{ userName }}</p>
+<button (click)="toggleLoginStatus()">
+  {{ isLoggedIn ? 'Logout' : 'Login' }}
+</button>
+----
+
+- 定義組件的生命週期:
+
+----
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'test-app';
+  data: any;
+
+  ngOnInit() {
+    // 初始化，通常用來取得資料
+    console.log('Component initialized');
+    this.data = this.fetchData();
+  }
+
+  ngOnDestroy() {
+    // 當組件銷毀時執行
+    console.log('Component destroyed');
+  }
+
+  fetchData() {
+    return { message: 'I love systex' };
+  }
+}
+----
+
+=== app.component.html
+
+Angular 組件的模板文件，負責定義 AppComponent 組件的視圖結構，透過 Angular 的模板語法實現資料的顯示、條件渲染、事件處理等功能，並動態更新畫面，與 app.component.ts 當中的邏輯緊密結合，實現互動式的使用者界面。
+
+==== html當中常用的Angular語法
+
+- 插值表達式 {{}} : 
+- 屬性綁定:
+- 事件綁定:
+- 雙向資料綁定:
+- 條件渲染:
+- 迭代渲染:
+- 屬性或類名綁定:
+- @Input() 和 @Output():
+
+
+
+ 
+
+
+
+
+
+
+
