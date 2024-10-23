@@ -1,0 +1,423 @@
+= Angular
+
+== 什麼是 Angular？
+Angular 是一個基於 TypeScript 的開發平台。作為一個平台，Angular 包含：
+
+- 一個元件化的框架，用來建構可延展的 Web 應用程式。
+- 一整套經深思熟慮而整合出來的函式庫，包含各種不同的功能，包含路由機制、表單管理、Client/Server 通訊，以及更多。
+- 一組完善的開發工具，幫助你開發、建置、測試、更新你的程式碼。
+
+在開始探索 Angular 之前，你要先了解 Angular CLI。常用指令如下
+
+- `ng build`: 編譯Angular開發的程式到輸出目錄
+- `ng serve`: 建構應用程式並啟動開發伺服器，當檔案變化時重新建構
+- `ng generate`: 根據原理圖生成或修改檔案
+- `ng test`: 對指定專案進行單元測試
+- `ng e2e`: 編譯並啟動Angular程式，並執行端到端測試
+
+== 熟悉你的 Angular 程式
+
+本教學導覽主要使用的程式原始檔在 `src/app` 資料夾內。由 CLI 自動產生的主要檔案如下：
+
+- `app.module.ts`: 列出此專案使用的所有檔案。此檔案在專案中扮演中央樞紐的角色。
+- `app.component.ts`: 又被稱為元件類別，內含此專案主要頁面的相關邏輯。
+- `app.component.html`: 內含 AppComponent 所使用的網頁 html，作為元件模板（Template）。
+- `app.component.css`: 內含 AppComponent 裡面的樣式，讓樣式定義只影響特定模組。
+
+Angular 的元件由三部分構成：模板、樣式、類別。例如，`app.component.ts`、`app.component.html`、以及 `app.component.css` 一同構成 AppComponent。
+
+== Angular 的專案結構
+
+Angular 基本上使用 TypeScript 作為主要開發語言。簡單來說，TypeScript 是 JavaScript 的超集合。TypeScript 提供更強化的型別規範，並減少錯誤的機率。
+
+在 Angular 框架裡，專案由許多元件（Components）組成。元件包含 HTML 架構、樣式及帶有元件裝飾器 `@Component()` 的 TypeScript 類別。
+
+=== 類別
+
+類別內放置元件邏輯、規則，像是函式、事件監聽、屬性等。元件類別的基本寫法如下：
+[source, javascript]
+----
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-item',
+  templateUrl: './item.component.html',
+  styleUrls: ['./item.component.css']
+})
+export class ItemComponent {
+  // 程式碼寫在這裡
+}
+----
+這個元件的選擇器為 app-item，可放置於其他模板中使用。
+
+=== HTML 模版
+
+每個元件都會有 HTML 模版告訴瀏覽器如何渲染頁面。你可以選擇內嵌在類別中或使用外部檔案來指定模板。
+
+=== Styles
+
+每個專案有個全域樣式檔案 styles.css，元件可以增加或覆寫它的樣式。
+
+=== 總結
+
+以上就是 Angular 的簡介，你應該已經對 Angular 有基本的了解，並準備開始一個新的 Angular 專案。
+
+== 建立一個新的元件
+
+ng generate component item
+該指令會建立以下內容：
+
+用於 HTML 的 item.component.html
+用於邏輯的 item.component.ts
+用於樣式的 item.component.css
+測試檔案 item.component.spec.ts
+=== 手動建立元件
+
+你也可以手動建立元件。方法如下：
+
+建立一個新檔案 <component-name>.component.ts。
+新增元件所需的 import 和 @Component 裝飾器。
+
+[source, javascript]
+----
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-component-overview',
+  templateUrl: './component-overview.component.html',
+  styleUrls: ['./component-overview.component.css']
+})
+export class ComponentOverviewComponent {
+  // 程式碼寫在這裡
+}
+----
+=== 指定元件的 CSS 選擇器
+
+每個元件都需要一個 CSS 選擇器，用來指示 Angular 在遇到對應標籤時，實例化元件。
+
+[source, javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+})
+----
+=== 定義一個元件的樣板
+
+樣板是用來渲染元件的 HTML，可以透過 templateUrl 引用外部檔案，或直接使用 template 在元件中定義。
+
+[source, javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+  template: '<h1>Hello World!</h1>',
+})
+如果樣板跨多行，可以使用反引號（``）包起來：
+----
+[source, javascript]
+----
+typescript
+@Component({
+  selector: 'app-component-overview',
+  template: `
+    <h1>Hello World!</h1>
+    <p>This template definition spans multiple lines...</p>
+  `
+})
+----
+
+= 定義一個元件的樣板
+
+樣板是一段 HTML，它告訴 Angular 如何在應用中渲染元件。可以透過以下兩種方式之一為元件定義樣板：引用外部檔案，或直接寫在元件內部。
+
+要把樣板定義為外部檔案，就要把 `templateUrl` 新增到 `@Component` 裝飾器中。
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+  templateUrl: './component-overview.component.html',
+})
+----
+
+要在元件中定義樣板，就要把一個 `template` 屬性新增到 `@Component` 中，該屬性的內容是要使用的 HTML。
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+  template: '<h1>Hello World!</h1>',
+})
+----
+
+如果你想讓樣板跨越多行，可以使用反引號（`）。比如：
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+  template: `
+    <h1>Hello World!</h1>
+    <p>This template definition spans multiple lines.</p>
+  `
+})
+----
+
+Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但你不能在元件中同時擁有這兩個語句。
+
+
+簡單來說: 每個元件都要設定一個 `template`，但有兩種方式：
+- `template` 是一個直接寫在元件內的 HTML。
+- `templateUrl` 是一個外部檔案的位址。
+
+== 宣告元件的樣式
+
+如同上方設定樣板，你可以透過以下方式宣告樣式：
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+  styleUrls: ['./component-overview.component.css']
+})
+----
+
+若要設定多個樣式檔案，可以用陣列：
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-component-overview',
+  styleUrls: ['./styles1.css', './styles2.css']
+})
+----
+
+== Component 裝飾器
+
+常見的屬性包括：
+
+1. `templateUrl`: Angular 元件樣板檔案的 URL。如果提供了它，就不要再用 `template` 來提供行內樣板了。
+2. `template`: Angular 元件的行內樣板。如果提供了它，就不要再用 `templateUrl` 提供樣板了。
+3. `selector`: 元件的選擇器。
+4. `providers`: 提供此元件的服務。
+5. `imports`: 載入的其他元件或模組。
+6. `standalone`: 若為 `true`，此元件為獨立元件，不依賴其他模組。
+7. `encapsulation`: 設定樣式隔離的範圍。
+
+== 元件的生命週期
+
+當元件實例建立並渲染其 view 和子 view 時，生命週期開始。Angular 會執行變更檢測，檢查資料繫結是否改變。
+
+=== Lifecycle Hook
+
+以下是生命週期 Hook 的執行順序：
+
+1. `ngOnChanges`: 當輸入或輸出繫結值更改時觸發。
+2. `ngOnInit`: 在第一次 `ngOnChanges` 之後執行。
+3. `ngDoCheck`: 自定義變更檢測。
+4. `ngAfterContentInit`: 元件內容初始化後執行。
+5. `ngAfterContentChecked`: 每次檢查元件內容後執行。
+6. `ngAfterViewInit`: 元件視圖初始化後執行。
+7. `ngAfterViewChecked`: 每次檢查元件視圖後執行。
+8. `ngOnDestroy`: 元件即將被銷毀時執行。
+
+== @if 和 @for 的使用
+
+在 Angular 中，你可以使用控制流來處理條件和迴圈。
+
+=== @if
+
+[source,javascript]
+----
+@if (isServerRunning) {
+  <p>Yes, the server is running!</p>
+}
+@else {
+  <p>No, the server is shut down.</p>
+}
+----
+
+=== @for
+
+Note: 使用 `track` 是必要的，你可以使用 id 或其他唯一標識符。
+
+[source,javascript]
+----
+@for (user of users; track user.id) {
+  <p>{{ user.name }}</p>
+}
+----
+
+== Property Binding in Angular
+
+使用屬性繫結可以動態更新 HTML 元素的屬性。
+
+[source,javascript]
+----
+<div [contentEditable]="isEditable"></div>
+----
+
+== two way bind
+
+TODO
+
+== Event handling
+
+Angular 處理事件時，會將事件與組件實例綁定，與傳統 JavaScript 的事件處理不同。
+this會指向該元件
+
+== Change Detection
+
+Change Detection 在以下情況下觸發：
+
+1. 事件觸發。
+2. 非同步操作完成。
+3. 手動觸發 `ChangeDetectorRef.detectChanges()`。
+
+== Component Communication
+
+Angular 提供了 `@Input` 和 `@Output` 來處理元件之間的通訊。
+
+=== @Input
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-user',
+  template: `
+    <p>The user's occupation is {{ occupation }}</p>
+  `
+})
+export class UserComponent {
+  @Input() occupation = '';
+}
+----
+
+=== @Output
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-child',
+  template: `
+    <button (click)="addItem()">Add Item</button>
+  `
+})
+export class ChildComponent {
+  @Output() addItemEvent = new EventEmitter<string>();
+
+  addItem() {
+    this.addItemEvent.emit('Item');
+  }
+}
+----
+
+== Routing
+
+=== 1.Create an app.routes.ts file
+
+[source,javascript]
+----
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { UserComponent } from './user/user.component';
+
+export const routes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'user', component: UserComponent }
+];
+----
+
+=== 2.Add routing to provider
+
+[source,javascript]
+----
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes)]
+};
+----
+
+=== 3.Import RouterOutlet in the component
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-root',
+  template: `
+    <nav>
+      <a routerLink="/">Home</a>
+      |
+      <a routerLink="/user">User</a>
+    </nav>
+    <router-outlet></router-outlet>
+  `
+})
+----
+
+== Forms
+
+你可以使用 `ReactiveFormsModule` 或 `FormsModule` 來處理表單的資料繫結和驗證。
+
+== Reactive Forms
+
+1.在 component 中定義這個表單擁有的屬性：
+
+[source,javascript]
+----
+export class UserComponent {
+  profileForm = new FormGroup({
+    name: new FormControl(''),
+    email: new FormControl(''),
+  });
+
+  getUser(){
+    console.log(this.profileForm);
+  }
+}
+----
+
+2.在 template 中：
+
+[source,html]
+----
+<p>user page</p>
+<p>my name is {{username}}</p>
+<form [formGroup]="profileForm">
+  <label>
+    Name
+    <input type="text" formControlName="name" />
+  </label>
+  <label>
+    Email
+    <input type="email" formControlName="email" />
+  </label>
+  <button type="submit" (click)="getUser()">Submit</button>
+</form>
+
+// 要提交表單，則在 form 標籤上加上 (ngSubmit)="handleSubmit()"
+----
+
+== Import Validators
+
+1.在 component 中匯入 Validators：
+[source,javascript]
+----
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+----
+2.增加表單驗證：
+[source,javascript]
+----
+profileForm = new FormGroup({
+  name: new FormControl('', Validators.required),
+  email: new FormControl('', [Validators.required, Validators.email]),
+});
+----
+3.在template 中使用表單驗證：
+[source,html]
+----
+<button type="submit" [disabled]="!profileForm.valid">Submit</button>
+----
+
+
