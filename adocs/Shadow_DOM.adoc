@@ -1,0 +1,32 @@
+== Shadow DOM
+
+=== 什麼是 DOM?
+
+DOM 是 W3C 所制定的一個規範，獨立於平台與程式語言的標準。只要遵守 DOM 的規範實作，那就不受限於所使用的平台或語言開發，都可以透過 DOM 提供的 API 來操作 DOM 的內容、結構與樣式。
+
+因此，我們可以很簡易地透過前端網頁程式 JavaScript 來對網頁內容做操控。`document` 物件是「DOM tree」的根節點，所以當我們要存取 HTML 時，都從 `document` 物件開始。`document` 提供了網頁文件所需的通用函式可以呼叫使用。
+
+DOM 是 Document Object Model 的縮寫，我們稱之為「文件物件模型」。當瀏覽器在載入一個網頁時，會把 HTML 內的各個標籤，包括文字、圖片、屬性等等，轉成資料模型 (objects/nodes)，而這些物件最終會形成一個樹狀的結構化表示法。
+
+瀏覽器就是透過建立節點樹(即 DOM Tree)來保留 HTML 的層次結構。
+
+舉例一個基本的HTML:
+
+[source,html]
+----
+<html>
+    <head>
+        <title>example</title>
+    </head>
+    <body>
+        <h1>Hello World</h1>
+    </body>
+</html>
+----
+
+這個 HTML 會被轉換成以下的 DOM Tree:
+
+image:../image/DOMTree.png[Dom Tree]
+
+=== 什麼是 Shadow DOM?
+

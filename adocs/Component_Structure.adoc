@@ -149,7 +149,9 @@ export class ExampleComponent {
 export class ChildComponent {}
 ----
 +
-    ** 補充: Shadow DOM +
-    
+    ** 補充: link:Shadow_DOM.html[Shadow DOM]
++
+    ** 補充: link:View_Encapsulation.html[View Encapsulation]
+
 
 link:index.html[回首頁]
