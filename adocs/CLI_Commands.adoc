@@ -1,0 +1,41 @@
+== 安裝 Angular CLI
+使用 **npm** 安裝 **Angular CLI**：
+
+[source,shell]
+----
+npm install -g @angular/cli
+----
+
+== 常用指令
+安裝完成後，可以使用 `ng` 命令來建立、建置、測試和啟動 Angular 應用程式。
+
+[cols="1,3", options="header"]
+|===
+| 命令 | 描述
+
+| https://angular.dev/cli/build[`ng build --prod`]
+| **編譯 Angular 專案為生產環境版本，包含優化與縮小檔案大小**
+
+| https://angular.dev/cli/serve[`ng serve --open`]
+| **建構應用程式並啟動開發伺服器，並自動在瀏覽器中開啟應用程式**
+
+| https://angular.dev/cli/generate#component-command[`ng generate component my-component`]
+| **生成一個新的元件 `my-component`**
+
+| https://angular.dev/cli/test[`ng test --watch=false`]
+| **執行單元測試並在測試完成後退出**
+
+| https://angular.dev/cli/e2e[`ng e2e --protractor-config=e2e/protractor.conf.js`]
+| **使用指定的 Protractor 配置檔案執行端到端測試**
+|===
+
+=== 補充: Protractor
+**Protractor** 是一個專為 **Angular** 設計的端到端測試框架，基於 **Selenium WebDriver**。
+
+=== 補充: Selenium WebDriver
+**Selenium WebDriver** 是一個自動化網頁應用測試工具，允許透過程式控制瀏覽器來執行與使用者相似的操作。
+
+=== 補充: 端到端測試
+**端到端測試**模擬真實用戶操作，確保應用程式的整體功能正常運作。
+
+link:index.html[回首頁]

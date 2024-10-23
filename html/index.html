@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Angular</title>
+<title>Angular 學習指南</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -436,309 +436,40 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Angular</h1>
+<h1>Angular 學習指南</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_簡介">簡介</h2>
+<h2 id="_目錄">目錄</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p><strong>Angular</strong> 是一個基於 <strong>TypeScript</strong> 的開源前端框架，由 <strong>Google</strong> 開發，用於構建 Web 應用程式。包含以下內容：</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>一個元件化的框架</strong><br></p>
+<p><a href="Introduction.html">簡介</a></p>
 </li>
 <li>
-<p><strong>一整套深思熟慮整合出的函式庫</strong>，提供路由機制、表單管理、Client/Server 通訊等功能<br></p>
+<p><a href="Installation.html">安裝前置作業</a></p>
 </li>
 <li>
-<p><strong>一組完善的開發工具</strong>，幫助開發、建置、測試、更新程式碼</p>
+<p><a href="CLI_Commands.html">常用指令與 CLI 指南</a></p>
+</li>
+<li>
+<p><a href="Project_Setup.html">專案建立與啟動</a></p>
+</li>
+<li>
+<p><a href="Directory_Structure.html">目錄結構介紹</a></p>
+</li>
+<li>
+<p><a href="Component_Structure.html">元件結構詳解</a></p>
 </li>
 </ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_安裝前置作業">安裝前置作業</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>在本地端開發 Angular 應用程式前，您需要安裝：</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Node.js</strong><br>
-Angular 需要 <strong>Node.js</strong> 的最新版本或 <strong>LTS</strong> 版本進行開發。可以在 CMD 中輸入 <code>node -v</code> 檢查安裝是否成功。<br>
-<a href="https://nodejs.org/zh-tw/download/prebuilt-installer">Node.js 下載</a></p>
-</li>
-<li>
-<p><strong>npm 套件管理器</strong><br>
-Angular、Angular CLI 和應用程式依賴 <strong>npm</strong> 套件管理器進行管理。<strong>npm</strong> 是 <strong>Node.js</strong> 的套件管理工具，與 <strong>Node.js</strong> 一同安裝。可以在 CMD 中輸入 <code>npm -v</code> 檢查安裝是否成功。</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_安裝_angular_cli">安裝 Angular CLI</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>使用 <strong>npm</strong> 安裝 <strong>Angular CLI</strong>：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">npm install -g @angular/cli</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_常用指令">常用指令</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>安裝完成後，可以使用 <code>ng</code> 命令來建立、建置、測試和啟動 Angular 應用程式。</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">命令</th>
-<th class="tableblock halign-left valign-top">描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://angular.dev/cli/build"><code>ng build --prod</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>編譯 Angular 專案為生產環境版本，包含優化與縮小檔案大小</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://angular.dev/cli/serve"><code>ng serve --open</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>建構應用程式並啟動開發伺服器，並自動在瀏覽器中開啟應用程式</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://angular.dev/cli/generate#component-command"><code>ng generate component my-component</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>生成一個新的元件 <code>my-component</code></strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://angular.dev/cli/test"><code>ng test --watch=false</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>執行單元測試並在測試完成後退出</strong></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://angular.dev/cli/e2e"><code>ng e2e --protractor-config=e2e/protractor.conf.js</code></a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>使用指定的 Protractor 配置檔案執行端到端測試</strong></p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect2">
-<h3 id="_補充_protractor">補充: Protractor</h3>
-<div class="paragraph">
-<p><strong>Protractor</strong> 是一個專為 <strong>Angular</strong> 設計的端到端測試框架，基於 <strong>Selenium WebDriver</strong>。</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_補充_selenium_webdriver">補充: Selenium WebDriver</h3>
-<div class="paragraph">
-<p><strong>Selenium WebDriver</strong> 是一個自動化網頁應用測試工具，允許透過程式控制瀏覽器來執行與使用者相似的操作。</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_補充_端到端測試">補充: 端到端測試</h3>
-<div class="paragraph">
-<p><strong>端到端測試</strong>模擬真實用戶操作，確保應用程式的整體功能正常運作。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_建立新專案">建立新專案</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>使用 <code>ng new</code> 命令建立新的 <strong>Angular</strong> 專案：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">ng new my-app</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>這將在當前目錄下建立一個名為 <strong><code>my-app</code></strong> 的新專案。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_啟動開發伺服器">啟動開發伺服器</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>進入新專案目錄並啟動開發伺服器：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">cd my-app
-ng serve --open</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>這會啟動開發伺服器並自動在瀏覽器中打開應用程式。</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_angular_專案目錄結構">Angular 專案目錄結構</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">my-app/
-├── e2e/
-├── node_modules/
-├── src/
-│   ├── app/
-│   │   ├── app.component.html
-│   │   ├── app.component.ts
-│   │   ├── app.module.ts
-│   │   └── app.component.css
-│   ├── assets/
-│   ├── environments/
-│   ├── index.html
-│   ├── main.ts
-│   ├── polyfills.ts
-│   ├── styles.css
-│   └── ...
-├── .editorconfig
-├── .gitignore
-├── angular.json
-├── package.json
-├── tsconfig.json
-├── tslint.json
-└── ...</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>e2e/</code></strong>: 端到端測試相關文件</p>
-</li>
-<li>
-<p><strong><code>node_modules/</code></strong>: npm 安裝的套件</p>
-</li>
-<li>
-<p><strong><code>src/</code></strong>: 應用程式源代碼</p>
-</li>
-<li>
-<p><strong><code>src/app/</code></strong>: 應用元件、服務、模組等<br></p>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong><code>app.module.ts</code></strong>: 列出專案使用的所有檔案，專案的中央樞紐</p>
-</li>
-<li>
-<p><strong><code>app.component.ts</code></strong>: 元件類別，內含主要邏輯</p>
-</li>
-<li>
-<p><strong><code>app.component.html</code></strong>: 元件模板，定義畫面結構</p>
-</li>
-<li>
-<p><strong><code>app.component.css</code></strong>: 元件樣式</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p><strong><code>src/assets/</code></strong>: 靜態資源文件</p>
-</li>
-<li>
-<p><strong><code>src/environments/</code></strong>: 環境配置文件</p>
-</li>
-<li>
-<p><strong><code>src/index.html</code></strong>: 應用程式入口</p>
-</li>
-<li>
-<p><strong><code>src/main.ts</code></strong>: 應用程式入口</p>
-</li>
-<li>
-<p><strong><code>src/polyfills.ts</code></strong>: 支援不同瀏覽器的 polyfills</p>
-</li>
-<li>
-<p><strong><code>src/styles.css</code></strong>: 全域樣式表</p>
-</li>
-<li>
-<p><strong><code>.editorconfig</code></strong>: 編輯器配置文件</p>
-</li>
-<li>
-<p><strong><code>.gitignore</code></strong>: Git 忽略文件</p>
-</li>
-<li>
-<p><strong><code>angular.json</code></strong>: Angular CLI 配置文件</p>
-</li>
-<li>
-<p><strong><code>package.json</code></strong>: npm 配置文件</p>
-</li>
-<li>
-<p><strong><code>tsconfig.json</code></strong>: TypeScript 配置文件</p>
-</li>
-<li>
-<p><strong><code>tslint.json</code></strong>: TypeScript lint 配置文件</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_angular_專案結構">Angular 專案結構</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Angular</strong> 基於 <strong>TypeScript</strong> 開發，應用程式由 <strong>元件 (Component)</strong> 組成。每個元件包含 <strong>HTML 模板</strong>、<strong>CSS 樣式</strong>和帶有 <code>@Component()</code> 裝飾器的 <strong>TypeScript 類別</strong>。</p>
-</div>
-<div class="sect2">
-<h3 id="_類別_class">類別 (Class)</h3>
-<div class="paragraph">
-<p>類別裡面包含了元件的相關邏輯，例如資料處理、事件處理等。<br>
-類別會放在 <code>app.component.ts</code> 檔案裡，而 <code>app</code> 就是元件的名稱。<br>
-當建立一個元件時，他會帶有 <code>@Component()</code> 裝飾器，裡面會有檔案的路徑指向，告訴Angular要去哪裡找HTML模板和CSS樣式。<br>
-一個元件的基本寫法如下：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-typescript" data-lang="typescript">import { Component } from "@angular/core";
-
-@Component({
-    selector: "app-item",
-    // 接下來的檔案路徑會指出其它檔案在什麼位置
-    templateUrl: "./item.component.html",
-    styleUrls: ["./item.component.css"],
-})
-export class ItemComponent {
-    // 程式碼寫在這裡
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>這個元件被稱為 <code>ItemComponent</code>，他的選擇器是 <code>app-item</code> 。<br>
-選擇器就像是HTML的標籤，可以把他放到其他的模板裡。<br>
-當瀏覽器渲染到選擇器時，就會把這個元件的HTML模板和CSS樣式一起渲染出來。</p>
-</div>
-<div class="paragraph">
-<p>Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。</p>
-</div>
-<div class="sect3">
-<h4 id="_angula怎麼讓元件具備高度封裝性的">Angula怎麼讓元件具備高度封裝性的?</h4>
-
-</div>
-</div>
-<div class="sect2">
-<h3 id="_html模板_template">HTML模板 (Template)</h3>
-
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-23 14:15:59 +0800
+Last updated 2024-10-23 15:13:21 +0800
 </div>
 </div>
 </body>
