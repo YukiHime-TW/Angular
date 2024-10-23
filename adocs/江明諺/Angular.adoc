@@ -77,7 +77,7 @@ ____
 為應用程式的root component，每個Angular應用程式都至少會有一個root component，當Angular啟動應用時，這個根組件會作為整個應用的容器來渲染和展示其他子組件，也負責控制視圖的顯示和行為。
 
 ==== 程式碼內容
-[source=typescript]
+[source,typescript]
 ----
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
@@ -99,6 +99,7 @@ export class AppComponent {
 
 是從Angular核心模組（@angular/core）引入的裝飾器，是用來定義一個組件的裝飾器，他會告訴Angular這個類應該作為一個組件使用，並且提供了關於這個組件的資料。
 
+[source,typescript]
 ----
 @Component({
   selector: 'app-root',
@@ -137,6 +138,7 @@ export class AppComponent {
 
 - 定義方法:
 
+[source,typescript]
 ----
 export class AppComponent {
   title = 'app-root';
@@ -168,6 +170,7 @@ export class AppComponent {
 
 - 定義組件的生命週期:
 
+[source,typescript]
 ----
 export class AppComponent implements OnInit, OnDestroy {
   title = 'test-app';
