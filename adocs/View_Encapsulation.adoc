@@ -10,9 +10,9 @@ Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
 
 |===
 | 模式 | 說明
-| **Emulated** | Angular 會修改元件的 CSS 選擇器，使它們只應用於元件的檢視，不影響應用程式中的其他元素(模擬 Shadow DOM 行為)。
-| **None** | Angular 不應用任何形式的檢視封裝，這意味著為元件指定的任何樣式實際上都是全域應用的，並且可以影響應用程式中存在的任何 HTML 元素。這種模式本質上與將樣式包含在 HTML 本身中是一樣的。
-| **ShadowDom** | Angular 使用瀏覽器內建的 Shadow DOM API 將元件的檢視包含在 ShadowRoot(用作元件的宿主元素)中，並以隔離的方式應用所提供的樣式。
+| **Emulated** | Angular 會修改元件的 CSS 選擇器，使它們只應用於元件的View，不影響應用程式中的其他元素(模擬 Shadow DOM 行為)。
+| **None** | Angular 不應用任何形式的View封裝，這意味著為元件指定的任何樣式實際上都是全域應用的，並且可以影響應用程式中存在的任何 HTML 元素。這種模式本質上與將樣式包含在 HTML 本身中是一樣的。
+| **ShadowDom** | Angular 使用瀏覽器內建的 Shadow DOM API 將元件的View包含在 ShadowRoot(用作元件的宿主元素)中，並以隔離的方式應用所提供的樣式。
 |===
 
 [NOTE]
@@ -38,8 +38,8 @@ Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
 
 |===
 | 屬性 | 說明
-| **_nghost** | 被新增到包裹元件檢視的元素，這就是原生 Shadow DOM 封裝中的 ShadowRoots。元件的宿主元素通常就是這種情況。
-| **_ngcontent** | 被新增到元件檢視中的子元素上，這些屬性用於將元素與其各自模擬的 ShadowRoots(具有對應 `_nghost` 屬性的宿主元素)相對應。
+| **_nghost** | 被新增到包裹元件View的元素，這就是原生 Shadow DOM 封裝中的 ShadowRoots。元件的宿主元素通常就是這種情況。
+| **_ngcontent** | 被新增到元件View中的子元素上，這些屬性用於將元素與其各自模擬的 ShadowRoots(具有對應 `_nghost` 屬性的宿主元素)相對應。
 |===
 
 [NOTE]
