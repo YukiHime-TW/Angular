@@ -68,7 +68,7 @@ image::../image/DOMTree.png[DOM Tree]
 - **Shadow Tree**: Shadow DOM 的節點樹，包含了 Shadow DOM 的所有節點。
 - **Shadow Root**: Shadow DOM 的根節點，是 Shadow Tree 的根節點。
 - **Shadow Boundary**: Shadow DOM 與外部 DOM 之間的邊界，用來區分 Shadow DOM 與外部 DOM。
-- **Shadow Boundary API**：用來操作 Shadow DOM 的 API，包括 `attachShadow()`、`shadowRoot` 等。
+- **Shadow Boundary API**：用來操作 Shadow DOM 的 API，包括 `attachShadow()`、`shadowRoot` 等。 (由**瀏覽器**提供)
 
 image::../image/ShadowDOM.png[Shadow DOM]
 
