@@ -110,7 +110,7 @@ export class AppComponent {
 })
 ----
 
-- selector: 用來定義這個組件在HTML中的標籤名稱，Angular會將index.html當中的<app-root></app-root>標籤替換為這個組件的內容
+- selector: 用來定義這個組件在HTML中使用的標籤名稱，在index.html中使用此屬性的標籤(ex: <app-root>)，Angular會把這個組件的內容引入到此標籤
 
 - standalone: 此屬性用來宣告組件是否為獨立的組件
 
@@ -199,13 +199,165 @@ Angular 組件的模板文件，負責定義 AppComponent 組件的視圖結構�
 
 ==== html當中常用的Angular語法
 
-- 插值表達式 {{}} : 
-- 屬性綁定:
+- 插值表達式 {{}}: 用來顯示組件類中的資料
+
+*app.component.ts*
+
+[source,typescript]
+----
+ export class AppComponent {
+  title = 'test-app';
+  userName = 'John';
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<h1>{{ title }}</h1>  <!--  test-app   -->
+<p>Hello, {{ userName }}!</p>  <!--  Hello, John   -->
+----
+
+- 屬性綁定: [property]="componentAttribute"
+
+將組件中的資料綁定到HTML元素的屬性上，讓屬性值可以動態更新
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+----
+
 - 事件綁定:
-- 雙向資料綁定:
-- 條件渲染:
-- 迭代渲染:
+
+當操作者觸發某個事件（點擊、鍵盤事件）時，綁定的函數會被調用
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  onClick() {
+    this.color = "color: #000000";
+  }
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<button (click)="onClick()">點擊切換成黑色</button>
+----
+
+
+- 雙向資料綁定: [(ngModel)]="property"
+
+雙向資料綁定允許模型與視圖之間的資料同步。當模型變更時，視圖自動更新，當使用者在視圖中修改時，模型也會自動變更
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  userName = '';
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<input [(ngModel)]="userName" placeholder="Enter your name">
+<p>Hello, {{ userName }}!</p>
+----
+
+上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新userName屬性
+
+- 條件渲染: *ngIf
+
+根據條件來顯示或隱藏 HTML 元素
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  isLoggedIn = false;
+  userName = 'John';
+
+  onClick() {
+    if (this.isLoggedIn) {
+      this.isLoggedIn = false
+    } else {
+      this.isLoggedIn = true
+    }
+  }
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<button (click)="onClick()">切換登入</button>
+
+<p *ngIf="isLoggedIn">Welcome back, {{ userName }}!</p>
+<p *ngIf="!isLoggedIn">Please log in.</p>
+----
+
+- 迭代渲染: *ngFor
+
+用來來迭代一個陣列，並渲染每個項目
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  persons = ['John', 'Jeff', 'Iris'];
+}
+----
+
+*app.component.html*
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<ul>
+  <li *ngFor="let person of persons">{{ person }}</li>
+</ul>
+----
+
 - 屬性或類名綁定:
+
+
 - @Input() 和 @Output():
 
 
