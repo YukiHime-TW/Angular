@@ -1,0 +1,454 @@
+== Angular 專案結構
+**Angular** 基於 **TypeScript** 開發，應用程式由 **元件 (Component)** 組成。 +
+每個元件包含 **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
+
+=== HTML模板 (Template)
+Angular 組件的模板文件，負責定義類別組件的視圖結構，透過 Angular 的模板語法實現資料的顯示、條件渲染、事件處理等功能，並動態更新畫面，與 app.component.ts 當中的邏輯緊密結合，實現互動式的使用者界面。
+
+==== HTML模板常用的語法
+
+- 插值表達式 {{}}: 用來顯示組件類中的資料
+
+*app.component.ts*
+
+[source,typescript]
+----
+ export class AppComponent {
+  title = 'test-app';
+  userName = 'John';
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<h1>{{ title }}</h1>  <!--  test-app   -->
+<p>Hello, {{ userName }}!</p>  <!--  Hello, John   -->
+----
+
+- 屬性綁定: [property]="componentAttribute"
+
+將組件中的資料綁定到HTML元素的屬性上，讓屬性值可以動態更新
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+----
+
+- 事件綁定:
+
+當操作者觸發某個事件（點擊、鍵盤事件）時，綁定的函數會被調用
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  onClick() {
+    this.color = "color: #000000";
+  }
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<button (click)="onClick()">點擊切換成黑色</button>
+----
+
+
+- 雙向資料綁定: [(ngModel)]="property"
+
+雙向資料綁定允許模型與視圖之間的資料同步。當模型變更時，視圖自動更新，當使用者在視圖中修改時，模型也會自動變更
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  userName = '';
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<input [(ngModel)]="userName" placeholder="Enter your name">
+<p>Hello, {{ userName }}!</p>
+----
+
+上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新userName屬性
+
+- 條件渲染: *ngIf
+
+根據條件來顯示或隱藏 HTML 元素
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  isLoggedIn = false;
+  userName = 'John';
+
+  onClick() {
+    if (this.isLoggedIn) {
+      this.isLoggedIn = false
+    } else {
+      this.isLoggedIn = true
+    }
+  }
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<button (click)="onClick()">切換登入</button>
+
+<p *ngIf="isLoggedIn">Welcome back, {{ userName }}!</p>
+<p *ngIf="!isLoggedIn">Please log in.</p>
+----
+
+- 迭代渲染: *ngFor
+
+用來來迭代一個陣列，並渲染每個項目
+
+*app.component.ts*
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+  color = "color: #26b72a";
+
+  persons = ['John', 'Jeff', 'Iris'];
+}
+----
+
+*app.component.html*
+[source,html]
+----
+<p [style]="color">{{ title }}</p>
+<ul>
+  <li *ngFor="let person of persons">{{ person }}</li>
+</ul>
+----
+
+
+=== CSS樣式 (Style)
+在Angular中的樣式組件是用來為特定的組件設計樣式
+
+==== :host & :host-context
+
+. :host
++
+    - :host是Angular提供的特殊選擇器，用來定義宿主元素(也就是index.html當中的<app-root>)的樣式
++   
+*簡單範例:*
++
+*css*
++
+----
+:host {
+    display: block;
+    margin: 10px;
+    padding: 20px;
+    background-color: lightblue;
+}
+----
++
+*html*
++
+----
+<body>
+  <app-root></app-root>
+</body>
+----
++
+若selector屬性為app-root，上述的<app-root>標籤就會套用到:host的樣式
+
+. host-context
++
+- :host-context 選擇器用來根據組件的外部上下文環境來設置樣式，當組件的祖先元素（或父元素）滿足特定條件時，該選擇器可以應用樣式到組件本身或其內部元素
++
+*簡單範例*: 當使用者選擇了黑暗模式，所有的元件都應該要改成黑色背景白色文字 
++
+*css*
++
+[source,css]
+----
+/* child.component.css */
+:host-context(.dark-theme) {
+  background-color: black;
+  color: white;
+}
+----
++
+*html*
++
+[source,html]
+----
+<div class="dark-theme">
+  <app-child></app-child>
+</div>
+----
++
+:host-context(.dark-theme) 會檢查 app-child 的父級元素或祖先元素是否有 .dark-theme 類，如果有則會應用這些樣式，將 app-child 的背景設置為黑色，文字顏色設置為白色
+
+
+
+
+
+=== 類別 (Class)
+類別裡面包含了元件的相關邏輯，例如資料處理、事件處理等。 +
+類別會放在 `app.component.ts` 檔案裡，而 `app` 就是元件的名稱。 +
+當建立一個元件時，他會帶有 `@Component()` 裝飾器，裡面會有檔案的路徑指向，告訴Angular要去哪裡找HTML模板和CSS樣式。 +
+一個元件的基本寫法如下：
+
+[source,typescript]
+----
+import { Component } from "@angular/core";
+
+@Component({
+    selector: "app-item",
+    // 接下來的檔案路徑會指出其它檔案在什麼位置
+    templateUrl: "./item.component.html",
+    styleUrls: ["./item.component.css"],
+})
+export class ItemComponent {
+    // 程式碼寫在這裡
+}
+----
+
+這個元件被稱為 `ItemComponent`，他的選擇器是 `app-item` 。 +
+選擇器就像是HTML的標籤，可以把他放到其他的模板裡。 +
+當瀏覽器渲染到選擇器時，就會把這個元件的HTML模板和CSS樣式一起渲染出來。
+
+Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
+而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。
+
+==== Component類別簡單範例
+
+- 定義屬性:
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'test-app';
+}
+----
+
+定義了組件的屬性，在html中可使用{{ title }}來取得組件的屬性值
+
+[source,html]
+----
+<p>{{ title }}</p>  <!-- 在頁面上會輸出test-app -->
+----
+
+- 定義方法:
+
+[source,typescript]
+----
+export class AppComponent {
+  title = 'app-root';
+  userName = 'John';
+  isLoggedIn = false;
+
+  // 變更使用者登入狀態
+  toggleLoginStatus() {
+    this.isLoggedIn = !this.isLoggedIn;
+  }
+
+  // 設定新的使用者名稱
+  changeUserName(newName: string) {
+    this.userName = newName;
+  }
+}
+----
+
+在HTML中綁定這些方法來實現按鈕點擊事件
+
+[source,html]
+----
+<h1>{{ title }}</h1>
+<p>User: {{ userName }}</p>
+<button (click)="toggleLoginStatus()">
+  {{ isLoggedIn ? 'Logout' : 'Login' }}
+</button>
+----
+
+- 定義組件的生命週期:
+
+[source,typescript]
+----
+export class AppComponent implements OnInit, OnDestroy {
+  title = 'test-app';
+  data: any;
+
+  ngOnInit() {
+    // 初始化，通常用來取得資料
+    console.log('Component initialized');
+    this.data = this.fetchData();
+  }
+
+  ngOnDestroy() {
+    // 當組件銷毀時執行
+    console.log('Component destroyed');
+  }
+
+  fetchData() {
+    return { message: 'I love systex' };
+  }
+}
+----
+
+==== Angular怎麼讓元件具備高度封裝性的?
+
+. 元件的獨立性
++
+    * 自包含的單位 +
+    每個 Angular 元件都可以看作是一個獨立的實體。 +
+    元件內部包含自己的模板（HTML）、樣式（CSS）和邏輯（TypeScript）。 +
+    這樣，開發者可以獨立於其他元件進行開發，測試和調試。
+
+    * 生命週期管理 +
+    Angular 通過元件的生命週期鉤子，讓開發者能夠對元件在不同階段進行操作，如初始化、更新或銷毀。
+
+. 使用 `@Input()` 和 `@Output()` 裝飾器
++
+    * 數據傳遞 +
+    元件之間的數據傳遞通過 `@Input()` 裝飾器進行。 +
+    父元件可以將數據傳遞給子元件，使子元件可以根據這些數據渲染自己的視圖。 +
+    這種方式使得元件的使用更加靈活，同時也強化了元件之間的隔離性。
++
+[source,typescript]
+----
+    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `<p>子元件數據: {{ data }}</p>`
+    })
+    export class ChildComponent {
+        @Input() data: string;  // 從父元件接收數據
+    }
+----
++
+    * 事件發射 +
+    使用 `@Output()` 裝飾器，子元件可以發出事件，告知父元件發生了某個操作。 +
+    這種事件驅動的交互方式使得父子元件之間的關係保持疏鬆。
++
+[source,typescript]
+----
+    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `<button (click)="notifyParent()">通知父元件</button>`
+    })
+    export class ChildComponent {
+        @Output() notify: EventEmitter<void> = new EventEmitter();
+
+        notifyParent() {
+            this.notify.emit();  // 發射事件
+        }
+    }
+----
+
+. 模組化架構
++
+    * NgModule +
+    Angular 的模組化架構使用 `@NgModule` 裝飾器，這使得開發者可以將相關的元件、指令和管道組織在一起。 +
+    例如，開發者可以創建一個 `SharedModule` ，其中包含多個可以重用的元件。
++
+[source,typescript]
+----
+@NgModule({
+    declarations: [ChildComponent, AnotherComponent],
+    imports: [CommonModule],
+    exports: [ChildComponent]
+})
+export class SharedModule {}
+----
++
+    * 功能性模組 +
+    除了 `AppModule`，開發者可以根據功能創建多個模組，使得應用更具可維護性和擴展性。 +
+    這樣，開發者可以在不同的模組之間隨意重用元件，進一步提高封裝性。
+
+. 依賴注入
++
+    * 服務與依賴管理 +
+    Angular 的依賴注入機制允許服務和其他依賴的管理，使得元件不需要自行創建依賴，從而減少了耦合。 +
+    例如，開發者可以將 API 調用封裝在服務中，然後將該服務注入到需要的元件中。
++
+[source,typescript]
+----
+@Injectable({
+    providedIn: 'root'
+})
+export class ApiService {
+    // ...
+}
+
+@Component({
+    selector: 'app-example',
+    template: `...`
+})
+export class ExampleComponent {
+    constructor(private apiService: ApiService) {}
+}
+----
+
+. 封裝 CSS
++
+    * 樣式隔離 +
+    Angular 提供了樣式封裝功能，讓元件的樣式不會影響到其他元件的樣式。 +
+    這是通過 Shadow DOM 或者 View Encapsulation 實現。 +
+    開發者可以選擇不同的樣式封裝策略，確保元件的樣式只在其範圍內有效。
++
+[source,typescript]
+----
+@Component({
+    selector: 'app-child',
+    templateUrl: './child.component.html',
+    styleUrls: ['./child.component.css'],
+    encapsulation: ViewEncapsulation.Emulated // 預設的樣式封裝模式
+})
+export class ChildComponent {}
+----
++
+    ** 補充: link:Shadow_DOM.html[Shadow DOM]
++
+    ** 補充: link:View_Encapsulation.html[View Encapsulation]
+
+
+link:index.html[回首頁]

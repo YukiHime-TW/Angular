@@ -6,12 +6,14 @@
 
 指令完成後，開啟資料夾後發現生成的檔案與原本預期的不太相同。
 
+.產生出來的檔案
 image::../../image/在設定檔加上inline與skipTest後生成.png[在Angular.json內設定inline與skipTest後的產生結果]
 
 
 
 原先是會預期產生以下幾個檔案
 
+.預期結果
 image::../../image/通常Generate出來的.png[沒有額外設定的情況]
 
 然而卻是只有一個，這又是為什麼呢?原因就出在Angular.json檔的設定當中。
@@ -30,6 +32,7 @@ image::../../image/通常Generate出來的.png[沒有額外設定的情況]
 
 === 範例
 
+.angular.json
 [source,json]
 ----
 {
@@ -85,4 +88,32 @@ image::../../image/通常Generate出來的.png[沒有額外設定的情況]
 經過以上的操作，當我們在使用 `ng generate component` 指令產生 component 時， Angular CLI 會去讀取此設定檔，若是讀到 `inlineTemplate` 與 `inlineStyle` 時便不會幫我們產生html跟css。
 
 因為 Angular CLI 會假設我們將 HTML 與 CSS 分別寫到 `@Component`` 裝飾器下的 template 與 style 內。
+
+== 額外補充 selector prefixs
+
+Angular 團隊建議為專案內定義的所有自訂元件使用簡短、一致的前綴。這樣命名空間化選擇器可以立即明確某個組件的來源。
+
+預設情況下，Angular CLI 使用 app-。
+
+=== 如何設定
+
+在Angular.json內的prefix中設定。
+
+[source,json]
+----
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "projects": {
+    "my-app": {
+      "prefix": "ap", //<-此處設定
+    }
+  }
+}
+----
+
+然後我們用 `ng generate component home1` 產生一個 `typeSelector1`` 的component，會發現到 Angular CLI 幫我們在selector的前綴加上了ap。
+
+.效果
+image::../../image/selectorPrefix設定.png["selectorPrefix設定後"]
 
