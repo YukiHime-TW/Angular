@@ -249,15 +249,25 @@ Note: 使用 `track` 是必要的，你可以使用 id 或其他唯一標識符�
 == Property Binding in Angular
 
 使用屬性繫結可以動態更新 HTML 元素的屬性。
+他會將你用 "[]" 包起來的屬性的值與元件內同名稱的值做綁定
+Note: 如果沒有 "[]" 包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
 
+樣板
 [source,javascript]
 ----
-<div [contentEditable]="isEditable"></div>
+
+<div [contentEditable] = "isEditable">綁定</div>
+<div [attr.test]="test">測試</div>
 ----
 
-== two way bind
+元件
+[source,javascript]
+----
+  isEditable = true;
+   test = '這是測試屬性'
+----
 
-TODO
+
 
 == Event handling
 
@@ -292,21 +302,80 @@ export class UserComponent {
 ----
 
 === @Output
+1.傳入事件
 
+使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter，
+父層
+[source,javascript]
+----
+//樣板
+  <p>my name is {{myName}} </p>
+<app-child (updateNameFun)="updateName($event)"></app-child>
+//組件
+  updateName(inputName:string){
+     this.myName = inputName;
+  }
+----
+
+子層
 [source,javascript]
 ----
 @Component({
   selector: 'app-child',
+  styles: `.btn { padding: 5px; }`,
   template: `
-    <button (click)="addItem()">Add Item</button>
-  `
+   test
+    <input type="text" (change)="addItem($event)" /> 
+  `,
+  standalone: true,
 })
 export class ChildComponent {
-  @Output() addItemEvent = new EventEmitter<string>();
-
-  addItem() {
-    this.addItemEvent.emit('Item');
+  @Output() updateNameFun = new EventEmitter<string>();//在angular中，this會幫指向組件，必須用$event才能指向觸發事件
+  //當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入，最後透過EventEmitter將事件發送回去再附加傳入值
+  addItem(e:any) {
+    this.updateNameFun.emit(e.target.value); 
   }
+}
+----
+
+== Two-way binding
+雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改
+[] => 是綁定元素值 , ()=> 綁定事件
+[()] => 為雙向綁定
+父樣板和組件
+[source,javascript]
+----
+<h1>Counter: {{ initialCount }}</h1>
+<app-counter [(count)]="initialCount"></app-counter> <!-- 雙向綁定的計數器 -->
+
+  initialCount = 18;
+----
+子樣板和組件
+[source,javascript]
+----
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  standalone:true,
+  template: `
+    <div>
+      <button (click)="update(-1)">-</button>
+      <span>{{ count }}</span>
+      <button (click)="update(1)">+</button>
+    </div>
+  `
+})
+export class CountComponent {
+  @Input() count: number = 0; // 從父組件接收初始值，此處值須與父層傳入時相同
+  @Output() countChange = new EventEmitter<number>(); //此處必須為父層的屬性+Change
+
+  update(amount:number){
+   this.count+=amount;
+   this.countChange.emit(this.count);
+  }
+
+
 }
 ----
 
@@ -350,7 +419,7 @@ export const appConfig: ApplicationConfig = {
       |
       <a routerLink="/user">User</a>
     </nav>
-    <router-outlet></router-outlet>
+    <router-outlet></router-outlet> 
   `
 })
 ----
@@ -409,7 +478,7 @@ import { ReactiveFormsModule, Validators } from '@angular/forms';
 [source,javascript]
 ----
 profileForm = new FormGroup({
-  name: new FormControl('', Validators.required),
+  name: new FormControl('', Validators.required), //第二個參數開始增加驗證方式
   email: new FormControl('', [Validators.required, Validators.email]),
 });
 ----
@@ -427,12 +496,12 @@ Angular 可以在執行期間注入你要的 service 或 resource。
 在類別上標示 `@Injectable` 讓它可以被其他地方注入。
 
 ==== 參數
-- `providedIn` -> `root`
+- `providedIn` -> (scope)
 
 ===== scope
 - 'root' : 整個應用程式
-- 'platform' : A special singleton platform injector shared by all applications on the page.
-- 'any' : Provides a unique instance in each lazy loaded module while all eagerly loaded modules share one instance. This option is DEPRECATED.
+- 'platform' :所有頁面上的應用程式共享一個特殊的單例平台注入器
+- 'any' : 在每個延遲加載的模組中提供一個唯一的實例，而所有提前加載的模組則共享一個實例。This option is DEPRECATED。
 - 'null' : 等同於undefined，不會自動注入在任何地方，你必須加入在providers陣列裡面，在 @NgModule 或 @Component、@Directive上
 
 ==== 範例
@@ -500,6 +569,22 @@ export class AppComponent {
 
 Pipes 是一個純函式，作用於 template (`{{}}`) 中，不會產生副作用。Angular 也提供一些內建的 pipe，下面是使用 Angular 提供的 pipe 和自定義 pipe 的範例。
 
+自定義pipe
+[source,javascript]
+----
+import {Pipe, PipeTransform} from '@angular/core';
+@Pipe({
+  standalone: true,
+  name: 'star',
+})
+export class StarPipe implements PipeTransform {
+  transform(value: string): string {
+    return `⭐️ ${value} ⭐️`;
+  }
+}
+----
+
+使用pipe
 [source,javascript]
 ----
 import { Component, inject } from '@angular/core';
@@ -507,7 +592,7 @@ import { ChildComponent } from './child/child.component';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CarService } from './service/car.service';
-import { DecimalPipe, DatePipe, CurrencyPipe } from '@angular/common';
+import { DecimalPipe, DatePipe, CurrencyPipe } from '@angular/common'; //匯入
 import { StarPipe } from './pipe/star.pipe';
 
 @Component({
