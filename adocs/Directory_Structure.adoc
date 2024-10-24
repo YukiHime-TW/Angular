@@ -3,49 +3,49 @@
 [source,shell]
 ----
 my-app/
-├── e2e/
-├── node_modules/
-├── src/
-│   ├── app/
-│   │   ├── app.component.html
-│   │   ├── app.component.ts
-│   │   ├── app.module.ts
-│   │   └── app.component.css
-│   ├── assets/
-│   ├── environments/
-│   ├── index.html
-│   ├── main.ts
-│   ├── polyfills.ts
-│   ├── styles.css
+├── e2e/ <1>
+├── node_modules/ <2>
+├── src/ <3>
+│   ├── app/ <4>
+│   │   ├── app.component.html <5>
+│   │   ├── app.component.ts <6>
+│   │   ├── app.module.ts <7>
+│   │   └── app.component.css <8>
+│   ├── assets/ <9>
+│   ├── environments/ <10>
+│   ├── index.html <11>
+│   ├── main.ts <12>
+│   ├── polyfills.ts <13>
+│   ├── styles.css <14>
 │   └── ...
-├── .editorconfig
-├── .gitignore
-├── angular.json
-├── package.json
-├── tsconfig.json
-├── tslint.json
+├── .editorconfig <15>
+├── .gitignore <16>
+├── angular.json <17>
+├── package.json <18>
+├── tsconfig.json <19>
+├── tslint.json <20>
 └── ...
 ----
 
-* **`e2e/`**: 端到端測試相關文件
-* **`node_modules/`**: npm 安裝的套件
-* **`src/`**: 應用程式源代碼
-* **`src/app/`**: 應用元件、服務、模組等 +
-    . **`app.module.ts`**: 列出專案使用的所有檔案，專案的中央樞紐
-    . **`app.component.ts`**: 元件類別，內含主要邏輯
-    . **`app.component.html`**: 元件模板，定義畫面結構
-    . **`app.component.css`**: 元件樣式
-* **`src/assets/`**: 靜態資源文件
-* **`src/environments/`**: 環境配置文件
-* **`src/index.html`**: 應用程式入口
-* **`src/main.ts`**: 應用程式入口
-* **`src/polyfills.ts`**: 支援不同瀏覽器的 polyfills
-* **`src/styles.css`**: 全域樣式表
-* **`.editorconfig`**: 編輯器配置文件
-* **`.gitignore`**: Git 忽略文件
-* **`angular.json`**: Angular CLI 配置文件
-* **`package.json`**: npm 配置文件
-* **`tsconfig.json`**: TypeScript 配置文件
-* **`tslint.json`**: TypeScript lint 配置文件
+<1> **`e2e/`**: 端到端測試相關文件
+<2> **`node_modules/`**: npm 安裝的套件
+<3> **`src/`**: 應用程式源代碼
+<4> **`src/app/`**: 應用元件、服務、模組等 +
+<5> **`app.module.ts`**: 列出專案使用的所有檔案，專案的中央樞紐
+<6> **`app.component.ts`**: 元件類別，內含主要邏輯
+<7> **`app.component.html`**: 元件模板，定義畫面結構
+<8> **`app.component.css`**: 元件樣式
+<9> **`src/assets/`**: 靜態資源文件
+<10> **`src/environments/`**: 環境配置文件
+<11> **`src/index.html`**: 應用程式入口
+<12> **`src/main.ts`**: 應用程式入口
+<13> **`src/polyfills.ts`**: 支援不同瀏覽器的 polyfills
+<14> **`src/styles.css`**: 全域樣式表
+<15> **`.editorconfig`**: 編輯器配置文件
+<16> **`.gitignore`**: Git 忽略文件
+<17> **`angular.json`**: Angular CLI 配置文件
+<18> **`package.json`**: npm 配置文件
+<19> **`tsconfig.json`**: TypeScript 配置文件
+<20> **`tslint.json`**: TypeScript lint 配置文件
 
 link:index.html[回首頁]
