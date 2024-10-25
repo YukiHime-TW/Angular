@@ -252,22 +252,6 @@ Note: 使用 `track` 是必要的，你可以使用 id 或其他唯一標識符�
 他會將你用 "[]" 包起來的屬性的值與元件內同名稱的值做綁定
 Note: 如果沒有 "[]" 包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
 
-樣板
-[source,javascript]
-----
-
-<div [contentEditable] = "isEditable">綁定</div>
-<div [attr.test]="test">測試</div>
-----
-
-元件
-[source,javascript]
-----
-  isEditable = true;
-   test = '這是測試屬性'
-----
-
-
 
 == Event handling
 
@@ -381,7 +365,7 @@ export class CountComponent {
 
 == Routing
 
-=== 1.Create an app.routes.ts file
+=== 1.建立路由配置檔案
 
 [source,javascript]
 ----
@@ -395,7 +379,7 @@ export const routes: Routes = [
 ];
 ----
 
-=== 2.Add routing to provider
+=== 2.將路由配置置入app
 
 [source,javascript]
 ----
@@ -407,7 +391,25 @@ export const appConfig: ApplicationConfig = {
 };
 ----
 
-=== 3.Import RouterOutlet in the component
+=== 3.在要顯示的地方放上插座
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-root',
+  template: `
+    <nav>
+      <a routerLink="/">Home</a>
+      |
+      <a routerLink="/user">User</a>
+    </nav>
+    <router-outlet></router-outlet> 
+  `
+})
+----
+
+== nested Routing
+真實的情況可能會在一個路由底下再包一層，形成巢狀路由
 
 [source,javascript]
 ----
@@ -467,7 +469,7 @@ export class UserComponent {
 // 要提交表單，則在 form 標籤上加上 (ngSubmit)="handleSubmit()"
 ----
 
-== Import Validators
+== Validators
 
 1.在 component 中匯入 Validators：
 [source,javascript]
@@ -632,5 +634,3 @@ export class AppComponent {
   }
 }
 ----
-
-
