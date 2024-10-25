@@ -382,7 +382,7 @@ export class AppComponent {
 
 . :host
 +
-    - :host是Angular提供的特殊選擇器，用來定義宿主元素(也就是index.html當中的<app-root>)的樣式
+    - :host是css裡的偽類，用來定義宿主元素(也就是index.html當中的<app-root>)的樣式
 +   
 *簡單範例:*
 +
