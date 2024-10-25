@@ -71,7 +71,7 @@ ____
 |tsconfig.spec.json |用來設定應用程式測試的TypeScript配置
 |===
 
-== Angular三大重要開發檔案
+== Angular Component三大重要開發檔案
 
 === app.component.ts
 為應用程式的root component，每個Angular應用程式都至少會有一個root component，當Angular啟動應用時，這個根組件會作為整個應用的容器來渲染和展示其他子組件，也負責控制視圖的顯示和行為。
@@ -355,7 +355,17 @@ export class AppComponent {
 </ul>
 ----
 
-- @Input() 和 @Output():
+=== app.component.css
+
+是 Angular 組件中的樣式檔案，用來為特定的組件(在目前例子為AppComponent)設計樣式，並不會引響到其他組件的樣式，這樣的好處是不同組件都會有各自獨立的樣式風格，若要使用全域樣式則是要編寫src/style.css才會作用在所有組件上。
+
+==== 特色
+
+- 樣式封裝
+- 支援標準CSS樣式
+- 支持SCSS語法
+
+
 
 
 

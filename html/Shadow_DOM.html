@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Angular 專案目錄結構</title>
+<title>Shadow DOM</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,108 +439,334 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_angular_專案目錄結構">Angular 專案目錄結構</h2>
+<h2 id="_shadow_dom">Shadow DOM</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>簡單來說，<strong>Shadow DOM</strong> 是一種技術，它可以將 HTML 元素進行封裝和隔離，讓開發者能以自訂標籤的方式使用元件。</p>
+</div>
+<div class="sect2">
+<h3 id="_什麼是_dom">什麼是 DOM?</h3>
+<div class="paragraph">
+<p><strong>DOM</strong> (Document Object Model) 是由 W3C 制定的一項標準，它獨立於平台和程式語言，提供了操作 HTML 文件內容、結構與樣式的 API。只要遵守 DOM 規範，開發者可以在任何平台或語言中通過 DOM 操作網頁結構。</p>
+</div>
+<div class="paragraph">
+<p>這意味著我們可以透過 JavaScript 輕鬆操控網頁內容。<strong><code>document</code> 物件</strong> 是 DOM 樹的根節點，因此，當我們存取網頁的 HTML 結構時，操作始於 <code>document</code>，並利用它所提供的通用函式來進行操作。</p>
+</div>
+<div class="paragraph">
+<p><strong>DOM</strong> 代表的是「<strong>文件物件模型</strong>」。當瀏覽器載入網頁時，HTML 的標籤（如文字、圖片、屬性等）會被轉換成物件或節點，最終形成樹狀結構，即 <strong>DOM Tree</strong>，用來反映 HTML 的層次關係。</p>
+</div>
+<div class="paragraph">
+<p>例如，以下是一個簡單的 HTML 結構：</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">my-app/
-├── e2e/ <b class="conum">(1)</b>
-├── node_modules/ <b class="conum">(2)</b>
-├── src/ <b class="conum">(3)</b>
-│   ├── app/ <b class="conum">(4)</b>
-│   │   ├── app.component.html <b class="conum">(5)</b>
-│   │   ├── app.component.ts <b class="conum">(6)</b>
-│   │   ├── app.module.ts <b class="conum">(7)</b>
-│   │   └── app.component.css <b class="conum">(8)</b>
-│   ├── assets/ <b class="conum">(9)</b>
-│   ├── environments/ <b class="conum">(10)</b>
-│   ├── index.html <b class="conum">(11)</b>
-│   ├── main.ts <b class="conum">(12)</b>
-│   ├── polyfills.ts <b class="conum">(13)</b>
-│   ├── styles.css <b class="conum">(14)</b>
-│   └── ...
-├── .editorconfig <b class="conum">(15)</b>
-├── .gitignore <b class="conum">(16)</b>
-├── angular.json <b class="conum">(17)</b>
-├── package.json <b class="conum">(18)</b>
-├── tsconfig.json <b class="conum">(19)</b>
-├── tslint.json <b class="conum">(20)</b>
-└── ...</code></pre>
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;example&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Hello World&lt;/h1&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<ol>
+<div class="paragraph">
+<p>這段 HTML 對應的 DOM Tree 結構如下：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../image/DOMTree.png" alt="DOM Tree">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_什麼是_shadow_dom">什麼是 Shadow DOM?</h3>
+<div class="paragraph">
+<p>在網頁開發中，HTML、CSS 和 JavaScript 是三大核心技術，但實際開發時，常會面臨一些問題，例如：</p>
+</div>
+<div class="ulist">
+<ul>
 <li>
-<p><strong><code>e2e/</code></strong>: 端到端測試相關文件</p>
+<p><strong>CSS 樣式污染</strong>：外部的 CSS 樣式可能影響內部組件。</p>
 </li>
 <li>
-<p><strong><code>node_modules/</code></strong>: npm 安裝的套件</p>
+<p><strong>JavaScript 命名空間衝突</strong>: JavaScript 的全域變數或函式可能與其他程式碼發生衝突。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>為了解決這些問題，W3C 提出了 <strong>Shadow DOM</strong> 的概念，讓開發者能在網頁上建立一個隔離的節點樹，該節點樹不會被外部的 CSS 或 JavaScript 干擾。</p>
+</div>
+<div class="paragraph">
+<p>例如，雖然 CSS 的 <strong><code>!important</code></strong> 可以強制應用樣式，但它可能導致整個頁面樣式選擇器失控，影響其他部分的設計，這是典型的 <strong>樣式污染</strong> 問題。</p>
+</div>
+<div class="paragraph">
+<p><strong>無論前端還是後端開發，將程式模組化並封裝起來以避免相互干擾，是提升開發效率與維護性的重要關鍵。</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>Shadow DOM</strong> 是 <strong>Web Components</strong>(網頁組件)三大標準之一，其他兩個標準為 <strong>HTML Templates</strong> 和 <strong>Custom Elements</strong>(註：<strong>HTML Imports</strong> 已過時，不再建議使用)。</p>
+</div>
+<div class="paragraph">
+<p><strong>Web 組件的關鍵屬性</strong> 是「<strong>封裝</strong>」，它允許開發者將標記結構(markup)、樣式(style)和行為(behavior)封裝起來，並與頁面上的其他代碼獨立。這意味著 Web 組件具備以下優點：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>不會影響頁面上的其他代碼。</p>
 </li>
 <li>
-<p><strong><code>src/</code></strong>: 應用程式源代碼</p>
+<p>不會被外部代碼干擾。</p>
 </li>
 <li>
-<p><strong><code>src/app/</code></strong>: 應用元件、服務、模組等<br></p>
+<p>提升程式碼的可讀性與可維護性，並保持簡潔。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>這種封裝性質，讓 <strong>Web Components</strong> 成為現代化網頁應用程式開發中的重要技術。</p>
+</div>
+<div class="sect3">
+<h4 id="_shadow_dom_的特性">Shadow DOM 的特性</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Isolated DOM (隔離性)</strong>: Shadow DOM 是 DOM 中的 DOM，它擁有自己的 HTML 元素、CSS 樣式與 JavaScript 程式碼，與外部的 DOM 隔離。</p>
 </li>
 <li>
-<p><strong><code>app.module.ts</code></strong>: 列出專案使用的所有檔案，專案的中央樞紐</p>
+<p><strong>Scoped CSS &amp; Simplifies CSS (範圍限定的 CSS)</strong>: Shadow DOM 中的 CSS 作用範圍僅限於它內部的節點樹，避免了外部的樣式影響，可以簡化選擇器，並避免 ID 或 Class 名稱的衝突。</p>
 </li>
 <li>
-<p><strong><code>app.component.ts</code></strong>: 元件類別，內含主要邏輯</p>
+<p><strong>Composition (組合性)</strong>: 你可以為 Shadow DOM 設計基於標記的 API，使其更靈活且可重用。</p>
 </li>
 <li>
-<p><strong><code>app.component.html</code></strong>: 元件模板，定義畫面結構</p>
+<p><strong>Productivity (提升生產力)</strong>: 開發者不需要考慮全局影響，只專注於 Shadow DOM 的功能，使程式開發更高效。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>基於這些特性，開發者可以創建類似 <code>&lt;input&gt;</code>、<code>&lt;video&gt;</code> 或 <code>&lt;audio&gt;</code> 的自訂標籤 (<strong>Custom Elements</strong>)，並充分利用 Shadow DOM 進行封裝與隔離。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shadow_dom_的專有名詞">Shadow DOM 的專有名詞</h3>
+<div class="paragraph">
+<p>在學習 Shadow DOM 時，有幾個專有名詞需要了解：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Shadow Host</strong>: Shadow DOM 的宿主元素，即 Shadow DOM 的根節點。</p>
 </li>
 <li>
-<p><strong><code>app.component.css</code></strong>: 元件樣式</p>
+<p><strong>Shadow Tree</strong>: Shadow DOM 的節點樹，包含了 Shadow DOM 的所有節點。</p>
 </li>
 <li>
-<p><strong><code>src/assets/</code></strong>: 靜態資源文件</p>
+<p><strong>Shadow Root</strong>: Shadow DOM 的根節點，是 Shadow Tree 的根節點。</p>
 </li>
 <li>
-<p><strong><code>src/environments/</code></strong>: 環境配置文件</p>
+<p><strong>Shadow Boundary</strong>: Shadow DOM 與外部 DOM 之間的邊界，用來區分 Shadow DOM 與外部 DOM。</p>
 </li>
 <li>
-<p><strong><code>src/index.html</code></strong>: 應用程式入口</p>
+<p><strong>Shadow Boundary API</strong>：用來操作 Shadow DOM 的 API，包括 <code>attachShadow()</code>、<code>shadowRoot</code> 等。 (由<strong>瀏覽器</strong>提供)</p>
+</li>
+</ul>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../image/ShadowDOM.png" alt="Shadow DOM">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_如何建立與使用_shadow_dom">如何建立與使用 Shadow DOM?</h3>
+<div class="paragraph">
+<p>我們可以使用 <code>Element.attachShadow()</code> 方法將 Shadow DOM tree 附加到指定的元素上，並返回其 Shadow root。呼叫該方法時，可以設定 <code>mode</code> 為 <code>open</code> 或 <code>closed</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">let shadowRootOpen = element.attachShadow({mode: 'open'});
+let shadowRootClosed = element.attachShadow({mode: 'closed'});</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>設定 <code>{mode: 'open'}</code> 代表我們可以用頁面的 JavaScript 存取此 Shadow DOM 並對其進行操作。</p>
 </li>
 <li>
-<p><strong><code>src/main.ts</code></strong>: 應用程式入口</p>
+<p>設定 <code>{mode: 'closed'}</code> 則不允許外部操控此 Shadow DOM。呼叫 <code>shadow.shadowRoot</code> 時會取得 <code>null</code>，例如對於 <code>&lt;input type="range"&gt;</code> 的 shadowRoot。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>建立 Shadow DOM 時，還有以下兩個限制：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>無法針對已經包含內建 Shadow DOM 的元素再附加 Shadow DOM，例如 <code>&lt;input&gt;</code>。</p>
 </li>
 <li>
-<p><strong><code>src/polyfills.ts</code></strong>: 支援不同瀏覽器的 polyfills</p>
+<p>無法對 <code>&lt;img&gt;</code> 元素附加 Shadow DOM。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>瀏覽器原生行為: <code>&lt;img&gt;</code> 標籤是一個自閉合元素 (self-closing element)，本身不擁有子節點。由於 Shadow DOM 需要宿主元素來附加其 DOM 樹，<code>&lt;img&gt;</code> 無法提供這一點，因此無法附加 Shadow DOM。</p>
 </li>
 <li>
-<p><strong><code>src/styles.css</code></strong>: 全域樣式表</p>
+<p>顯示內容的限制: <code>&lt;img&gt;</code> 標籤用來顯示圖片，其內容由 <code>src</code> 屬性指向的圖片資源決定。Shadow DOM 的主要特性之一是能夠封裝標記結構、樣式和行為。如果對 <code>&lt;img&gt;</code> 附加 Shadow DOM，將無法控制該標籤顯示的圖片或其行為，這違背了 Shadow DOM 的封裝概念。</p>
 </li>
 <li>
-<p><strong><code>.editorconfig</code></strong>: 編輯器配置文件</p>
+<p>DOM 兼容性: 大多數元素在 DOM 結構中都可以包含子元素，而 <code>&lt;img&gt;</code> 元素被設計為不能有子元素，導致對 <code>&lt;img&gt;</code> 附加 Shadow DOM 的不兼容性。</p>
 </li>
 <li>
-<p><strong><code>.gitignore</code></strong>: Git 忽略文件</p>
-</li>
-<li>
-<p><strong><code>angular.json</code></strong>: Angular CLI 配置文件</p>
-</li>
-<li>
-<p><strong><code>package.json</code></strong>: npm 配置文件</p>
-</li>
-<li>
-<p><strong><code>tsconfig.json</code></strong>: TypeScript 配置文件</p>
-</li>
-<li>
-<p><strong><code>tslint.json</code></strong>: TypeScript lint 配置文件</p>
+<p>已內建的 Shadow DOM: 某些瀏覽器已經在 <code>&lt;img&gt;</code> 等元素中實現了內建的 Shadow DOM 行為，例如用於圖像加載和錯誤處理。這使得將另一個 Shadow DOM 附加到這些元素上不僅技術上不可能，還會導致行為上的衝突。</p>
 </li>
 </ol>
 </div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_簡單範例">簡單範例</h3>
 <div class="paragraph">
-<p><a href="index.html">回首頁</a></p>
+<p>以下範例建立兩個 <code>&lt;div&gt;</code>，並讓 <code>id="shadowDiv1"</code> 的 <code>&lt;div&gt;</code> 裡的 <code>&lt;p&gt;</code> 元素套用 <code>shadowrootClass</code>，因此裡面的文字會顯示為紅色；而 <code>id="shadowDiv2"</code> 的 <code>&lt;div&gt;</code> 採用附加 Shadow DOM 方式寫入的 HTML 內容，雖然也指定 <code>&lt;p&gt;</code> 元素套用 <code>shadowrootClass</code>，但不會顯示紅色，這可見 Shadow DOM 的隔離性。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Shadow DOM&lt;/title&gt;
+    &lt;style&gt;
+        .shadowrootClass {
+            color: #f00;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div id="shadowDiv1"&gt;&lt;p class="shadowrootClass"&gt;Hello, Shadow DOM world!&lt;/p&gt;&lt;/div&gt;
+&lt;div id="shadowDiv2"&gt;&lt;/div&gt;
+    &lt;script&gt;
+
+        //選擇shadowDiv2當成shadow host
+        var shadowHost = document.querySelector('＃shadowDiv2');
+
+        //在此節點上附件shadow root
+        var shadowRoot = shadowHost.attachShadow({mode: 'open'});
+
+        shadowRoot.innerHTML = '&lt;p class="shadowrootClass"&gt;測試自建一個shadow DOM&lt;/p&gt;';
+
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>呈現結果如下：</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../image/ShadowDOMSample.png" alt="Shadow DOM Example">
+</div>
+</div>
+<div class="paragraph">
+<p>在這個範例中，雖然兩個 <code>&lt;p&gt;</code> 都套用了相同的 CSS 樣式類別，但 <code>id="shadowDiv2"</code> 的 <code>&lt;p&gt;</code> 會顯示為預設顏色，因為它的 CSS 作用範圍是 Shadow DOM，不會受到全域 CSS 影響。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_總結">總結</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Shadow DOM</strong> 提供有效的封裝性質，幫助開發者在建立元件時隔離樣式和行為。</p>
+</li>
+<li>
+<p><strong>開放模式</strong> 允許外部程式碼可操作 Shadow DOM，而 <strong>關閉模式</strong> 則禁止這種操作，提升了安全性。</p>
+</li>
+<li>
+<p>Shadow DOM 讓網頁組件開發變得更加靈活和高效，避免樣式衝突和行為干擾。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>通過利用 Shadow DOM，開發者能提高開發效率、維護性與可讀性，並創建更強大和可重用的 web 元件。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_補充_shadow_dom_與_custom_element_的差異">補充: Shadow DOM 與 Custom Element 的差異</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">特性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shadow DOM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Element</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>定義</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">一種技術，用於將 DOM 樹附加到標準 DOM 中，實現封裝和隱私。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">一種技術，允許開發者定義自己的 HTML 元素。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>目的</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">隱藏組件內部的結構和樣式，防止外部樣式影響，並且避免樣式衝突。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">擴展 HTML 語言，創建自定義的元素和行為。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>操作方式</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用 <code>Element.attachShadow()</code> 方法創建 Shadow DOM。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用 <code>customElements.define()</code> 方法註冊自定義元素。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>作用範圍</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">封裝樣式和行為，只能在 Shadow DOM 內部存取。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">可以在全局範圍內使用，並且可以包含 Shadow DOM。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>支援性</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">需瀏覽器支持 Shadow DOM。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">需瀏覽器支持 Custom Elements。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>範例</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">將樣式和結構隱藏在自定義元素的 Shadow DOM 中。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">創建一個新的 <code>&lt;my-element&gt;</code> 標籤，擁有特定行為和屬性。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_總結_2">總結</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Shadow DOM</strong> 提供封裝性，使樣式和行為不受外部影響，適合需要隱藏實現細節的元件。</p>
+</li>
+<li>
+<p><strong>Custom Element</strong> 則允許開發者創建可重用的 HTML 元素，增強語言的靈活性和可擴展性。</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>兩者通常一起使用，以便創建強大、可維護的網頁元件，實現更好的開發體驗和用戶界面。</p>
+</div>
+<div class="paragraph">
+<p><a href="Component_Structure.html">回上一頁</a></p>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-24 16:06:00 +0800
+Last updated 2024-10-24 17:51:38 +0800
 </div>
 </div>
 </body>
