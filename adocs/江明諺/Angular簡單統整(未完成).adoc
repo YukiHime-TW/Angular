@@ -1,3 +1,185 @@
+= Angular 學習指南
+
+== 目錄
+
+* link:Introduction.html[簡介]
+* link:Installation.html[安裝前置作業]
+* link:CLI_Commands.html[常用指令與 CLI 指南]
+* link:Project_Setup.html[專案建立與啟動]
+* link:Directory_Structure.html[目錄結構介紹]
+* link:Component_Structure.html[元件結構詳解]
+
+= Angular
+
+== 簡介
+**Angular** 是一個基於 **TypeScript** 的開源前端框架，由 **Google** 開發，用於構建 Web 應用程式。包含以下內容：
+
+* **一個元件化的框架** +
+* **一整套深思熟慮整合出的函式庫**，提供路由機制、表單管理、Client/Server 通訊等功能 +
+* **一組完善的開發工具**，幫助開發、建置、測試、更新程式碼
+
+link:index.html[回首頁]
+
+== 安裝前置作業
+
+在本地端開發 Angular 應用程式前，您需要安裝：
+
+* **Node.js** +
+Angular 需要 **Node.js** 的最新版本或 **LTS** 版本進行開發。 +
+可以在 CMD 中輸入 `node -v` 檢查安裝是否成功。 +
+https://nodejs.org/zh-tw/download/prebuilt-installer[Node.js 下載]
+
+* **npm 套件管理器** +
+Angular、Angular CLI 和應用程式依賴 **npm** 套件管理器進行管理。 +
+**npm** 是 **Node.js** 的套件管理工具，與 **Node.js** 一同安裝。 +
+可以在 CMD 中輸入 `npm -v` 檢查安裝是否成功。
+
+* **安裝Anguler**
++
+----
+npm install -g @angular/cli
+----
+
+* **建立專案**
++
+----
+ng new project-name
+----
+
+* **啟動應用程式**
++
+----
+cd project-name
+ng serve --open
+----
++
+[quote]
+____
+預設網域通常為http://localhost:4200/
+____
+
+link:index.html[回首頁]
+
+== 常用指令
+安裝完成後，可以使用 `ng` 命令來建立、建置、測試和啟動 Angular 應用程式。
+
+[cols="1,3", options="header"]
+|===
+| 命令 | 描述
+
+| https://angular.dev/cli/build[`ng build --prod`]
+| **編譯 Angular 專案為生產環境版本，包含優化與縮小檔案大小**
+
+| https://angular.dev/cli/serve[`ng serve --open`]
+| **建構應用程式並啟動開發伺服器，並自動在瀏覽器中開啟應用程式**
+
+| https://angular.dev/cli/generate#component-command[`ng generate component my-component`]
+| **生成一個新的元件 `my-component`**
+
+| https://angular.dev/cli/test[`ng test --watch=false`]
+| **執行單元測試並在測試完成後退出**
+
+| https://angular.dev/cli/e2e[`ng e2e --protractor-config=e2e/protractor.conf.js`]
+| **使用指定的 Protractor 配置檔案執行端到端測試**
+|===
+
+=== 補充: Protractor
+**Protractor** 是一個專為 **Angular** 設計的端到端測試框架，基於 **Selenium WebDriver**。
+
+=== 補充: Selenium WebDriver
+**Selenium WebDriver** 是一個自動化網頁應用測試工具，允許透過程式控制瀏覽器來執行與使用者相似的操作。
+
+=== 補充: 端到端測試
+**端到端測試**模擬真實用戶操作，確保應用程式的整體功能正常運作。
+
+link:index.html[回首頁]
+
+== Angular 專案目錄結構
+
+[source,shell]
+----
+my-app/
+├── e2e/ <1>
+├── node_modules/ <2>
+├── src/ <3>
+│   ├── app/ <4>
+│   │   ├── app.component.html <5>
+│   │   ├── app.component.ts <6>
+│   │   ├── app.module.ts <7>
+│   │   └── app.component.css <8>
+│   ├── assets/ <9>
+│   ├── environments/ <10>
+│   ├── index.html <11>
+│   ├── main.ts <12>
+│   ├── polyfills.ts <13>
+│   ├── styles.css <14>
+│   └── ...
+├── .editorconfig <15>
+├── .gitignore <16>
+├── angular.json <17>
+├── package.json <18>
+├── tsconfig.json <19>
+├── tslint.json <20>
+└── ...
+----
+
+== 專案結構說明
+
+=== 專案設定檔
+
+[width=75%, cols="1,4"]
+|===
+|.editorconfig |用來設定統一的程式碼風格
+|.gitignore |設定git檔案的忽略清單
+|angular.json |用來配置Angular CLI 所需的設定，定義專案中的應用程式、測試、建置過程和不同環境的設定
+|package.json |用來配置專案所需要使用的依賴套件
+|package-lock.json |用來鎖定依賴項的版本號，確保其他人使用npm install時版本可以保持一致
+|src/ |應用程式源碼區
+|public/ | 用來放置一些可公開的靜態資源
+|node_modules/ |存放專案所有的依賴套件
+|tsconfig.json |用來設定TypeScript的配置
+|===
+
+=== 應用程式原始碼檔案
+放置在src下的檔案
+
+[width=75%, cols="1,4"]
+|===
+|app/ |包含定義應用程式邏輯和資料的元件檔案
+|index.html |預設html主頁面。Angular CLI會自動將專案內的JavaScript和CSS引入到裡面
+|main.ts |執行應用程式的進入點
+|styles.css |全域的CSS配置
+|===
+
+放置在src/app下的檔案
+[width=75%, cols="1,4"]
+|===
+|app.config.ts |用來告訴Angular該如何組裝和啟動應用程式的配置，當有需要新增更多providers時應該要設置在此
+|app.component.ts |應用程式的核心組件與關連的view都會設定在這裡，也就是AppComponent，任何屬性以及事件都會寫在這裡
+|app.component.html |定義與AppComponent關聯的HTML
+|app.component.css |定義AppComponent的樣式
+|app.component.spec.ts |定義AppComponent的單元測試
+|app.routes.ts |定義應用程式的路由配置
+|===
+
+=== 應用程式設定檔
+[width=75%, cols="1,4"]
+|===
+|tsconfig.app.json |用來設定特定應用程式的TypeScript配置
+|tsconfig.spec.json |用來設定應用程式測試的TypeScript配置
+|===
+
+== 熟悉你的 Angular 程式
+
+本教學導覽主要使用的程式原始檔在 `src/app` 資料夾內。由 CLI 自動產生的主要檔案如下：
+
+- `app.module.ts`: 列出此專案使用的所有檔案。此檔案在專案中扮演中央樞紐的角色。
+- `app.component.ts`: 又被稱為元件類別，內含此專案主要頁面的相關邏輯。
+- `app.component.html`: 內含 AppComponent 所使用的網頁 html，作為元件模板（Template）。
+- `app.component.css`: 內含 AppComponent 裡面的樣式，讓樣式定義只影響特定模組。
+
+Angular 的元件由三部分構成：模板、樣式、類別。例如，`app.component.ts`、`app.component.html`、以及 `app.component.css` 一同構成 AppComponent。
+
 == Angular 專案結構
 **Angular** 基於 **TypeScript** 開發，應用程式由 **元件 (Component)** 組成。 +
 每個元件包含 **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
