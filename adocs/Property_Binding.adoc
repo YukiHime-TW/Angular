@@ -1,0 +1,151 @@
+== Property Binding in Angular
+
+使用屬性繫結可以動態更新 HTML 元素的屬性。
+他會將你用 "[]" 包起來的屬性的值與元件內同名稱的值做綁定
+
+----
+@Component({
+    ...
+    template: `<div [contentEditable]="isEditable"></div>
+    <div [attr.test]="test"></div>
+    `,
+})
+export class AppComponent {
+    isEditable = true;
+    test = 'test';
+}
+
+----
+
+Note:如果沒有"[]"包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
+
+
+
+== Event handling
+
+Angular 處理事件時，會將事件與組件實例綁定，與傳統 JavaScript 的事件處理不同。
+this會指向該元件
+
+----
+
+@Component({
+    ...
+    template: `<button (click) = "testFn(this)">click me</button>
+    `,
+})
+export class AppComponent {
+   testFn(e:any) {
+    console.log(e) // 會印出這個元件
+  }
+}
+
+----
+
+Note:可以使用$event，傳入事件
+
+== Change Detection
+
+Change Detection 在以下情況下觸發：
+
+1. 事件觸發。
+2. 非同步操作完成。
+3. 手動觸發 `ChangeDetectorRef.detectChanges()`。
+
+== Component Communication
+
+Angular 提供了 `@Input` 和 `@Output` 來處理元件之間的通訊。
+
+=== @Input
+
+[source,javascript]
+----
+@Component({
+  selector: 'app-user',
+  template: `
+    <p>The user's occupation is {{ occupation }}</p>
+  `
+})
+export class UserComponent {
+  @Input() occupation = '';
+}
+----
+
+=== @Output
+1.傳入事件
+
+使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter，
+父層
+[source,javascript]
+----
+//樣板
+  <p>my name is {{myName}} </p>
+<app-child (updateNameFun)="updateName($event)"></app-child>
+//組件
+  updateName(inputName:string){
+     this.myName = inputName;
+  }
+----
+
+子層
+[source,javascript]
+----
+@Component({
+  selector: 'app-child',
+  styles: `.btn { padding: 5px; }`,
+  template: `
+   test
+    <input type="text" (change)="addItem($event)" /> 
+  `,
+  standalone: true,
+})
+export class ChildComponent {
+  @Output() updateNameFun = new EventEmitter<string>();//在angular中，this會幫指向組件，必須用$event才能指向觸發事件
+  //當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入，最後透過EventEmitter將事件發送回去再附加傳入值
+  addItem(e:any) {
+    this.updateNameFun.emit(e.target.value); 
+  }
+}
+----
+
+== Two-way binding
+雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改
+[] => 是綁定元素值 , ()=> 綁定事件
+[()] => 為雙向綁定
+父樣板和組件
+[source,javascript]
+----
+<h1>Counter: {{ initialCount }}</h1>
+<app-counter [(count)]="initialCount"></app-counter> <!-- 雙向綁定的計數器 -->
+
+  initialCount = 18;
+----
+子樣板和組件
+[source,javascript]
+----
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  standalone:true,
+  template: `
+    <div>
+      <button (click)="update(-1)">-</button>
+      <span>{{ count }}</span>
+      <button (click)="update(1)">+</button>
+    </div>
+  `
+})
+export class CountComponent {
+  @Input() count: number = 0; // 從父組件接收初始值，此處值須與父層傳入時相同
+  @Output() countChange = new EventEmitter<number>(); //此處必須為父層的屬性+Change
+
+  update(amount:number){
+   this.count+=amount;
+   this.countChange.emit(this.count);
+  }
+
+
+}
+----
+
+link:index.html[回首頁]
