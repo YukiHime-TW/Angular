@@ -1,47 +1,268 @@
+== Interpolation
+用來顯示組件類中的資料，在HTML模板使用{{}}即可取得屬性值
+
+*app.component.ts*
+
+[source,typescript]
+----
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+  title = 'test-app';
+  userName = 'John';
+}
+----
+
+*app.component.html*
+[source,html]
+----
+<h1>{{ title }}</h1>  <!--  test-app   -->
+<p>Hello, {{ userName }}!</p>  <!--  Hello, John   -->
+----
+
+image:../image/html_ex1.png[html_ex1]
+
 == Property Binding in Angular
 
 使用屬性繫結可以動態更新 HTML 元素的屬性。
 他會將你用 "[]" 包起來的屬性的值與元件內同名稱的值做綁定
 
+*app.component.ts*
+[source,typescript]
 ----
+import { Component } from '@angular/core';
+
 @Component({
-    ...
-    template: `<div [contentEditable]="isEditable"></div>
-    <div [attr.test]="test"></div>
-    `,
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
+
 export class AppComponent {
-    isEditable = true;
-    test = 'test';
+    title = 'test-app';
+    color = "color: #26b72a";
 }
 
 ----
 
+*app.component.html*
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+----
+image:../image/html_ex2.png[html_ex2]
+
 Note:如果沒有"[]"包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
 
+== Two-way binding
+雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改
+[] => 是綁定元素值 , ()=> 綁定事件
+[()] => 為雙向綁定
+父樣板和組件
 
+*app.component.ts*
+[source,typescript]
+----
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // 需要import FormsModule
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+     userName = '';
+}
+----
+
+*app.component.html*
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+<input [(ngModel)]="userName" placeholder="Enter your name">
+<p>Hello, {{ userName }}!</p>
+----
+上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新 userName 屬性
+image:../image/html_ex4.gif[html_ex4]
 
 == Event handling
 
 Angular 處理事件時，會將事件與組件實例綁定，與傳統 JavaScript 的事件處理不同。
 this會指向該元件
 
+*app.component.ts*
+[source,typescript]
 ----
+import { Component } from '@angular/core';
 
 @Component({
-    ...
-    template: `<button (click) = "testFn(this)">click me</button>
-    `,
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
-export class AppComponent {
-   testFn(e:any) {
-    console.log(e) // 會印出這個元件
-  }
-}
 
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+    onClick(e:any) {
+      this.color = "color: #000000";
+      console.log(e)
+    }
+}
 ----
 
+*app.component.html*
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+<button (click)="onClick(this)">點擊切換成黑色</button>
+----
+image:../image/html_ex3.gif[html_ex3]
+[quote]
+____
 Note:可以使用$event，傳入事件
+____
+
+== Conditional rendering
+
+根據條件來顯示或隱藏樣板元素，使用 `*ngIf`
+
+*app.component.ts*
+
+[source,typescript]
+----
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // 需要import CommonModule
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+    isLoggedIn = false;
+    userName = 'John';
+
+    onClick() {
+        if (this.isLoggedIn) {
+            this.isLoggedIn = false
+        } else {
+            this.isLoggedIn = true
+        }
+    }
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+<button (click)="onClick()">切換登入</button>
+
+<p *ngIf="isLoggedIn">Welcome back, {{ userName }}!</p>
+<p *ngIf="!isLoggedIn">Please log in.</p>
+----
+
+或是使用 *@if* 語法也可實現條件渲染(Angular 17)
+
+*app.component.html*
+[source,typescript]
+----
+<h1 [style]="color">{{ title }}</h1>
+<button (click)="onClick()">切換登入</button>
+
+@if (isLoggedIn) {
+  <p>Welcome back, {{ userName }}!</p>
+}
+
+@if (!isLoggedIn) {
+  <p>Please log in.</p>
+}
+----
+[quote]
+____
+使用@if語法不需要匯入`CommonModule`
+____
+
+image:../image/html_ex5.gif[html_ex5]
+
+
+== Rendering a list
+利用迴圈的方式渲染list的內容，使用 `*ngFor` 語法
+
+*app.component.ts*
+[source,typescript]
+----
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // 需要import CommonModule
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+    persons = ['John', 'Jeff', 'Iris'];
+}
+----
+
+*app.component.html*
+
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+<ul>
+    <li *ngFor="let person of persons">{{ person }}</li>
+</ul>
+----
+
+或是使用 *@for* 語法也可實現迭代渲染
+
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+<ul>
+    @for (person of persons; track person) {
+      <li>{{ person }}</li>
+    }
+</ul>
+----
+[quote]
+____
+使用@for語法不需要匯入`CommonModule`
+____
+
+image:../image/html_ex6.png[html_ex6]
 
 == Change Detection
 
@@ -104,47 +325,6 @@ export class ChildComponent {
   addItem(e:any) {
     this.updateNameFun.emit(e.target.value); 
   }
-}
-----
-
-== Two-way binding
-雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改
-[] => 是綁定元素值 , ()=> 綁定事件
-[()] => 為雙向綁定
-父樣板和組件
-[source,javascript]
-----
-<h1>Counter: {{ initialCount }}</h1>
-<app-counter [(count)]="initialCount"></app-counter> <!-- 雙向綁定的計數器 -->
-
-  initialCount = 18;
-----
-子樣板和組件
-[source,javascript]
-----
-import { Component, Input, Output, EventEmitter } from '@angular/core';
-
-@Component({
-  selector: 'app-counter',
-  standalone:true,
-  template: `
-    <div>
-      <button (click)="update(-1)">-</button>
-      <span>{{ count }}</span>
-      <button (click)="update(1)">+</button>
-    </div>
-  `
-})
-export class CountComponent {
-  @Input() count: number = 0; // 從父組件接收初始值，此處值須與父層傳入時相同
-  @Output() countChange = new EventEmitter<number>(); //此處必須為父層的屬性+Change
-
-  update(amount:number){
-   this.count+=amount;
-   this.countChange.emit(this.count);
-  }
-
-
 }
 ----
 
