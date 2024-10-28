@@ -1,0 +1,55 @@
+== CSS樣式 (Style)
+在Angular中的樣式組件是用來為特定的組件設計樣式
+
+=== :host & :host-context
+
+. :host +
+:host是css裡的偽類，用來定義宿主元素(也就是index.html當中的<app-root>)的樣式
+
+*簡單範例:*
+
+*css*
+[source,css]
+----
+:host {
+    display: block;
+    margin: 10px;
+    padding: 20px;
+    background-color: lightblue;
+}
+----
+
+*html*
+[source,html]
+----
+<body>
+    <app-root></app-root>
+</body>
+----
+
+若selector屬性為app-root，上述的<app-root>標籤就會套用到:host的樣式
+
+. host-context +
+:host-context 選擇器用來根據組件的外部上下文環境來設置樣式，當組件的祖先元素（或父元素）滿足特定條件時，該選擇器可以應用樣式到組件本身或其內部元素
+
+*簡單範例*: 當使用者選擇了黑暗模式，所有的元件都應該要改成黑色背景白色文字 
+
+*css*
+[source,css]
+----
+/* child.component.css */
+:host-context(.dark-theme) {
+    background-color: black;
+    color: white;
+}
+----
+
+*html*
+[source,html]
+----
+<div class="dark-theme">
+    <app-child></app-child>
+</div>
+----
+
+:host-context(.dark-theme) 會檢查 app-child 的父級元素或祖先元素是否有 .dark-theme 類，如果有則會應用這些樣式，將 app-child 的背景設置為黑色，文字顏色設置為白色

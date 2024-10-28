@@ -1,0 +1,274 @@
+== 類別 (Class)
+類別裡面包含了元件的相關邏輯，例如資料處理、事件處理等。 +
+類別會放在 `app.component.ts` 檔案裡，而 `app` 就是元件的名稱。 +
+當建立一個元件時，他會帶有 `@Component()` 裝飾器，裡面會有檔案的路徑指向，告訴Angular要去哪裡找HTML模板和CSS樣式。 +
+一個元件的基本寫法如下：
+
+[source,typescript]
+----
+import { Component } from "@angular/core";
+
+@Component({
+    selector: "app-item",
+    // 接下來的檔案路徑會指出其它檔案在什麼位置
+    templateUrl: "./item.component.html",
+    styleUrls: ["./item.component.css"],
+})
+export class ItemComponent {
+    // 程式碼寫在這裡
+}
+----
+
+這個元件被稱為 `ItemComponent`，他的選擇器(Selector)是 `app-item` 。 +
+選擇器在 `一般情況` 可以當作是HTML的客製化標籤，並且將他放到其他的模板裡。 +
+當瀏覽器渲染到選擇器時，就會把這個元件的HTML模板和CSS樣式一起渲染出來。
+
+Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
+而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。
+
+=== Component 裝飾器
+
+常見的屬性包括：
+
+1. `templateUrl`: Angular 元件樣板檔案的 URL。如果提供了它，就不要再用 `template` 來提供行內樣板了。
+2. `template`: Angular 元件的行內樣板。如果提供了它，就不要再用 `templateUrl` 提供樣板了。
+3. `selector`: 元件的選擇器。
+4. `providers`: 提供此元件的服務。
+5. `imports`: 載入的其他元件或模組。
+6. `standalone`: 若為 `true`，此元件為獨立元件，不依賴其他模組。
+7. `encapsulation`: 設定樣式隔離的範圍。
+
+=== Selector進階說明
+
+在Component裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
+
+=== Selector的類型
+
+|===
+| 類型 | 描述 | 範例
+| Type Selector | Compoent會像 HTML 標籤一樣被使用。 | `app-menu-list` 
+| Attribute Selector | Compoent將作為屬性（attribute selector）。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。 | `[dropzone]` `[type="reset"]`
+| Class Selector| Components會使用 CSS Class 的方式附加到一個現有的HTML元素上 | `.app-menu-list` 
+|===
+
+=== Component類別簡單範例
+
+- 定義屬性:
+
+[source,typescript]
+----
+export class AppComponent {
+    title = 'test-app';
+}
+----
+
+定義了組件的屬性，在html中可使用{{ title }}來取得組件的屬性值
+
+[source,html]
+----
+<p>{{ title }}</p>  <!-- 在頁面上會輸出test-app -->
+----
+
+- 定義方法:
+
+[source,typescript]
+----
+export class AppComponent {
+    title = 'app-root';
+    userName = 'John';
+    isLoggedIn = false;
+
+    // 變更使用者登入狀態
+    toggleLoginStatus() {
+        this.isLoggedIn = !this.isLoggedIn;
+    }
+
+    // 設定新的使用者名稱
+    changeUserName(newName: string) {
+        this.userName = newName;
+    }
+}
+----
+
+在HTML中綁定這些方法來實現按鈕點擊事件
+
+[source,html]
+----
+<h1>{{ title }}</h1>
+<p>User: {{ userName }}</p>
+<button (click)="toggleLoginStatus()">
+    {{ isLoggedIn ? 'Logout' : 'Login' }}
+</button>
+----
+
+- 定義組件的生命週期:
+
+[source,typescript]
+----
+export class AppComponent implements OnInit, OnDestroy {
+    title = 'test-app';
+    data: any;
+
+    ngOnInit() {
+        // 初始化，通常用來取得資料
+        console.log('Component initialized');
+        this.data = this.fetchData();
+    }
+
+    ngOnDestroy() {
+        // 當組件銷毀時執行
+        console.log('Component destroyed');
+    }
+
+    fetchData() {
+        return { message: 'I love systex' };
+    }
+}
+----
+
+=== 元件的生命週期
+
+當 Angular 實例化元件類別並渲染元件檢視及其子檢視時，元件實例的生命週期就開始了。生命週期一直伴隨著變更檢測，Angular 會檢查資料繫結屬性何時發生變化，並按需更新檢視和元件實例。當 Angular 銷毀元件實例並從 DOM 中移除它渲染的樣板時，生命週期就結束了。當 Angular 在執行過程中建立、更新和銷毀實例時，指令就有了類似的生命週期。
+
+你的應用可以使用生命週期鉤子方法來觸發元件或指令生命週期中的關鍵事件，以初始化新實例，需要時啟動變更檢測，在變更檢測過程中回應更新，並在刪除實例之前進行清理。
+
+你不必實現所有生命週期鉤子，只要實現你需要的那些就可以了。
+
+==== Angular 元件的生命週期階段
+當你的應用透過呼叫建構式函式來實例化一個元件或指令時，Angular 就會呼叫那個在該實例生命週期的適當位置實現了的那些鉤子方法。
+
+Angular 會按以下順序呼叫並執行這些鉤子方法：
+
+|===
+| 鉤子方法 | 用途 | 時機
+|  `ngOnChanges()` | 當 Angular 設定或重新設定資料繫結的輸入屬性時回應。該方法接受當前和上一屬性值的 SimpleChanges 物件。 +
+**這發生得比較頻繁，所以你在這裡執行的任何操作都會顯著影響效能。** | 如果元件繫結過輸入屬性，那麼在 `ngOnInit()` 之前以及所繫結的一個或多個輸入屬性的值發生變化時都會呼叫。 +
+**如果你的元件沒有輸入屬性，或者你使用它時沒有提供任何輸入屬性，那麼框架就不會呼叫 ngOnChanges()。**   
+|  `ngOnInit()` | 在 Angular 第一次顯示資料繫結和設定指令/元件的輸入屬性之後，初始化指令/元件。 | 在第一輪 `ngOnChanges()` 完成之後呼叫，只調用一次。 +
+**即使沒有呼叫過 `ngOnChanges()`，也仍然會呼叫 `ngOnInit()`（比如當樣板中沒有繫結任何輸入屬性時）。**
+|  `ngDoCheck()` | 檢測並回應對元件的輸入屬性的變化。 | 在每次變更檢測運行之後呼叫，並在 `ngOnChanges()` 和 `ngOnInit()` 之後呼叫。
+|  `ngAfterContentInit()` | 當 Angular 把外部內容投影進元件的View之後，呼叫它。 | 在第一次 `ngDoCheck()` 之後呼叫，只調用一次。
+|  `ngAfterContentChecked()` | 每次 Angular 完成被投影元件的變更檢測之後，呼叫它。 | 在 `ngAfterContentInit()` 和每次 `ngDoCheck()` 之後呼叫。
+|  `ngAfterViewInit()` | 當 Angular 初始化完元件的View及其子View之後，呼叫它。 | 在第一次 `ngAfterContentChecked()` 之後呼叫，只調用一次。
+|  `ngAfterViewChecked()` | 每次 Angular 完成元件及其子View的變更檢測之後，呼叫它。 | 在 `ngAfterViewInit()` 和每次 `ngAfterContentChecked()` 之後呼叫。
+|  `ngOnDestroy()` | 在 Angular 銷毀元件之前，清理。 | 在 Angular 銷毀指令/元件之前呼叫。
+|=== 
+
+=== Angular怎麼讓元件具備高度封裝性的?
+
+. 元件的獨立性
++
+    * 自包含的單位 +
+    每個 Angular 元件都可以看作是一個獨立的實體。 +
+    元件內部包含自己的模板（HTML）、樣式（CSS）和邏輯（TypeScript）。 +
+    這樣，開發者可以獨立於其他元件進行開發，測試和調試。
+
+    * 生命週期管理 +
+    Angular 通過元件的生命週期鉤子，讓開發者能夠對元件在不同階段進行操作，如初始化、更新或銷毀。
+
+. 使用 `@Input()` 和 `@Output()` 裝飾器
++
+    * 數據傳遞 +
+    元件之間的數據傳遞通過 `@Input()` 裝飾器進行。 +
+    父元件可以將數據傳遞給子元件，使子元件可以根據這些數據渲染自己的視圖。 +
+    這種方式使得元件的使用更加靈活，同時也強化了元件之間的隔離性。
++
+[source,typescript]
+----
+    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `<p>子元件數據: {{ data }}</p>`
+    })
+    export class ChildComponent {
+        @Input() data: string;  // 從父元件接收數據
+    }
+----
++
+    * 事件發射 +
+    使用 `@Output()` 裝飾器，子元件可以發出事件，告知父元件發生了某個操作。 +
+    這種事件驅動的交互方式使得父子元件之間的關係保持疏鬆。
++
+[source,typescript]
+----
+    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `<button (click)="notifyParent()">通知父元件</button>`
+    })
+    export class ChildComponent {
+        @Output() notify: EventEmitter<void> = new EventEmitter();
+
+        notifyParent() {
+            this.notify.emit();  // 發射事件
+        }
+    }
+----
+
+. 模組化架構
++
+    * NgModule +
+    Angular 的模組化架構使用 `@NgModule` 裝飾器，這使得開發者可以將相關的元件、指令和管道組織在一起。 +
+    例如，開發者可以創建一個 `SharedModule` ，其中包含多個可以重用的元件。
++
+[source,typescript]
+----
+@NgModule({
+    declarations: [ChildComponent, AnotherComponent],
+    imports: [CommonModule],
+    exports: [ChildComponent]
+})
+export class SharedModule {}
+----
++
+    * 功能性模組 +
+    除了 `AppModule`，開發者可以根據功能創建多個模組，使得應用更具可維護性和擴展性。 +
+    這樣，開發者可以在不同的模組之間隨意重用元件，進一步提高封裝性。
+
+. 依賴注入
++
+    * 服務與依賴管理 +
+    Angular 的依賴注入機制允許服務和其他依賴的管理，使得元件不需要自行創建依賴，從而減少了耦合。 +
+    例如，開發者可以將 API 調用封裝在服務中，然後將該服務注入到需要的元件中。
++
+[source,typescript]
+----
+@Injectable({
+    providedIn: 'root'
+})
+export class ApiService {
+    // ...
+}
+
+@Component({
+    selector: 'app-example',
+    template: `...`
+})
+export class ExampleComponent {
+    constructor(private apiService: ApiService) {}
+}
+----
+
+. 封裝 CSS
++
+    * 樣式隔離 +
+    Angular 提供了樣式封裝功能，讓元件的樣式不會影響到其他元件的樣式。 +
+    這是通過 Shadow DOM 或者 View Encapsulation 實現。 +
+    開發者可以選擇不同的樣式封裝策略，確保元件的樣式只在其範圍內有效。
++
+[source,typescript]
+----
+@Component({
+    selector: 'app-child',
+    templateUrl: './child.component.html',
+    styleUrls: ['./child.component.css'],
+    encapsulation: ViewEncapsulation.Emulated // 預設的樣式封裝模式
+})
+export class ChildComponent {}
+----
++
+    ** 補充: link:Shadow_DOM.html[Shadow DOM]
++
+    ** 補充: link:View_Encapsulation.html[View Encapsulation]
