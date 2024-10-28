@@ -265,3 +265,5 @@ ____
 ____
 
 image:../image/html_ex6.png[html_ex6]
+
+link:./Component_Structure.html[回上一頁]
