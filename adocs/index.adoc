@@ -8,7 +8,9 @@
 * link:Project_Setup.html[專案建立與啟動]
 * link:Directory_Structure.html[目錄結構介紹]
 * link:Component_Structure.html[元件結構詳解]
-
+* link:Property_Binding.html[屬性綁定]
+* link:Routing.html[設定路由]
+* link:tools.html[工具介紹]
 === 雜項 踩雷紀錄
 
 * link:ng_generate只生成ts檔.html[ng generate只生成ts檔]
