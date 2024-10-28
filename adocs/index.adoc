@@ -12,8 +12,7 @@
 * link:Routing.html[設定路由]
 * link:tools.html[工具介紹]
 
-
-=== 雜項 踩雷紀錄
+== 雜項 踩雷紀錄
 
 * link:ng_generate只生成ts檔.html[ng generate只生成ts檔]
 * link:Form與event設定的踩雷部分.html[Form與event設定的踩雷部分]
