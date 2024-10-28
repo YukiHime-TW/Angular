@@ -163,7 +163,7 @@ export const routes: Routes = [
 ----
 
 
-=== reslove
+=== resolve
 用於渲染前先載入資料
 
 1.為了要可以注入，在config中的provider加入provideHttpClient()
@@ -174,7 +174,7 @@ export const routes: Routes = [
     provideHttpClient(),
   ]
 ----
-2.建立reslove檔案
+2.建立resolve檔案
 
 ----
 
@@ -196,7 +196,7 @@ export class ProductResolver implements Resolve<any> {
 
 ----
 
-3.將reslove加入在路由裡面
+3.將resolve加入在路由裡面
 
 ----
 
