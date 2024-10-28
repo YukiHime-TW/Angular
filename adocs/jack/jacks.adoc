@@ -250,13 +250,46 @@ Note: 使用 `track` 是必要的，你可以使用 id 或其他唯一標識符�
 
 使用屬性繫結可以動態更新 HTML 元素的屬性。
 他會將你用 "[]" 包起來的屬性的值與元件內同名稱的值做綁定
-Note: 如果沒有 "[]" 包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
+
+----
+@Component({
+    ...
+    template: `<div [contentEditable]="isEditable"></div>
+    <div [attr.test]="test"></div>
+    `,
+})
+export class AppComponent {
+    isEditable = true;
+    test = 'test';
+}
+
+----
+
+Note:如果沒有"[]"包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
+
 
 
 == Event handling
 
 Angular 處理事件時，會將事件與組件實例綁定，與傳統 JavaScript 的事件處理不同。
 this會指向該元件
+
+----
+
+@Component({
+    ...
+    template: `<button (click) = "testFn(this)">click me</button>
+    `,
+})
+export class AppComponent {
+   testFn(e:any) {
+    console.log(e) // 會印出這個元件
+  }
+}
+
+----
+
+Note:可以使用$event，傳入事件
 
 == Change Detection
 
