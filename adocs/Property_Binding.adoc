@@ -63,11 +63,15 @@ image:../image/html_ex2.png[html_ex2]
 Note:如果沒有"[]"包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.
 
 == Two-way binding
-雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改
-[] => 是綁定元素值 , ()=> 綁定事件
-[()] => 為雙向綁定
-父樣板和組件
+雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改 +
 
+- [] => 綁定元素值
+
+- ()=> 綁定事件
+
+- [()] => 為雙向綁定
+
+父樣板和組件
 *app.component.ts*
 [source,javascript]
 ----
@@ -86,7 +90,7 @@ export class AppComponent {
     title = 'test-app';
     color = "color: #26b72a";
 
-     userName = '';
+    userName = '';
 }
 ----
 
@@ -122,8 +126,8 @@ export class AppComponent {
     color = "color: #26b72a";
 
     onClick(e:any) {
-      this.color = "color: #000000";
-      console.log(e)
+        this.color = "color: #000000";
+        console.log(e)
     }
 }
 ----
@@ -159,7 +163,7 @@ Angular 提供了 `@Input` 和 `@Output` 來處理元件之間的通訊。
 @Component({
     selector: 'app-user',
     template: `
-      <p>The user's occupation is {{ occupation }}</p>
+        <p>The user's occupation is {{ occupation }}</p>
     `
 })
 export class UserComponent {
@@ -179,7 +183,7 @@ export class UserComponent {
 <app-child (updateNameFun)="updateName($event)"></app-child>
 //組件
 updateName(inputName:string){
-     this.myName = inputName;
+    this.myName = inputName;
 }
 ----
 
@@ -196,7 +200,7 @@ export class ChildComponent {
     @Output() updateNameFun = new EventEmitter<string>();//在angular中，this會幫指向組件，必須用$event才能指向觸發事件
     //當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入，最後透過EventEmitter將事件發送回去再附加傳入值
     addItem(e:any) {
-      this.updateNameFun.emit(e.target.value); 
+        this.updateNameFun.emit(e.target.value); 
     }
 }
 ----
