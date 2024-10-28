@@ -401,22 +401,6 @@ Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但
 
 ----
 
-
-== 主要優點
-
-* 更簡潔的語法
-* 更好的型別檢查
-* 更優的效能
-* 更直觀的程式結構
-* 更容易維護和閱讀
-
-== 注意事項
-
-* 新語法需要 Angular 17 或更高版本
-* 舊語法 (*ngIf, *ngFor 等) 仍然支援，但建議在新專案中使用新語法
-* track 表達式在 @for 循環中是必需的
-* @defer 支援多種觸發條件（on viewport, on hover 等）
-
 == Property Binding in Angular
 
 使用屬性繫結可以動態更新 HTML 元素的屬性。
