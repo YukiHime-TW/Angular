@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Angular 專案目錄結構</title>
+<title>類別 (Class)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,204 +439,450 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_angular_專案目錄結構">Angular 專案目錄結構</h2>
+<h2 id="_類別_class">類別 (Class)</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>類別裡面包含了元件的相關邏輯，例如資料處理、事件處理等。<br>
+類別會放在 <code>app.component.ts</code> 檔案裡，而 <code>app</code> 就是元件的名稱。<br>
+當建立一個元件時，他會帶有 <code>@Component()</code> 裝飾器，裡面會有檔案的路徑指向，告訴Angular要去哪裡找HTML模板和CSS樣式。<br>
+一個元件的基本寫法如下：</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell">my-app/
-├── node_modules/
-├── public/
-├── src/
-│   ├── app/
-│   │   ├── app.component.ts
-│   │   ├── app.component.html
-│   │   ├── app.component.css
-│   │   ├── app.config.ts
-│   │   ├── app.component.spec.ts
-│   │   └── app.routes.ts
-│   ├── assets/
-│   ├── index.html
-│   ├── main.ts
-│   ├── styles.css
-│   └── ...
-├── .editorconfig
-├── .gitignore
-├── package.json
-├── package-lock.json
-├── angular.json
-├── tsconfig.json
-└── ...</code></pre>
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">import { Component } from "@angular/core";
+
+@Component({
+    selector: "app-item",
+    // 接下來的檔案路徑會指出其它檔案在什麼位置
+    templateUrl: "./item.component.html",
+    styleUrls: ["./item.component.css"],
+})
+export class ItemComponent {
+    // 程式碼寫在這裡
+}</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>這個元件被稱為 <code>ItemComponent</code>，他的選擇器(Selector)是 <code>app-item</code> 。<br>
+選擇器在 <code>一般情況</code> 可以當作是HTML的客製化標籤，並且將他放到其他的模板裡。<br>
+當瀏覽器渲染到選擇器時，就會把這個元件的HTML模板和CSS樣式一起渲染出來。</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_專案結構說明">專案結構說明</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_專案設定檔">專案設定檔</h3>
-<table class="tableblock frame-all grid-all" style="width: 75%;">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 80%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">src/</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">應用程式源碼區</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">public/</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來放置一些可公開的靜態資源</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">node_modules/</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">存放專案所有的依賴套件</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">.editorconfig</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來設定統一的程式碼風格</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">.gitignore</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">設定git檔案的忽略清單</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">package.json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來配置專案所需要使用的依賴套件</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">package-lock.json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來鎖定依賴項的版本號，確保其他人使用npm install時版本可以保持一致</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">angular.json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來配置Angular CLI 所需的設定，定義專案中的應用程式、測試、建置過程和不同環境的設定</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tsconfig.json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來設定TypeScript的配置</p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。<br>
+而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。</p>
 </div>
 <div class="sect2">
-<h3 id="_應用程式原始碼檔案">應用程式原始碼檔案</h3>
+<h3 id="_component_裝飾器">Component 裝飾器</h3>
 <div class="paragraph">
-<p>放置在src下的檔案</p>
+<p>常見的屬性包括：</p>
 </div>
-<table class="tableblock frame-all grid-all" style="width: 75%;">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>templateUrl</code>: Angular 元件樣板檔案的 URL。如果提供了它，就不要再用 <code>template</code> 來提供行內樣板了。</p>
+</li>
+<li>
+<p><code>template</code>: Angular 元件的行內樣板。如果提供了它，就不要再用 <code>templateUrl</code> 提供樣板了。</p>
+</li>
+<li>
+<p><code>selector</code>: 元件的選擇器。</p>
+</li>
+<li>
+<p><code>providers</code>: 提供此元件的服務。</p>
+</li>
+<li>
+<p><code>imports</code>: 載入的其他元件或模組。</p>
+</li>
+<li>
+<p><code>standalone</code>: 若為 <code>true</code>，此元件為獨立元件，不依賴其他模組。</p>
+</li>
+<li>
+<p><code>encapsulation</code>: 設定樣式隔離的範圍。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector進階說明">Selector進階說明</h3>
+<div class="paragraph">
+<p>在Component裝飾器中，Select是一個 <code>css選擇器</code> ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_selector的類型">Selector的類型</h3>
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 80%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app/</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">包含定義應用程式邏輯和資料的元件檔案</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">類型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">範例</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">index.html</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">預設html主頁面。Angular CLI會自動將專案內的JavaScript和CSS引入到裡面</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type Selector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compoent會像 HTML 標籤一樣被使用。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>app-menu-list</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">main.ts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">執行應用程式的進入點</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Attribute Selector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compoent將作為屬性（attribute selector）。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[dropzone]</code> <code>[type="reset"]</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">styles.css</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">全域的CSS配置</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>放置在src/app下的檔案</p>
-</div>
-<table class="tableblock frame-all grid-all" style="width: 75%;">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 80%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app.component.ts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">應用程式的核心組件與關連的view都會設定在這裡，也就是AppComponent，任何屬性以及事件都會寫在這裡</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app.component.html</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">定義與AppComponent關聯的HTML</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app.component.css</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">定義AppComponent的樣式</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app.config.ts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來告訴Angular該如何組裝和啟動應用程式的配置，當有需要新增更多providers時應該要設置在此</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app.component.spec.ts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">定義AppComponent的單元測試</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">app.routes.ts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">定義應用程式的路由配置</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Class Selector</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Components會使用 CSS Class 的方式附加到一個現有的HTML元素上</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>.app-menu-list</code></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="sect2">
-<h3 id="_應用程式設定檔">應用程式設定檔</h3>
-<table class="tableblock frame-all grid-all" style="width: 75%;">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 80%;">
-</colgroup>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tsconfig.app.json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來設定特定應用程式的TypeScript配置</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">tsconfig.spec.json</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">用來設定應用程式測試的TypeScript配置</p></td>
-</tr>
-</tbody>
-</table>
+<h3 id="_component類別簡單範例">Component類別簡單範例</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>定義屬性:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">export class AppComponent {
+    title = 'test-app';
+}</code></pre>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_熟悉你的_angular_程式">熟悉你的 Angular 程式</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>本教學導覽主要使用的程式原始檔在 <code>src/app</code> 資料夾內。由 CLI 自動產生的主要檔案如下：</p>
+<p>定義了組件的屬性，在html中可使用{{ title }}來取得組件的屬性值</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;p&gt;{{ title }}&lt;/p&gt;  &lt;!-- 在頁面上會輸出test-app --&gt;</code></pre>
+</div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>app.module.ts</code>: 列出此專案使用的所有檔案。此檔案在專案中扮演中央樞紐的角色。</p>
-</li>
-<li>
-<p><code>app.component.ts</code>: 又被稱為元件類別，內含此專案主要頁面的相關邏輯。</p>
-</li>
-<li>
-<p><code>app.component.html</code>: 內含 AppComponent 所使用的網頁 html，作為元件模板（Template）。</p>
-</li>
-<li>
-<p><code>app.component.css</code>: 內含 AppComponent 裡面的樣式，讓樣式定義只影響特定模組。</p>
+<p>定義方法:</p>
 </li>
 </ul>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">export class AppComponent {
+    title = 'app-root';
+    userName = 'John';
+    isLoggedIn = false;
+
+    // 變更使用者登入狀態
+    toggleLoginStatus() {
+        this.isLoggedIn = !this.isLoggedIn;
+    }
+
+    // 設定新的使用者名稱
+    changeUserName(newName: string) {
+        this.userName = newName;
+    }
+}</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>Angular 的元件由三部分構成：模板、樣式、類別。例如，<code>app.component.ts</code>、<code>app.component.html</code>、以及 <code>app.component.css</code> 一同構成 AppComponent。</p>
+<p>在HTML中綁定這些方法來實現按鈕點擊事件</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1&gt;{{ title }}&lt;/h1&gt;
+&lt;p&gt;User: {{ userName }}&lt;/p&gt;
+&lt;button (click)="toggleLoginStatus()"&gt;
+    {{ isLoggedIn ? 'Logout' : 'Login' }}
+&lt;/button&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>定義組件的生命週期:</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">export class AppComponent implements OnInit, OnDestroy {
+    title = 'test-app';
+    data: any;
+
+    ngOnInit() {
+        // 初始化，通常用來取得資料
+        console.log('Component initialized');
+        this.data = this.fetchData();
+    }
+
+    ngOnDestroy() {
+        // 當組件銷毀時執行
+        console.log('Component destroyed');
+    }
+
+    fetchData() {
+        return { message: 'I love systex' };
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_元件的生命週期">元件的生命週期</h3>
+<div class="paragraph">
+<p>當 Angular 實例化元件類別並渲染元件檢視及其子檢視時，元件實例的生命週期就開始了。生命週期一直伴隨著變更檢測，Angular 會檢查資料繫結屬性何時發生變化，並按需更新檢視和元件實例。當 Angular 銷毀元件實例並從 DOM 中移除它渲染的樣板時，生命週期就結束了。當 Angular 在執行過程中建立、更新和銷毀實例時，指令就有了類似的生命週期。</p>
+</div>
+<div class="paragraph">
+<p>你的應用可以使用生命週期鉤子方法來觸發元件或指令生命週期中的關鍵事件，以初始化新實例，需要時啟動變更檢測，在變更檢測過程中回應更新，並在刪除實例之前進行清理。</p>
+</div>
+<div class="paragraph">
+<p>你不必實現所有生命週期鉤子，只要實現你需要的那些就可以了。</p>
+</div>
+<div class="sect3">
+<h4 id="_angular_元件的生命週期階段">Angular 元件的生命週期階段</h4>
+<div class="paragraph">
+<p>當你的應用透過呼叫建構式函式來實例化一個元件或指令時，Angular 就會呼叫那個在該實例生命週期的適當位置實現了的那些鉤子方法。</p>
+</div>
+<div class="paragraph">
+<p>Angular 會按以下順序呼叫並執行這些鉤子方法：</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">鉤子方法</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用途</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">時機</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngOnChanges()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">當 Angular 設定或重新設定資料繫結的輸入屬性時回應。該方法接受當前和上一屬性值的 SimpleChanges 物件。<br>
+<strong>這發生得比較頻繁，所以你在這裡執行的任何操作都會顯著影響效能。</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果元件繫結過輸入屬性，那麼在 <code>ngOnInit()</code> 之前以及所繫結的一個或多個輸入屬性的值發生變化時都會呼叫。<br>
+<strong>如果你的元件沒有輸入屬性，或者你使用它時沒有提供任何輸入屬性，那麼框架就不會呼叫 ngOnChanges()。</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngOnInit()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 Angular 第一次顯示資料繫結和設定指令/元件的輸入屬性之後，初始化指令/元件。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在第一輪 <code>ngOnChanges()</code> 完成之後呼叫，只調用一次。<br>
+<strong>即使沒有呼叫過 <code>ngOnChanges()</code>，也仍然會呼叫 <code>ngOnInit()</code>（比如當樣板中沒有繫結任何輸入屬性時）。</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngDoCheck()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">檢測並回應對元件的輸入屬性的變化。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在每次變更檢測運行之後呼叫，並在 <code>ngOnChanges()</code> 和 <code>ngOnInit()</code> 之後呼叫。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngAfterContentInit()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">當 Angular 把外部內容投影進元件的View之後，呼叫它。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在第一次 <code>ngDoCheck()</code> 之後呼叫，只調用一次。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngAfterContentChecked()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">每次 Angular 完成被投影元件的變更檢測之後，呼叫它。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 <code>ngAfterContentInit()</code> 和每次 <code>ngDoCheck()</code> 之後呼叫。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngAfterViewInit()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">當 Angular 初始化完元件的View及其子View之後，呼叫它。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在第一次 <code>ngAfterContentChecked()</code> 之後呼叫，只調用一次。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngAfterViewChecked()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">每次 Angular 完成元件及其子View的變更檢測之後，呼叫它。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 <code>ngAfterViewInit()</code> 和每次 <code>ngAfterContentChecked()</code> 之後呼叫。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>ngOnDestroy()</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 Angular 銷毀元件之前，清理。</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 Angular 銷毀指令/元件之前呼叫。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_angular怎麼讓元件具備高度封裝性的">Angular怎麼讓元件具備高度封裝性的?</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>元件的獨立性</p>
+<div class="ulist">
+<ul>
+<li>
+<p>自包含的單位<br>
+每個 Angular 元件都可以看作是一個獨立的實體。<br>
+元件內部包含自己的模板（HTML）、樣式（CSS）和邏輯（TypeScript）。<br>
+這樣，開發者可以獨立於其他元件進行開發，測試和調試。</p>
+</li>
+<li>
+<p>生命週期管理<br>
+Angular 通過元件的生命週期鉤子，讓開發者能夠對元件在不同階段進行操作，如初始化、更新或銷毀。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>使用 <code>@Input()</code> 和 <code>@Output()</code> 裝飾器</p>
+<div class="ulist">
+<ul>
+<li>
+<p>數據傳遞<br>
+元件之間的數據傳遞通過 <code>@Input()</code> 裝飾器進行。<br>
+父元件可以將數據傳遞給子元件，使子元件可以根據這些數據渲染自己的視圖。<br>
+這種方式使得元件的使用更加靈活，同時也強化了元件之間的隔離性。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `&lt;p&gt;子元件數據: {{ data }}&lt;/p&gt;`
+    })
+    export class ChildComponent {
+        @Input() data: string;  // 從父元件接收數據
+    }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>事件發射<br>
+使用 <code>@Output()</code> 裝飾器，子元件可以發出事件，告知父元件發生了某個操作。<br>
+這種事件驅動的交互方式使得父子元件之間的關係保持疏鬆。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">    import { Component } from "@angular/core";
+
+    @Component({
+        selector: 'app-child',
+        template: `&lt;button (click)="notifyParent()"&gt;通知父元件&lt;/button&gt;`
+    })
+    export class ChildComponent {
+        @Output() notify: EventEmitter&lt;void&gt; = new EventEmitter();
+
+        notifyParent() {
+            this.notify.emit();  // 發射事件
+        }
+    }</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>模組化架構</p>
+<div class="ulist">
+<ul>
+<li>
+<p>NgModule<br>
+Angular 的模組化架構使用 <code>@NgModule</code> 裝飾器，這使得開發者可以將相關的元件、指令和管道組織在一起。<br>
+例如，開發者可以創建一個 <code>SharedModule</code> ，其中包含多個可以重用的元件。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">@NgModule({
+    declarations: [ChildComponent, AnotherComponent],
+    imports: [CommonModule],
+    exports: [ChildComponent]
+})
+export class SharedModule {}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>功能性模組<br>
+除了 <code>AppModule</code>，開發者可以根據功能創建多個模組，使得應用更具可維護性和擴展性。<br>
+這樣，開發者可以在不同的模組之間隨意重用元件，進一步提高封裝性。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>依賴注入</p>
+<div class="ulist">
+<ul>
+<li>
+<p>服務與依賴管理<br>
+Angular 的依賴注入機制允許服務和其他依賴的管理，使得元件不需要自行創建依賴，從而減少了耦合。<br>
+例如，開發者可以將 API 調用封裝在服務中，然後將該服務注入到需要的元件中。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">@Injectable({
+    providedIn: 'root'
+})
+export class ApiService {
+    // ...
+}
+
+@Component({
+    selector: 'app-example',
+    template: `...`
+})
+export class ExampleComponent {
+    constructor(private apiService: ApiService) {}
+}</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>封裝 CSS</p>
+<div class="ulist">
+<ul>
+<li>
+<p>樣式隔離<br>
+Angular 提供了樣式封裝功能，讓元件的樣式不會影響到其他元件的樣式。<br>
+這是通過 Shadow DOM 或者 View Encapsulation 實現。<br>
+開發者可以選擇不同的樣式封裝策略，確保元件的樣式只在其範圍內有效。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-typescript" data-lang="typescript">@Component({
+    selector: 'app-child',
+    templateUrl: './child.component.html',
+    styleUrls: ['./child.component.css'],
+    encapsulation: ViewEncapsulation.Emulated // 預設的樣式封裝模式
+})
+export class ChildComponent {}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>補充: <a href="Shadow_DOM.html">Shadow DOM</a></p>
+</li>
+<li>
+<p>補充: <a href="View_Encapsulation.html">View Encapsulation</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><a href="./Component_Structure.html">回上一頁</a></p>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 18:07:54 +0800
+Last updated 2024-10-28 18:07:40 +0800
 </div>
 </div>
 </body>
