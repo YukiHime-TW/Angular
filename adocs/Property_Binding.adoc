@@ -134,11 +134,11 @@ export class AppComponent {
 <h1 [style]="color">{{ title }}</h1>
 <button (click)="onClick(this)">點擊切換成黑色</button>
 ----
-image:../image/html_ex3.gif[html_ex3]
 [quote]
 ____
 Note:可以使用$event，傳入事件
 ____
+image:../image/html_ex3.gif[html_ex3]
 
 == Change Detection
 
