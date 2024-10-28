@@ -83,3 +83,5 @@ my-app/
 - `app.component.css`: 內含 AppComponent 裡面的樣式，讓樣式定義只影響特定模組。
 
 Angular 的元件由三部分構成：模板、樣式、類別。例如，`app.component.ts`、`app.component.html`、以及 `app.component.css` 一同構成 AppComponent。
+
+link:index.html[回首頁]

@@ -113,6 +113,4 @@ Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但
 })
 ----
 
-
-
 link:index.html[回首頁]

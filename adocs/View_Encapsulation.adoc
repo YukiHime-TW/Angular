@@ -163,4 +163,4 @@ image:../image/shadow-dom-encapsulation.png[ViewEncapsulation.ShadowDom]
 +
 由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式之後新增到 Shadow Host 中的，因此 h2 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色，這可能不是元件作者的本意。
 
-link:Component_Structure.html[回上一頁]
+link:Class.html[回上一頁]

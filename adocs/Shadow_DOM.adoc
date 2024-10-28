@@ -161,4 +161,4 @@ image::../image/ShadowDOMSample.png[Shadow DOM Example]
 
 兩者通常一起使用，以便創建強大、可維護的網頁元件，實現更好的開發體驗和用戶界面。
 
-link:Component_Structure.html[回上一頁]
+link:Class.html[回上一頁]

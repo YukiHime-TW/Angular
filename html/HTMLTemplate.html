@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.22">
-<title>Angular 專案結構</title>
+<title>HTML模板 (Template)</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -439,143 +439,282 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_angular_專案結構">Angular 專案結構</h2>
+<h2 id="_html模板_template">HTML模板 (Template)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Angular</strong> 基於 <strong>TypeScript</strong> 開發，應用程式由 <strong>元件 (Component)</strong> 組成。<br>
-每個元件包含 <strong>HTML 模板</strong>、<strong>CSS 樣式</strong>和帶有 <code>@Component()</code> 裝飾器的 <strong>TypeScript 類別</strong>。</p>
+<p>Angular 組件的模板文件，負責定義類別組件的視圖結構，透過 Angular 的模板語法實現資料的顯示、條件渲染、事件處理等功能，並動態更新畫面，與 app.component.ts 當中的邏輯緊密結合，實現互動式的使用者界面。</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_html模板常用的語法">HTML模板常用的語法</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_建立一個新的元件">建立一個新的元件</h3>
+<h3 id="_interpolation">Interpolation</h3>
 <div class="paragraph">
-<p><code>ng generate component item</code>
-該指令會建立以下內容：</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>用於 HTML 的 item.component.html<br>
-<a href="./HTMLTemplate.html">HTML 模板</a></p>
-</li>
-<li>
-<p>用於邏輯的 item.component.ts<br>
-<a href="./Class.html">Class 類別</a></p>
-</li>
-<li>
-<p>用於樣式的 item.component.css<br>
-<a href="./CSSStyle.html">CSS 樣式</a></p>
-</li>
-<li>
-<p>測試檔案 item.component.spec.ts</p>
-</li>
-</ol>
-</div>
-<div class="sect3">
-<h4 id="_手動建立元件">手動建立元件</h4>
-<div class="paragraph">
-<p>你也可以手動建立元件。方法如下：</p>
+<p>用來顯示組件類中的資料，在HTML模板使用{{}}即可取得屬性值</p>
 </div>
 <div class="paragraph">
-<p>建立一個新檔案 &lt;component-name&gt;.component.ts。
-新增元件所需的 import 和 @Component 裝飾器。</p>
+<p><strong>app.component.ts</strong></p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-component-overview',
-    templateUrl: './component-overview.component.html',
-    styleUrls: ['./component-overview.component.css']
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
-export class ComponentOverviewComponent {
-    // 程式碼寫在這裡
+
+export class AppComponent {
+    title = 'test-app';
+    userName = 'John';
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>app.component.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1&gt;{{ title }}&lt;/h1&gt;  &lt;!--  test-app   --&gt;
+&lt;p&gt;Hello, {{ userName }}!&lt;/p&gt;  &lt;!--  Hello, John   --&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../image/html_ex1.png" alt="html_ex1"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_property_binding_in_angular">Property Binding in Angular</h3>
+<div class="paragraph">
+<p>使用屬性繫結可以動態更新 HTML 元素的屬性。
+他會將你用 "[]" 包起來的屬性的值與元件內同名稱的值做綁定</p>
+</div>
+<div class="paragraph">
+<p><strong>app.component.ts</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>app.component.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1 [style]="color"&gt;{{ title }}&lt;/h1&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../image/html_ex2.png" alt="html_ex2"></span></p>
+</div>
+<div class="paragraph">
+<p>Note:如果沒有"[]"包起來無法綁定，且[]內需要為該元素的屬性，否則需要加上attr.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_two_way_binding">Two-way binding</h3>
+<div class="paragraph">
+<p>雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改<br></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>[] &#8658; 綁定元素值</p>
+</li>
+<li>
+<p>()&#8658; 綁定事件</p>
+</li>
+<li>
+<p>[()] &#8658; 為雙向綁定</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>父樣板和組件
+<strong>app.component.ts</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // 需要import FormsModule
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+    userName = '';
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>app.component.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1 [style]="color"&gt;{{ title }}&lt;/h1&gt;
+&lt;input [(ngModel)]="userName" placeholder="Enter your name"&gt;
+&lt;p&gt;Hello, {{ userName }}!&lt;/p&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新 userName 屬性
+<span class="image"><img src="../image/html_ex4.gif" alt="html_ex4"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_event_handling">Event handling</h3>
+<div class="paragraph">
+<p>Angular 處理事件時，會將事件與組件實例綁定，與傳統 JavaScript 的事件處理不同。
+this會指向該元件</p>
+</div>
+<div class="paragraph">
+<p><strong>app.component.ts</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+    onClick(e:any) {
+        this.color = "color: #000000";
+        console.log(e)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>app.component.html</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">&lt;h1 [style]="color"&gt;{{ title }}&lt;/h1&gt;
+&lt;button (click)="onClick(this)"&gt;點擊切換成黑色&lt;/button&gt;</code></pre>
+</div>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Note:可以使用$event，傳入事件</p>
+</div>
+</blockquote>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="../image/html_ex3.gif" alt="html_ex3"></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_change_detection">Change Detection</h3>
+<div class="paragraph">
+<p>Change Detection 在以下情況下觸發：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>事件觸發。</p>
+</li>
+<li>
+<p>非同步操作完成。</p>
+</li>
+<li>
+<p>手動觸發 <code>ChangeDetectorRef.detectChanges()</code>。</p>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_component_communication">Component Communication</h4>
+<div class="paragraph">
+<p>Angular 提供了 <code>@Input</code> 和 <code>@Output</code> 來處理元件之間的通訊。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_input">@Input</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
+    selector: 'app-user',
+    template: `
+        &lt;p&gt;The user's occupation is {{ occupation }}&lt;/p&gt;
+    `
+})
+export class UserComponent {
+    @Input() occupation = '';
 }</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_指定元件的_css_選擇器">指定元件的 CSS 選擇器</h4>
+<h4 id="_output">@Output</h4>
 <div class="paragraph">
-<p>每個元件都需要一個 CSS 選擇器，用來指示 Angular 在遇到對應標籤時，實例化元件。</p>
+<p>1.傳入事件</p>
+</div>
+<div class="paragraph">
+<p>使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter，
+父層</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code class="language-html" data-lang="html">//樣板
+&lt;p&gt;my name is {{myName}} &lt;/p&gt;
+&lt;app-child (updateNameFun)="updateName($event)"&gt;&lt;/app-child&gt;
+//組件
+updateName(inputName:string){
+    this.myName = inputName;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>子層</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-component-overview',
-})</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_定義一個元件的樣板">定義一個元件的樣板</h4>
-<div class="paragraph">
-<p>樣板是用來渲染元件的 HTML，可以透過 templateUrl 引用外部檔案，或直接使用 template 在元件中定義。</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-component-overview',
-    template: '&lt;h1&gt;Hello World!&lt;/h1&gt;',
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>如果樣板跨多行，可以使用反引號（``）包起來：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-component-overview',
-    template: `
-        &lt;h1&gt;Hello World!&lt;/h1&gt;
-        &lt;p&gt;This template definition spans multiple lines...&lt;/p&gt;
-    `
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>要把樣板定義為外部檔案，就要把 <code>templateUrl</code> 新增到 <code>@Component</code> 裝飾器中。</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-component-overview',
-    templateUrl: './component-overview.component.html',
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Angular 元件需要一個用 <code>template</code> 或 <code>templateUrl</code> 定義的樣板。但你不能在元件中同時擁有這兩個語句。</p>
-</div>
-<div class="paragraph">
-<p>簡單來說: 每個元件都要設定一個 <code>template</code>，但有兩種方式：
-- <code>template</code> 是一個直接寫在元件內的 HTML。
-- <code>templateUrl</code> 是一個外部檔案的位址。</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_宣告元件的樣式">宣告元件的樣式</h4>
-<div class="paragraph">
-<p>如同上方設定樣板，你可以透過以下方式宣告樣式：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-component-overview',
-    styleUrls: ['./component-overview.component.css']
-})</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>若要設定多個樣式檔案，可以用陣列：</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-component-overview',
-    styleUrls: ['./styles1.css', './styles2.css']
-})</code></pre>
+    selector: 'app-child',
+    styles: `.btn { padding: 5px; }`,
+    template: `&lt;input type="text" (change)="addItem($event)" /&gt;`,
+    standalone: true,
+})
+export class ChildComponent {
+    @Output() updateNameFun = new EventEmitter&lt;string&gt;();//在angular中，this會幫指向組件，必須用$event才能指向觸發事件
+    //當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入，最後透過EventEmitter將事件發送回去再附加傳入值
+    addItem(e:any) {
+        this.updateNameFun.emit(e.target.value);
+    }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -588,7 +727,7 @@ export class ComponentOverviewComponent {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 22:29:48 +0800
+Last updated 2024-10-28 22:23:01 +0800
 </div>
 </div>
 </body>
