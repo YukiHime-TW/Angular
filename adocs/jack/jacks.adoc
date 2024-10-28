@@ -413,18 +413,186 @@ export const appConfig: ApplicationConfig = {
 
 [source,javascript]
 ----
-@Component({
-  selector: 'app-root',
-  template: `
-    <nav>
-      <a routerLink="/">Home</a>
-      |
-      <a routerLink="/user">User</a>
-    </nav>
-    <router-outlet></router-outlet> 
-  `
-})
+export const routes: Routes = [
+    {
+        path: '',
+        title: 'App Home Page',
+        component: HomeComponent,
+      },
+      {
+        path: 'user',
+        title: 'App User Page',
+        component: UserComponent,
+        children : [
+          {
+            path: 'gender',
+            component: GenderComponent
+          },
+          {
+            path: 'mail',
+            component:MailComponent
+          }
+        ]
+      }
+   
+];
+
+ // user template
+ <h2>Profile Form</h2>
+<a routerLink="mail">點我看信箱</a>
+|
+<a routerLink="gender">點我看性別</a>
+<router-outlet />
+
 ----
+
+== AuthGuard
+
+[cols="1,2,2", options="header"]
+|===
+| 守衛類型 | 功能 | 常見用途
+
+| `CanActivate`
+| 控制路由進入
+| 保護特定路由，防止未登入使用者訪問
+
+| `CanActivateChild`
+| 控制子路由進入
+| 父路由下的所有子路由統一訪問控制
+
+| `CanDeactivate`
+| 控制是否允許離開當前路由
+| 提示未保存的表單或未完成的編輯
+
+| `Resolve`
+| 執行路由前的數據載入
+| 確保頁面渲染前已獲取到資料（例如 API 請求）
+
+| `CanLoad`
+| 控制是否加載模組（通常為懶加載模組）
+| 防止未登入的使用者加載整個模組
+|===
+
+
+=== 登入
+
+可能會需要處理沒有登入導回其他頁的狀況
+1.執行
+`ng generate guard auth`
+2.選擇CanActivate，會幫你產生auth.guard.ts檔案，在裡面實作邏輯
+
+----
+import { CanActivateFn, Router } from '@angular/router';
+import { inject } from '@angular/core';
+
+export const authGuard: CanActivateFn = (route, state) => {
+  const router = inject(Router); // 注入 Router 依賴
+  const isLoggedIn = !!localStorage.getItem('token');
+
+  if (isLoggedIn) {
+    return true;
+  } else {
+    router.navigate(['/']); // 將未登入使用者導向首頁
+    return false;
+  }
+};
+----
+3.在路由套用這個設定
+這樣在這個路由底下如果沒有登入，就會被導回首頁
+
+----
+
+export const routes: Routes = [
+    {
+        path: '',
+        title: 'App Home Page',
+        component: HomeComponent,
+      },
+      {
+        path: 'user',
+        title: 'App User Page',
+        component: UserComponent,
+        canActivate: [authGuard],
+        children : [
+          {
+            path: 'gender',
+            component: GenderComponent
+          },
+          {
+            path: 'mail',
+            component:MailComponent
+          }
+        ]
+      }
+   
+];
+
+----
+
+
+=== reslove
+用於渲染前先載入資料
+
+1.為了要可以注入，在config中的provider加入provideHttpClient()
+
+----
+ providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideClientHydration()
+    ,     [provideRouter(routes,withComponentInputBinding())],
+    provideHttpClient(),
+  ]
+----
+2.建立reslove檔案
+
+----
+
+import { Injectable } from '@angular/core';
+import { Resolve } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProductResolver implements Resolve<any> {
+  constructor(private http: HttpClient) {}
+
+  resolve(): Observable<any> {
+    return this.http.get('http://localhost:8080/hwajax/prod/getProd');
+  }
+}
+
+----
+
+3.將reslove加入在路由裡面
+
+----
+
+ {
+        path: 'product',
+        component: ProductComponent,
+        resolve: { productData: ProductResolver },
+      },
+
+----
+
+4.在元件內取用資料
+
+----
+
+export class ProductComponent  implements OnInit{
+  productData: any;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    //在元件生成時，即取用資料
+    this.productData = this.route.snapshot.data['productData'];
+  }
+}
+
+----
+
+
 
 == Forms
 
