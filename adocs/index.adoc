@@ -10,7 +10,7 @@
 * link:Component_Structure.html[元件結構詳解]
 * link:Property_Binding.html[屬性綁定]
 * link:Routing.html[設定路由]
-* link:tools.html[工具介紹]
+* link:Tools.html[工具介紹]
 
 == 雜項 踩雷紀錄
 
