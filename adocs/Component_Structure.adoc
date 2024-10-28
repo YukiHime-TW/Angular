@@ -364,19 +364,6 @@ export class ItemComponent {
 Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。
 
-==== Selector進階說明
-
-在Component裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
-
-==== Selector的類型
-
-|===
-| 類型 | 描述 | 範例
-| Type Selector | Compoent會像 HTML 標籤一樣被使用。 | `app-menu-list` 
-| Attribute Selector | Compoent將作為屬性（attribute selector）。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。 | `[dropzone]` `[type="reset"]`
-| Class Selector| Components會使用 CSS Class 的方式附加到一個現有的HTML元素上 | `.app-menu-list` 
-|===
-
 
 ==== Component 裝飾器
 
@@ -390,6 +377,18 @@ Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 6. `standalone`: 若為 `true`，此元件為獨立元件，不依賴其他模組。
 7. `encapsulation`: 設定樣式隔離的範圍。
 
+==== Selector進階說明
+
+在Component裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
+
+==== Selector的類型
+
+|===
+| 類型 | 描述 | 範例
+| Type Selector | Compoent會像 HTML 標籤一樣被使用。 | `app-menu-list` 
+| Attribute Selector | Compoent將作為屬性（attribute selector）。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。 | `[dropzone]` `[type="reset"]`
+| Class Selector| Components會使用 CSS Class 的方式附加到一個現有的HTML元素上 | `.app-menu-list` 
+|===
 
 ==== Component類別簡單範例
 
