@@ -193,7 +193,16 @@ Angular 組件的模板文件，負責定義類別組件的視圖結構，透過
 +
 [source,typescript]
 ----
- export class AppComponent {
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
+export class AppComponent {
   title = 'test-app';
   userName = 'John';
 }
@@ -208,7 +217,7 @@ Angular 組件的模板文件，負責定義類別組件的視圖結構，透過
 ----
 +
 image:../image/html_ex1.png[html_ex1]
-+
+
 * **屬性綁定:** [property]="componentAttribute"
 +
 將組件中的資料綁定到HTML元素的屬性上，讓屬性值可以動態更新
@@ -217,18 +226,30 @@ image:../image/html_ex1.png[html_ex1]
 +
 [source,typescript]
 ----
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
 export class AppComponent {
   title = 'test-app';
   color = "color: #26b72a";
 }
+
 ----
 +
 *app.component.html*
 +
 [source,html]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 ----
++
+image:../image/html_ex2.png[html_ex2]
 
 * **事件綁定:**
 +
@@ -255,7 +276,8 @@ export class AppComponent {
 <p [style]="color">{{ title }}</p>
 <button (click)="onClick()">點擊切換成黑色</button>
 ----
-
++
+image:../image/html_ex3.gif[html_ex3]
 
 * **雙向資料綁定:** [(ngModel)]="property"
 +
