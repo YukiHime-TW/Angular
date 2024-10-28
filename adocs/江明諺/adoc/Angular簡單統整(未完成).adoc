@@ -207,6 +207,8 @@ Angular 組件的模板文件，負責定義類別組件的視圖結構，透過
 <p>Hello, {{ userName }}!</p>  <!--  Hello, John   -->
 ----
 +
+image:../image/html_ex1.png[html_ex1]
++
 * **屬性綁定:** [property]="componentAttribute"
 +
 將組件中的資料綁定到HTML元素的屬性上，讓屬性值可以動態更新
