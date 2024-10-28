@@ -272,3 +272,5 @@ export class ChildComponent {}
     ** 補充: link:Shadow_DOM.html[Shadow DOM]
 +
     ** 補充: link:View_Encapsulation.html[View Encapsulation]
+
+link:./Component_Structure.html[回上一頁]

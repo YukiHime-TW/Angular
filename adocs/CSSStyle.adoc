@@ -53,3 +53,5 @@
 ----
 
 :host-context(.dark-theme) 會檢查 app-child 的父級元素或祖先元素是否有 .dark-theme 類，如果有則會應用這些樣式，將 app-child 的背景設置為黑色，文字顏色設置為白色
+
+link:./Component_Structure.html[回上一頁]
