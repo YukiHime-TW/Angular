@@ -19,7 +19,7 @@
 
 但實際情況是，按下 Enter **瀏覽器**會提交表單並刷新頁面，而不會去執行監聽事件。
 
-image::../../image/Form的Input按下Enter自動送出.gif[Form的Input按下Enter自動送出]
+image::../image/Form的Input按下Enter自動送出.gif[Form的Input按下Enter自動送出]
 
 == 解決方法
 

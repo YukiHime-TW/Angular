@@ -27,14 +27,28 @@ export class ItemComponent {
 }
 ----
 
-這個元件被稱為 `ItemComponent`，他的選擇器是 `app-item` 。 +
-選擇器就像是HTML的標籤，可以把他放到其他的模板裡。 +
+這個元件被稱為 `ItemComponent`，他的選擇器(Selector)是 `app-item` 。 +
+選擇器在 `一般情況` 可以當作是HTML的客製化標籤，並且將他放到其他的模板裡。 +
 當瀏覽器渲染到選擇器時，就會把這個元件的HTML模板和CSS樣式一起渲染出來。
 
 Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。
 
-==== 元件的生命週期
+==== Selector進階說明
+
+在Compoent裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
+
+==== Selector的類型
+
+|===
+| 類型 | 描述 | 範例
+| Type Selector | Compoent會像 HTML 標籤一樣被使用。 | `app-menu-list` 
+| Attribute Selector | Compoent將作為屬性（attribute selector）。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。 | `[dropzone]` `[type="reset"]`
+| Class Selector| Components會使用 CSS Class 的方式附加到一個現有的HTML元素上 | `.app-menu-list` 
+|===
+
+
+===== 元件的生命週期
 
 當 Angular 實例化元件類別並渲染元件檢視及其子檢視時，元件實例的生命週期就開始了。生命週期一直伴隨著變更檢測，Angular 會檢查資料繫結屬性何時發生變化，並按需更新檢視和元件實例。當 Angular 銷毀元件實例並從 DOM 中移除它渲染的樣板時，生命週期就結束了。當 Angular 在執行過程中建立、更新和銷毀實例時，指令就有了類似的生命週期。
 

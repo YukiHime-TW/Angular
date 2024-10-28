@@ -7,14 +7,14 @@
 指令完成後，開啟資料夾後發現生成的檔案與原本預期的不太相同。
 
 .產生出來的檔案
-image::../../image/在設定檔加上inline與skipTest後生成.png[在Angular.json內設定inline與skipTest後的產生結果]
+image::../image/在設定檔加上inline與skipTest後生成.png[在Angular.json內設定inline與skipTest後的產生結果]
 
 
 
 原先是會預期產生以下幾個檔案
 
 .預期結果
-image::../../image/通常Generate出來的.png[沒有額外設定的情況]
+image::../image/通常Generate出來的.png[沒有額外設定的情況]
 
 然而卻是只有一個，這又是為什麼呢?原因就出在Angular.json檔的設定當中。
 
@@ -115,7 +115,7 @@ Angular 團隊建議為專案內定義的所有自訂元件使用簡短、一致
 然後我們用 `ng generate component home1` 產生一個 `typeSelector1`` 的component，會發現到 Angular CLI 幫我們在selector的前綴加上了ap。
 
 .效果
-image::../../image/selectorPrefix設定.png["selectorPrefix設定後"]
+image::../image/selectorPrefix設定.png["selectorPrefix設定後"]
 
 link:index.html[回首頁]
 
