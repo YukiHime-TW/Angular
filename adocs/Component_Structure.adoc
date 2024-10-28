@@ -2,6 +2,111 @@
 **Angular** 基於 **TypeScript** 開發，應用程式由 **元件 (Component)** 組成。 +
 每個元件包含 **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
 
+=== 建立一個新的元件
+
+ng generate component item
+該指令會建立以下內容：
+
+用於 HTML 的 item.component.html
+用於邏輯的 item.component.ts
+用於樣式的 item.component.css
+測試檔案 item.component.spec.ts
+
+==== 手動建立元件
+
+你也可以手動建立元件。方法如下：
+
+建立一個新檔案 <component-name>.component.ts。
+新增元件所需的 import 和 @Component 裝飾器。
+
+[source, javascript]
+----
+import { Component } from '@angular/core';
+
+@Component({
+    selector: 'app-component-overview',
+    templateUrl: './component-overview.component.html',
+    styleUrls: ['./component-overview.component.css']
+})
+export class ComponentOverviewComponent {
+    // 程式碼寫在這裡
+}
+----
+
+==== 指定元件的 CSS 選擇器
+
+每個元件都需要一個 CSS 選擇器，用來指示 Angular 在遇到對應標籤時，實例化元件。
+
+[source, javascript]
+----
+@Component({
+    selector: 'app-component-overview',
+})
+----
+
+==== 定義一個元件的樣板
+
+樣板是用來渲染元件的 HTML，可以透過 templateUrl 引用外部檔案，或直接使用 template 在元件中定義。
+
+[source, javascript]
+----
+@Component({
+    selector: 'app-component-overview',
+    template: '<h1>Hello World!</h1>',
+})
+----
+
+如果樣板跨多行，可以使用反引號（``）包起來：
+
+[source, javascript]
+----
+@Component({
+    selector: 'app-component-overview',
+    template: `
+        <h1>Hello World!</h1>
+        <p>This template definition spans multiple lines...</p>
+    `
+})
+----
+
+要把樣板定義為外部檔案，就要把 `templateUrl` 新增到 `@Component` 裝飾器中。
+
+[source,javascript]
+----
+@Component({
+    selector: 'app-component-overview',
+    templateUrl: './component-overview.component.html',
+})
+----
+
+Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但你不能在元件中同時擁有這兩個語句。
+
+簡單來說: 每個元件都要設定一個 `template`，但有兩種方式：
+- `template` 是一個直接寫在元件內的 HTML。
+- `templateUrl` 是一個外部檔案的位址。
+
+==== 宣告元件的樣式
+
+如同上方設定樣板，你可以透過以下方式宣告樣式：
+
+[source,javascript]
+----
+@Component({
+    selector: 'app-component-overview',
+    styleUrls: ['./component-overview.component.css']
+})
+----
+
+若要設定多個樣式檔案，可以用陣列：
+
+[source,javascript]
+----
+@Component({
+    selector: 'app-component-overview',
+    styleUrls: ['./styles1.css', './styles2.css']
+})
+----
+
 === HTML模板 (Template)
 Angular 組件的模板文件，負責定義類別組件的視圖結構，透過 Angular 的模板語法實現資料的顯示、條件渲染、事件處理等功能，並動態更新畫面，與 app.component.ts 當中的邏輯緊密結合，實現互動式的使用者界面。
 
@@ -16,15 +121,15 @@ Angular 組件的模板文件，負責定義類別組件的視圖結構，透過
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title = 'test-app';
-  userName = 'John';
+    title = 'test-app';
+    userName = 'John';
 }
 ----
 +
@@ -49,17 +154,16 @@ image:../image/html_ex1.png[html_ex1]
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title = 'test-app';
-  color = "color: #26b72a";
+    title = 'test-app';
+    color = "color: #26b72a";
 }
-
 ----
 +
 *app.component.html*
@@ -74,118 +178,114 @@ image:../image/html_ex2.png[html_ex2]
 * **事件綁定:**
 +
 當操作者觸發某個事件（點擊、鍵盤事件）時，綁定的函數會被調用
-+
+
 *app.component.ts*
-+
 [source,typescript]
 ----
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title = 'test-app';
-  color = "color: #26b72a";
+    title = 'test-app';
+    color = "color: #26b72a";
 
-  onClick() {
-    this.color = "color: #000000";
-  }
+    onClick() {
+        this.color = "color: #000000";
+    }
 }
 ----
-+
+
 *app.component.html*
-+
 [source,html]
 ----
 <h1 [style]="color">{{ title }}</h1>
 <button (click)="onClick()">點擊切換成黑色</button>
 ----
-+
+
 image:../image/html_ex3.gif[html_ex3]
 
 * **雙向資料綁定:** [(ngModel)]="property"
 +
 雙向資料綁定允許模型與視圖之間的資料同步。當模型變更時，視圖自動更新，當使用者在視圖中修改時，模型也會自動變更
-+
+
 *app.component.ts*
-+
 [source,typescript]
 ----
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms'; // 需要import FormsModule
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [FormsModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title = 'test-app';
-  color = "color: #26b72a";
+    title = 'test-app';
+    color = "color: #26b72a";
 
-  userName = '';
+    userName = '';
 }
 ----
-+
+
 *app.component.html*
-+
+
 [source,html]
 ----
 <h1 [style]="color">{{ title }}</h1>
 <input [(ngModel)]="userName" placeholder="Enter your name">
 <p>Hello, {{ userName }}!</p>
 ----
-+
+
 上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新userName屬性
-+
+
 image:../image/html_ex4.gif[html_ex4]
 
 * **條件渲染:** *ngIf
-+
+
 根據條件來顯示或隱藏 HTML 元素
-+
+
 *app.component.ts*
-+
 [source,typescript]
 ----
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 需要import CommonModule
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title = 'test-app';
-  color = "color: #26b72a";
+    title = 'test-app';
+    color = "color: #26b72a";
 
-  isLoggedIn = false;
-  userName = 'John';
+    isLoggedIn = false;
+    userName = 'John';
 
-  onClick() {
-    if (this.isLoggedIn) {
-      this.isLoggedIn = false
-    } else {
-      this.isLoggedIn = true
+    onClick() {
+        if (this.isLoggedIn) {
+            this.isLoggedIn = false
+        } else {
+            this.isLoggedIn = true
+        }
     }
-  }
 }
 ----
-+
+
 *app.component.html*
-+
+
 [source,html]
 ----
 <h1 [style]="color">{{ title }}</h1>
@@ -194,61 +294,61 @@ export class AppComponent {
 <p *ngIf="isLoggedIn">Welcome back, {{ userName }}!</p>
 <p *ngIf="!isLoggedIn">Please log in.</p>
 ----
-+
+
 或是使用 *@if* 語法也可實現條件渲染(Angular 17)
-+
+
 *app.component.html*
-+
+
 [source,typescript]
 ----
 <h1 [style]="color">{{ title }}</h1>
 <button (click)="onClick()">切換登入</button>
 
 @if (isLoggedIn) {
-  <p>Welcome back, {{ userName }}!</p>
+    <p>Welcome back, {{ userName }}!</p>
 }
 
 @if (!isLoggedIn) {
-  <p>Please log in.</p>
+    <p>Please log in.</p>
 }
 ----
-+
+
 [quote]
 ____
 使用@if語法不需要匯入`CommonModule`
 ____
-+
+
 image:../image/html_ex5.gif[html_ex5]
 
 * **迭代渲染:** *ngFor
-+
+
 用來來迭代一個陣列，並渲染每個項目
-+
+
 *app.component.ts*
-+
+
 [source,typescript]
 ----
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // 需要import CommonModule
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+    selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
 })
 
 export class AppComponent {
-  title = 'test-app';
-  color = "color: #26b72a";
+    title = 'test-app';
+    color = "color: #26b72a";
 
-  persons = ['John', 'Jeff', 'Iris'];
+    persons = ['John', 'Jeff', 'Iris'];
 }
 ----
-+
+
 *app.component.html*
-+
+
 [source,html]
 ----
 <h1 [style]="color">{{ title }}</h1>
@@ -256,24 +356,23 @@ export class AppComponent {
   <li *ngFor="let person of persons">{{ person }}</li>
 </ul>
 ----
-+
+
 或是使用 *@for* 語法也可實現條件渲染
-+
 [source,html]
 ----
 <h1 [style]="color">{{ title }}</h1>
 <ul>
-  @for (person of persons; track person) {
-    <li>{{ person }}</li>
-  }
+    @for (person of persons; track person) {
+        <li>{{ person }}</li>
+    }
 </ul>
 ----
-+
+
 [quote]
 ____
 使用@for語法不需要匯入`CommonModule`
 ____
-+
+
 image:../image/html_ex6.png[html_ex6]
 
 === CSS樣式 (Style)
@@ -282,13 +381,13 @@ image:../image/html_ex6.png[html_ex6]
 ==== :host & :host-context
 
 . :host
-+
+
     - :host是css裡的偽類，用來定義宿主元素(也就是index.html當中的<app-root>)的樣式
-+   
+   
 *簡單範例:*
-+
+
 *css*
-+
+[source,css]
 ----
 :host {
     display: block;
@@ -297,43 +396,40 @@ image:../image/html_ex6.png[html_ex6]
     background-color: lightblue;
 }
 ----
-+
+
 *html*
-+
+[source,html]
 ----
 <body>
-  <app-root></app-root>
+    <app-root></app-root>
 </body>
 ----
-+
+
 若selector屬性為app-root，上述的<app-root>標籤就會套用到:host的樣式
 
 . host-context
-+
-- :host-context 選擇器用來根據組件的外部上下文環境來設置樣式，當組件的祖先元素（或父元素）滿足特定條件時，該選擇器可以應用樣式到組件本身或其內部元素
-+
+    - :host-context 選擇器用來根據組件的外部上下文環境來設置樣式，當組件的祖先元素（或父元素）滿足特定條件時，該選擇器可以應用樣式到組件本身或其內部元素
+
 *簡單範例*: 當使用者選擇了黑暗模式，所有的元件都應該要改成黑色背景白色文字 
-+
+
 *css*
-+
 [source,css]
 ----
 /* child.component.css */
 :host-context(.dark-theme) {
-  background-color: black;
-  color: white;
+    background-color: black;
+    color: white;
 }
 ----
-+
+
 *html*
-+
 [source,html]
 ----
 <div class="dark-theme">
-  <app-child></app-child>
+    <app-child></app-child>
 </div>
 ----
-+
+
 :host-context(.dark-theme) 會檢查 app-child 的父級元素或祖先元素是否有 .dark-theme 類，如果有則會應用這些樣式，將 app-child 的背景設置為黑色，文字顏色設置為白色
 
 === 類別 (Class)
@@ -363,7 +459,6 @@ export class ItemComponent {
 
 Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。
-
 
 ==== Component 裝飾器
 
@@ -397,7 +492,7 @@ Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 [source,typescript]
 ----
 export class AppComponent {
-  title = 'test-app';
+    title = 'test-app';
 }
 ----
 
@@ -413,19 +508,19 @@ export class AppComponent {
 [source,typescript]
 ----
 export class AppComponent {
-  title = 'app-root';
-  userName = 'John';
-  isLoggedIn = false;
+    title = 'app-root';
+    userName = 'John';
+    isLoggedIn = false;
 
-  // 變更使用者登入狀態
-  toggleLoginStatus() {
-    this.isLoggedIn = !this.isLoggedIn;
-  }
+    // 變更使用者登入狀態
+    toggleLoginStatus() {
+        this.isLoggedIn = !this.isLoggedIn;
+    }
 
-  // 設定新的使用者名稱
-  changeUserName(newName: string) {
-    this.userName = newName;
-  }
+    // 設定新的使用者名稱
+    changeUserName(newName: string) {
+        this.userName = newName;
+    }
 }
 ----
 
@@ -436,7 +531,7 @@ export class AppComponent {
 <h1>{{ title }}</h1>
 <p>User: {{ userName }}</p>
 <button (click)="toggleLoginStatus()">
-  {{ isLoggedIn ? 'Logout' : 'Login' }}
+    {{ isLoggedIn ? 'Logout' : 'Login' }}
 </button>
 ----
 
@@ -445,23 +540,23 @@ export class AppComponent {
 [source,typescript]
 ----
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'test-app';
-  data: any;
+    title = 'test-app';
+    data: any;
 
-  ngOnInit() {
-    // 初始化，通常用來取得資料
-    console.log('Component initialized');
-    this.data = this.fetchData();
-  }
+    ngOnInit() {
+        // 初始化，通常用來取得資料
+        console.log('Component initialized');
+        this.data = this.fetchData();
+    }
 
-  ngOnDestroy() {
-    // 當組件銷毀時執行
-    console.log('Component destroyed');
-  }
+    ngOnDestroy() {
+        // 當組件銷毀時執行
+        console.log('Component destroyed');
+    }
 
-  fetchData() {
-    return { message: 'I love systex' };
-  }
+    fetchData() {
+        return { message: 'I love systex' };
+    }
 }
 ----
 
@@ -612,131 +707,4 @@ export class ChildComponent {}
 +
     ** 補充: link:View_Encapsulation.html[View Encapsulation]
 
-
 link:index.html[回首頁]
-
-== 建立一個新的元件
-
-ng generate component item
-該指令會建立以下內容：
-
-用於 HTML 的 item.component.html
-用於邏輯的 item.component.ts
-用於樣式的 item.component.css
-測試檔案 item.component.spec.ts
-=== 手動建立元件
-
-你也可以手動建立元件。方法如下：
-
-建立一個新檔案 <component-name>.component.ts。
-新增元件所需的 import 和 @Component 裝飾器。
-
-[source, javascript]
-----
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-component-overview',
-  templateUrl: './component-overview.component.html',
-  styleUrls: ['./component-overview.component.css']
-})
-export class ComponentOverviewComponent {
-  // 程式碼寫在這裡
-}
-----
-
-=== 指定元件的 CSS 選擇器
-
-每個元件都需要一個 CSS 選擇器，用來指示 Angular 在遇到對應標籤時，實例化元件。
-
-[source, javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-})
-----
-=== 定義一個元件的樣板
-
-樣板是用來渲染元件的 HTML，可以透過 templateUrl 引用外部檔案，或直接使用 template 在元件中定義。
-
-[source, javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  template: '<h1>Hello World!</h1>',
-})
-如果樣板跨多行，可以使用反引號（``）包起來：
-----
-[source, javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  template: `
-    <h1>Hello World!</h1>
-    <p>This template definition spans multiple lines...</p>
-  `
-})
-----
-
-要把樣板定義為外部檔案，就要把 `templateUrl` 新增到 `@Component` 裝飾器中。
-
-[source,javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  templateUrl: './component-overview.component.html',
-})
-----
-
-要在元件中定義樣板，就要把一個 `template` 屬性新增到 `@Component` 中，該屬性的內容是要使用的 HTML。
-
-[source,javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  template: '<h1>Hello World!</h1>',
-})
-----
-
-如果你想讓樣板跨越多行，可以使用反引號（`）。比如：
-
-[source,javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  template: `
-    <h1>Hello World!</h1>
-    <p>This template definition spans multiple lines.</p>
-  `
-})
-----
-
-Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但你不能在元件中同時擁有這兩個語句。
-
-
-簡單來說: 每個元件都要設定一個 `template`，但有兩種方式：
-- `template` 是一個直接寫在元件內的 HTML。
-- `templateUrl` 是一個外部檔案的位址。
-
-=== 宣告元件的樣式
-
-如同上方設定樣板，你可以透過以下方式宣告樣式：
-
-[source,javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  styleUrls: ['./component-overview.component.css']
-})
-----
-
-若要設定多個樣式檔案，可以用陣列：
-
-[source,javascript]
-----
-@Component({
-  selector: 'app-component-overview',
-  styleUrls: ['./styles1.css', './styles2.css']
-})
-----
-
