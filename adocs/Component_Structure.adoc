@@ -36,7 +36,7 @@ Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 
 ==== Selector進階說明
 
-在Compoent裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
+在Component裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
 
 ==== Selector的類型
 
