@@ -219,32 +219,203 @@ Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但
 7. `ngAfterViewChecked`: 每次檢查元件視圖後執行。
 8. `ngOnDestroy`: 元件即將被銷毀時執行。
 
-== @if 和 @for 的使用
+== control flow(控制流)
 
 在 Angular 中，你可以使用控制流來處理條件和迴圈。
 
-=== @if
+= Angular 17+ 新控制流語法參考
+
+[cols="1,2,1,2",options="header"]
+|===
+|
+語法
+|
+用途
+|
+舊語法對比
+|
+範例
+
+|
+@if
+|
+條件渲染
+|
+*ngIf
+|
+`
+@if (condition) { <div>顯示內容</div> }
+`
+
+|
+@else
+|
+條件渲染的替代內容
+|
+*ngIf else
+|
+`
+@else { <div>替代內容</div> }
+`
+
+|
+@for
+|
+列表渲染
+|
+*ngFor
+|
+`
+@for (item of items; track item.id) { <div>{{item.name}}</div> }
+`
+
+|
+@empty
+|
+空列表處理
+|
+無對應
+|
+`
+@empty {
+  <li aria-hidden="true"> There are no items. </li>
+}
+`
+
+|
+@switch
+|
+多條件分支
+|
+*ngSwitch
+|
+`
+@switch (condition) { @case (value) {...} }
+`
+
+|
+@defer
+|
+延遲加載
+|
+無對應
+|
+`
+@defer { <heavy-component /> }
+`
+|===
+
+
+== 詳細說明與範例
+
+=== @if 條件渲染
 
 [source,javascript]
 ----
-@if (isServerRunning) {
-  <p>Yes, the server is running!</p>
-}
-@else {
-  <p>No, the server is shut down.</p>
+@if (user.isAdmin) {
+  <admin-panel />
+} @else if (user.isManager) {
+  <manager-panel />
+} @else {
+  <user-panel />
 }
 ----
 
-=== @for
-
-Note: 使用 `track` 是必要的，你可以使用 id 或其他唯一標識符。
+=== @for 迭代渲染
 
 [source,javascript]
 ----
 @for (user of users; track user.id) {
-  <p>{{ user.name }}</p>
+  <div class="user-card">
+    <h3>{{user.name}}</h3>
+    <p>{{user.email}}</p>
+  </div>
+} @empty {
+  <div>目前沒有用戶</div>
 }
 ----
+
+=== @switch 多條件分支
+
+[source,javascript]
+----
+@switch (user.role) {
+  @case ('admin') {
+    <admin-view />
+  }
+  @case ('user') {
+    <user-view />
+  }
+  @default {
+    <guest-view />
+  }
+}
+----
+
+=== @defer 延遲加載
+
+1.基本概念：
+[source,javascript]
+----
+@defer {
+    <heavy-component />  // 延遲加載的組件
+} @placeholder {
+    <loading-spinner />  // 加載時顯示的內容
+} @error {
+    <error-message />   // 加載失敗時顯示的內容
+}
+----
+
+2.觸發方式：
+
+----
+// 1. 視窗可見時加載
+@defer (on viewport) {
+    <heavy-component />
+}
+
+// 2. 滑鼠懸停時加載
+@defer (on hover) {
+    <heavy-component />
+}
+
+// 3. 點擊時加載
+@defer (on click) {
+    <heavy-component />
+}
+
+// 4. 空閒時加載
+@defer (on idle) {
+    <heavy-component />
+}
+
+// 5. 立即加載但非阻塞
+@defer (when immediate) {
+    <heavy-component />
+}
+
+// 6. 自定義條件加載
+@defer (when condition) {
+    <heavy-component />
+}
+
+----
+
+
+== 主要優點
+
+* 更簡潔的語法
+* 更好的型別檢查
+* 更優的效能
+* 更直觀的程式結構
+* 更容易維護和閱讀
+
+== 注意事項
+
+* 新語法需要 Angular 17 或更高版本
+* 舊語法 (*ngIf, *ngFor 等) 仍然支援，但建議在新專案中使用新語法
+* track 表達式在 @for 循環中是必需的
+* @defer 支援多種觸發條件（on viewport, on hover 等）
 
 == Property Binding in Angular
 
