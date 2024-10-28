@@ -5,7 +5,9 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template:`
-    <div>This is a menu item component</div>
+    <div>
+      <ng-content></ng-content>
+    </div>
   `,
   styles: `
     div {
