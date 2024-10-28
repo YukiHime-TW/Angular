@@ -259,6 +259,15 @@ image:../image/html_ex2.png[html_ex2]
 +
 [source,typescript]
 ----
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
 export class AppComponent {
   title = 'test-app';
   color = "color: #26b72a";
@@ -273,7 +282,7 @@ export class AppComponent {
 +
 [source,html]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 <button (click)="onClick()">點擊切換成黑色</button>
 ----
 +
@@ -287,6 +296,17 @@ image:../image/html_ex3.gif[html_ex3]
 +
 [source,typescript]
 ----
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // 需要import FormsModule
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [FormsModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
 export class AppComponent {
   title = 'test-app';
   color = "color: #26b72a";
@@ -299,12 +319,14 @@ export class AppComponent {
 +
 [source,html]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 <input [(ngModel)]="userName" placeholder="Enter your name">
 <p>Hello, {{ userName }}!</p>
 ----
 +
 上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新userName屬性
++
+image:../image/html_ex4.gif[html_ex4]
 
 * **條件渲染:** *ngIf
 +
@@ -314,6 +336,17 @@ export class AppComponent {
 +
 [source,typescript]
 ----
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // 需要import CommonModule
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
 export class AppComponent {
   title = 'test-app';
   color = "color: #26b72a";
@@ -335,20 +368,20 @@ export class AppComponent {
 +
 [source,html]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 <button (click)="onClick()">切換登入</button>
 
 <p *ngIf="isLoggedIn">Welcome back, {{ userName }}!</p>
 <p *ngIf="!isLoggedIn">Please log in.</p>
 ----
 +
-或是使用 *@if* 語法也可實現條件渲染
+或是使用 *@if* 語法也可實現條件渲染(Angular 17)
 +
 *app.component.html*
 +
 [source,typescript]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 <button (click)="onClick()">切換登入</button>
 
 @if (isLoggedIn) {
@@ -359,6 +392,13 @@ export class AppComponent {
   <p>Please log in.</p>
 }
 ----
++
+[quote]
+____
+使用@if語法不需要匯入`CommonModule`
+____
++
+image:../image/html_ex5.gif[html_ex5]
 
 * **迭代渲染:** *ngFor
 +
@@ -368,6 +408,17 @@ export class AppComponent {
 +
 [source,typescript]
 ----
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // 需要import CommonModule
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css'
+})
+
 export class AppComponent {
   title = 'test-app';
   color = "color: #26b72a";
@@ -380,7 +431,7 @@ export class AppComponent {
 +
 [source,html]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 <ul>
   <li *ngFor="let person of persons">{{ person }}</li>
 </ul>
@@ -390,14 +441,20 @@ export class AppComponent {
 +
 [source,html]
 ----
-<p [style]="color">{{ title }}</p>
+<h1 [style]="color">{{ title }}</h1>
 <ul>
   @for (person of persons; track person) {
     <li>{{ person }}</li>
   }
 </ul>
 ----
-
++
+[quote]
+____
+使用@for語法不需要匯入`CommonModule`
+____
++
+image:../image/html_ex6.png[html_ex6]
 
 === CSS樣式 (Style)
 在Angular中的樣式組件是用來為特定的組件設計樣式
