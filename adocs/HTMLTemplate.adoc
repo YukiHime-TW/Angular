@@ -266,4 +266,7 @@ ____
 
 image:../image/html_ex6.png[html_ex6]
 
+- 補充: 控制流 (Control Flow)
+    link:./Control_Flow.html[Control Flow]
+
 link:./Component_Structure.html[回上一頁]
