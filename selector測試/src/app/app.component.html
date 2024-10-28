@@ -7,16 +7,29 @@
 <!-- * * * * * * * to get started with your project! * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
+
+
 <main class="main">
-  <header>
-    <div><a [routerLink]="['/']">首頁</a></div>
-    <div><a [routerLink]="['/selector']">Type Selector 與 Attribute Selector 與 Table</a></div>
+  <header class="header">
+    <div class="container">
+      <h1>Select 測試</h1>
+      <nav class="navbar">
+        <ul>
+          <li><a [routerLink]="['/']">首頁</a></li>
+          <li><a [routerLink]="['/selector']">Type Selector 與 Attribute Selector 與 Table</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
   <br />
   <section class="content">
     <router-outlet />
 
   </section>
+
+  @if (false) {
+    <div>1</div>
+  }
 </main>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
