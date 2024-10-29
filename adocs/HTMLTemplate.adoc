@@ -212,4 +212,4 @@ export class ChildComponent {
 }
 ----
 
-link:index.html[回首頁]
+link:Class.html[回上一頁]
