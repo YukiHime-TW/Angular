@@ -683,8 +683,10 @@ export class UserComponent {
 <p>1.傳入事件</p>
 </div>
 <div class="paragraph">
-<p>使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter，
-父層</p>
+<p>使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter<br></p>
+</div>
+<div class="paragraph">
+<p>父層</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -702,7 +704,7 @@ updateName(inputName:string){
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
+<pre class="highlight"><code class="language-typecript" data-lang="typecript">@Component({
     selector: 'app-child',
     styles: `.btn { padding: 5px; }`,
     template: `&lt;input type="text" (change)="addItem($event)" /&gt;`,
@@ -727,7 +729,7 @@ export class ChildComponent {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 22:23:01 +0800
+Last updated 2024-10-29 09:11:29 +0800
 </div>
 </div>
 </body>

@@ -180,7 +180,8 @@ export class UserComponent {
 ==== @Output
 1.傳入事件
 
-使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter，
+使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter +
+
 父層
 [source,html]
 ----
@@ -194,7 +195,7 @@ updateName(inputName:string){
 ----
 
 子層
-[source,javascript]
+[source,typecript]
 ----
 @Component({
     selector: 'app-child',
