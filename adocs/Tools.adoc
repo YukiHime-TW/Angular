@@ -1,8 +1,10 @@
-== Forms
+== 工具介紹
+
+=== Forms
 
 你可以使用 `ReactiveFormsModule` 或 `FormsModule` 來處理表單的資料繫結和驗證。
 
-== Reactive Forms
+=== Reactive Forms
 
 1.在 component 中定義這個表單擁有的屬性：
 
@@ -41,7 +43,7 @@ export class UserComponent {
 // 要提交表單，則在 form 標籤上加上 (ngSubmit)="handleSubmit()"
 ----
 
-== Validators
+=== Validators
 
 1.在 component 中匯入 Validators：
 [source,javascript]
@@ -62,23 +64,23 @@ profileForm = new FormGroup({
 <button type="submit" [disabled]="!profileForm.valid">Submit</button>
 ----
 
-== Dependency Injection
+=== Dependency Injection
 Angular 可以在執行期間注入你要的 service 或 resource。
 
-=== Creating an Injectable Service
+==== Creating an Injectable Service
 
 在類別上標示 `@Injectable` 讓它可以被其他地方注入。
 
-==== 參數
+===== 參數
 - `providedIn` -> (scope)
 
-===== scope
+====== scope
 - 'root' : 整個應用程式
 - 'platform' :所有頁面上的應用程式共享一個特殊的單例平台注入器
 - 'any' : 在每個延遲加載的模組中提供一個唯一的實例，而所有提前加載的模組則共享一個實例。This option is DEPRECATED。
 - 'null' : 等同於undefined，不會自動注入在任何地方，你必須加入在providers陣列裡面，在 @NgModule 或 @Component、@Directive上
 
-==== 範例
+===== 範例
 
 .Service
 
@@ -139,7 +141,7 @@ export class AppComponent {
 }
 ----
 
-== Pipes
+=== Pipes
 
 Pipes 是一個純函式，作用於 template (`{{}}`) 中，不會產生副作用。Angular 也提供一些內建的 pipe，下面是使用 Angular 提供的 pipe 和自定義 pipe 的範例。
 
