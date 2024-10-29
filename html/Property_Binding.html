@@ -665,14 +665,19 @@ export class AppComponent {
 <h3 id="_input">@Input</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
-    selector: 'app-user',
-    template: `
-        &lt;p&gt;The user's occupation is {{ occupation }}&lt;/p&gt;
-    `
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">
+//父樣板
+ <app-user name="Simran" />
+//子元件
+@Component({
+  selector: 'app-user',
+  template: `
+    <p>The user's name is {{ name }}</p>
+  `,
+  standalone: true,
 })
 export class UserComponent {
-    @Input() occupation = '';
+  @Input() name = '';
 }</code></pre>
 </div>
 </div>
