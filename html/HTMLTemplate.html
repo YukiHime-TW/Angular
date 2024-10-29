@@ -661,20 +661,24 @@ export class AppComponent {
 <p>Angular 提供了 <code>@Input</code> 和 <code>@Output</code> 來處理元件之間的通訊。</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_input">@Input</h4>
+</div>
+<div class="sect2">
+<h3 id="_input">@Input</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">@Component({
+<pre class="highlight"><code class="language-javascript" data-lang="javascript">//父樣板
+    &lt;app-user name="Simran" /&gt;
+//子元件
+@Component({
     selector: 'app-user',
     template: `
-        &lt;p&gt;The user's occupation is {{ occupation }}&lt;/p&gt;
-    `
+        &lt;p&gt;The user's name is {{ name }}&lt;/p&gt;
+    `,
+    standalone: true,
 })
 export class UserComponent {
-    @Input() occupation = '';
+    @Input() name = '';
 }</code></pre>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -729,7 +733,7 @@ export class ChildComponent {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-29 09:13:50 +0800
+Last updated 2024-10-29 09:31:08 +0800
 </div>
 </div>
 </body>
