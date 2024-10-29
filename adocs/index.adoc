@@ -8,7 +8,6 @@
 * link:Project_Setup.html[專案建立與啟動]
 * link:Directory_Structure.html[目錄結構介紹]
 * link:Component_Structure.html[元件結構詳解]
-* link:Property_Binding.html[屬性綁定]
 * link:Routing.html[設定路由]
 * link:Tools.html[工具介紹]
 
