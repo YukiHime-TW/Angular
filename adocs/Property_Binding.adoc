@@ -160,15 +160,20 @@ Angular 提供了 `@Input` 和 `@Output` 來處理元件之間的通訊。
 
 [source,javascript]
 ----
+//父樣板
+ <app-user name="Simran" />
+//子元件
 @Component({
-    selector: 'app-user',
-    template: `
-        <p>The user's occupation is {{ occupation }}</p>
-    `
+  selector: 'app-user',
+  template: `
+    <p>The user's name is {{ name }}</p>
+  `,
+  standalone: true,
 })
 export class UserComponent {
-    @Input() occupation = '';
+  @Input() name = '';
 }
+
 ----
 
 === @Output
