@@ -666,12 +666,12 @@ export class AppComponent {
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code class="language-javascript" data-lang="javascript">//父樣板
- <app-user name="Simran" />
+ &lt;app-user name="Simran" /&gt;
 //子元件
 @Component({
   selector: 'app-user',
   template: `
-    <p>The user's name is {{ name }}</p>
+    &lt;p&gt;The user's name is {{ name }}&lt;/p&gt;
   `,
   standalone: true,
 })
@@ -730,7 +730,7 @@ export class ChildComponent {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-10-28 22:22:56 +0800
+Last updated 2024-10-29 09:22:44 +0800
 </div>
 </div>
 </body>
