@@ -20,7 +20,7 @@ Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
 
 === 檢視生成的CSS
 
-使用 `ViewEncapsulation.Emulated` 時，Angular會預先處理所有元件的樣式，以便它們僅應用於元件的檢視。
+使用 `ViewEncapsulation.Emulated` 時，Angular會預先處理所有元件的樣式，以便它們僅應用於元件的View。
 
 在正在執行的Angular應用程式中的DOM中，使用Emulated模式的元件的樣式看起來像這樣:
 
@@ -126,7 +126,7 @@ image:../image/emulated-encapsulation.png[ViewEncapsulation.Emulated]
 +
 與 `ViewEncapsulation.None` 類似，Angular 會將此元件的樣式新增到文件的 `<head>` 中，但它們是帶有『作用域』的樣式。
 +
-只有直接在該組件樣板中的元素才會對應其樣式。由於來自 `EmulatedEncapsulationComponent` 的樣式是特化的，因此它們會覆蓋來自 `NoEncapsulationComponent` 的全域樣式。
+只有直接在該元件樣板中的元素才會對應其樣式。由於來自 `EmulatedEncapsulationComponent` 的樣式是特化的，因此它們會覆蓋來自 `NoEncapsulationComponent` 的全域樣式。
 +
 在此範例中，`EmulatedEncapsulationComponent` 包含著 `NoEncapsulationComponent`，但 `NoEncapsulationComponent` 仍然如預期般生效了，因為 `EmulatedEncapsulationComponent` 的『範圍化』樣式與其樣板中的元素並不對應。
 
@@ -151,15 +151,15 @@ export class ShadowDomEncapsulationComponent {}
 Angular 僅將此元件的樣式新增到 Shadow DOM 宿主，因此它們在 Shadow DOM 之外是不可見的。
 +
 [NOTE]
-Angular 還將 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 的全域樣式新增到了 Shadow DOM 宿主中，因此這些樣式仍然可用於該組件的樣板中的元素。
+Angular 還將 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 的全域樣式新增到了 Shadow DOM 宿主中，因此這些樣式仍然可用於該元件的樣板中的元素。
 +
 image:../image/shadow-dom-encapsulation.png[ViewEncapsulation.ShadowDom]
 +
 在這個例子中，`ShadowDomEncapsulationComponent` 包含一個 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent`。
 +
-`ShadowDomEncapsulationComponent` 元件新增的樣式在該組件的整個 Shadow DOM 中都可用，在 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 中也是如此。
+`ShadowDomEncapsulationComponent` 元件新增的樣式在該元件的整個 Shadow DOM 中都可用，在 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 中也是如此。
 +
-`EmulatedEncapsulationComponent` 具有特化的『範圍化』樣式，因此該組件樣板的樣式不受影響。
+`EmulatedEncapsulationComponent` 具有特化的『範圍化』樣式，因此該元件樣板的樣式不受影響。
 +
 由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式之後新增到 Shadow Host 中的，因此 h2 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色，這可能不是元件作者的本意。
 

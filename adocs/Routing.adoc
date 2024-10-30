@@ -1,8 +1,8 @@
 == Routing
 
-=== 1.建立路由配置檔案
+=== 1. 建立路由配置檔案
 
-[source,javascript]
+[source,typescript]
 ----
 import { Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -14,9 +14,9 @@ export const routes: Routes = [
 ];
 ----
 
-=== 2.將路由配置置入app
+=== 2. 將路由配置置入app
 
-[source,javascript]
+[source,typescript]
 ----
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -26,9 +26,9 @@ export const appConfig: ApplicationConfig = {
 };
 ----
 
-=== 3.在要顯示的地方放上插座
+=== 3. 在要顯示的地方放上插座
 
-[source,javascript]
+[source,typescript]
 ----
 @Component({
   selector: 'app-root',
@@ -46,34 +46,33 @@ export const appConfig: ApplicationConfig = {
 == nested Routing
 真實的情況可能會在一個路由底下再包一層，形成巢狀路由
 
-[source,javascript]
+[source,typescript]
 ----
 export const routes: Routes = [
-    {
+	{
         path: '',
         title: 'App Home Page',
         component: HomeComponent,
-      },
-      {
+    },
+    {
         path: 'user',
         title: 'App User Page',
         component: UserComponent,
         children : [
-          {
+        {
             path: 'gender',
             component: GenderComponent
-          },
-          {
+        },
+        {
             path: 'mail',
             component:MailComponent
-          }
+        }
         ]
-      }
-   
+    }
 ];
 
  // user template
- <h2>Profile Form</h2>
+<h2>Profile Form</h2>
 <a routerLink="mail">點我看信箱</a>
 |
 <a routerLink="gender">點我看性別</a>
@@ -112,119 +111,123 @@ export const routes: Routes = [
 === 登入
 
 可能會需要處理沒有登入導回其他頁的狀況
-1.執行
+. 執行
++
 `ng generate guard auth`
-2.選擇CanActivate，會幫你產生auth.guard.ts檔案，在裡面實作邏輯
 
+. 選擇CanActivate，會幫你產生auth.guard.ts檔案，在裡面實作邏輯
++
+[source,typescript]
 ----
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const router = inject(Router); // 注入 Router 依賴
-  const isLoggedIn = !!localStorage.getItem('token');
+	const router = inject(Router); // 注入 Router 依賴
+	const isLoggedIn = !!localStorage.getItem('token');
 
-  if (isLoggedIn) {
-    return true;
-  } else {
-    router.navigate(['/']); // 將未登入使用者導向首頁
-    return false;
-  }
+	if (isLoggedIn) {
+		return true;
+	} else {
+		router.navigate(['/']); // 將未登入使用者導向首頁
+		return false;
+	}
 };
 ----
-3.在路由套用這個設定
+
+. 在路由套用這個設定
++
 這樣在這個路由底下如果沒有登入，就會被導回首頁
 
+[source,typescript]
 ----
-
 export const routes: Routes = [
     {
         path: '',
         title: 'App Home Page',
         component: HomeComponent,
-      },
-      {
+    },
+    {
         path: 'user',
         title: 'App User Page',
         component: UserComponent,
         canActivate: [authGuard],
         children : [
-          {
-            path: 'gender',
-            component: GenderComponent
-          },
-          {
+        {
+			path: 'gender',
+			component: GenderComponent
+        },
+        {
             path: 'mail',
             component:MailComponent
-          }
+        }
         ]
-      }
-   
+    }
 ];
-
 ----
-
 
 === resolve
 用於渲染前先載入資料
 
-1.為了要可以注入，在config中的provider加入provideHttpClient()
-
+. 為了要可以注入，在config中的provider加入provideHttpClient()
++
+[source,typescript]
 ----
- providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideClientHydration()
-    ,     [provideRouter(routes,withComponentInputBinding())],
+providers: [
+	provideZoneChangeDetection({ eventCoalescing: true }),
+	provideClientHydration(),
+	[provideRouter(routes,withComponentInputBinding())],
     provideHttpClient(),
-  ]
-----
-2.建立resolve檔案
-
+]
 ----
 
+. 建立resolve檔案
++
+[source,typescript]
+----
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root',
+	providedIn: 'root',
 })
 export class ProductResolver implements Resolve<any> {
-  constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) {}
 
-  resolve(): Observable<any> {
-    return this.http.get('http://localhost:8080/hwajax/prod/getProd');
-  }
+	resolve(): Observable<any> {
+		return this.http.get('http://localhost:8080/hwajax/prod/getProd');
+	}
 }
 
 ----
 
-3.將resolve加入在路由裡面
-
+. 將resolve加入在路由裡面
++
+[source,typescript]
+----
+{
+	path: 'product',
+    component: ProductComponent,
+    resolve: { productData: ProductResolver },
+},
 ----
 
- {
-        path: 'product',
-        component: ProductComponent,
-        resolve: { productData: ProductResolver },
-      },
-
+. 在元件內取用資料
++
+[source,typescript]
 ----
-
-4.在元件內取用資料
-
-----
-
 export class ProductComponent  implements OnInit{
-  productData: any;
+	productData: any;
 
-  constructor(private route: ActivatedRoute) {}
+	constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {
-    //在元件生成時，即取用資料
-    this.productData = this.route.snapshot.data['productData'];
-  }
+	ngOnInit(): void {
+    	//在元件生成時，即取用資料
+		this.productData = this.route.snapshot.data['productData'];
+	}
 }
-
 ----
 
 link:index.html[回首頁]

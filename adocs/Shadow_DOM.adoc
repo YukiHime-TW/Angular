@@ -32,7 +32,7 @@ image::../image/DOMTree.png[DOM Tree]
 
 在網頁開發中，HTML、CSS 和 JavaScript 是三大核心技術，但實際開發時，常會面臨一些問題，例如：
 
-- **CSS 樣式污染**：外部的 CSS 樣式可能影響內部組件。
+- **CSS 樣式污染**：外部的 CSS 樣式可能影響內部元件。
 - **JavaScript 命名空間衝突**: JavaScript 的全域變數或函式可能與其他程式碼發生衝突。
 
 為了解決這些問題，W3C 提出了 **Shadow DOM** 的概念，讓開發者能在網頁上建立一個隔離的節點樹，該節點樹不會被外部的 CSS 或 JavaScript 干擾。
@@ -41,9 +41,9 @@ image::../image/DOMTree.png[DOM Tree]
 
 **無論前端還是後端開發，將程式模組化並封裝起來以避免相互干擾，是提升開發效率與維護性的重要關鍵。**
 
-**Shadow DOM** 是 **Web Components**(網頁組件)三大標準之一，其他兩個標準為 **HTML Templates** 和 **Custom Elements**(註：**HTML Imports** 已過時，不再建議使用)。
+**Shadow DOM** 是 **Web Components**(網頁元件)三大標準之一，其他兩個標準為 **HTML Templates** 和 **Custom Elements**(註：**HTML Imports** 已過時，不再建議使用)。
 
-**Web 組件的關鍵屬性** 是「**封裝**」，它允許開發者將標記結構(markup)、樣式(style)和行為(behavior)封裝起來，並與頁面上的其他代碼獨立。這意味著 Web 組件具備以下優點：
+**Web 元件的關鍵屬性** 是「**封裝**」，它允許開發者將標記結構(markup)、樣式(style)和行為(behavior)封裝起來，並與頁面上的其他代碼獨立。這意味著 Web 元件具備以下優點：
 
 - 不會影響頁面上的其他代碼。
 - 不會被外部代碼干擾。
@@ -138,7 +138,7 @@ image::../image/ShadowDOMSample.png[Shadow DOM Example]
 
 - **Shadow DOM** 提供有效的封裝性質，幫助開發者在建立元件時隔離樣式和行為。
 - **開放模式** 允許外部程式碼可操作 Shadow DOM，而 **關閉模式** 則禁止這種操作，提升了安全性。
-- Shadow DOM 讓網頁組件開發變得更加靈活和高效，避免樣式衝突和行為干擾。
+- Shadow DOM 讓Web 元件開發變得更加靈活和高效，避免樣式衝突和行為干擾。
 
 通過利用 Shadow DOM，開發者能提高開發效率、維護性與可讀性，並創建更強大和可重用的 web 元件。
 
@@ -147,7 +147,7 @@ image::../image/ShadowDOMSample.png[Shadow DOM Example]
 |===
 | 特性 | Shadow DOM | Custom Element
 | **定義** | 一種技術，用於將 DOM 樹附加到標準 DOM 中，實現封裝和隱私。 | 一種技術，允許開發者定義自己的 HTML 元素。
-| **目的** | 隱藏組件內部的結構和樣式，防止外部樣式影響，並且避免樣式衝突。 | 擴展 HTML 語言，創建自定義的元素和行為。
+| **目的** | 隱藏元件內部的結構和樣式，防止外部樣式影響，並且避免樣式衝突。 | 擴展 HTML 語言，創建自定義的元素和行為。
 | **操作方式** | 使用 `Element.attachShadow()` 方法創建 Shadow DOM。| 使用 `customElements.define()` 方法註冊自定義元素。
 | **作用範圍** | 封裝樣式和行為，只能在 Shadow DOM 內部存取。| 可以在全局範圍內使用，並且可以包含 Shadow DOM。
 | **支援性** | 需瀏覽器支持 Shadow DOM。| 需瀏覽器支持 Custom Elements。

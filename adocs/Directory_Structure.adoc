@@ -58,7 +58,7 @@ my-app/
 放置在src/app下的檔案
 [width=75%, cols="1,4"]
 |===
-|app.component.ts |應用程式的核心組件與關連的view都會設定在這裡，也就是AppComponent，任何屬性以及事件都會寫在這裡
+|app.component.ts |應用程式的核心元件與關連的view都會設定在這裡，也就是AppComponent，任何屬性以及事件都會寫在這裡
 |app.component.html |定義與AppComponent關聯的HTML
 |app.component.css |定義AppComponent的樣式
 |app.config.ts |用來告訴Angular該如何組裝和啟動應用程式的配置，當有需要新增更多providers時應該要設置在此

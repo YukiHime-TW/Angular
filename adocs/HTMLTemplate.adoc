@@ -1,11 +1,11 @@
 
 == HTML模板 (Template)
-Angular 組件的模板文件，負責定義類別組件的視圖結構，透過 Angular 的模板語法實現資料的顯示、條件渲染、事件處理等功能，並動態更新畫面，與 app.component.ts 當中的邏輯緊密結合，實現互動式的使用者界面。
+Angular 元件的模板文件，負責定義類別元件的視圖結構，透過 Angular 的模板語法實現資料的顯示、條件渲染、事件處理等功能，並動態更新畫面，與 app.component.ts 當中的邏輯緊密結合，實現互動式的使用者界面。
 
 == HTML模板常用的語法
 
 === Interpolation
-用來顯示組件類中的資料，在HTML模板使用{{}}即可取得屬性值
+用來顯示元件類中的資料，在HTML模板使用{{}}即可取得屬性值
 
 *app.component.ts*
 
@@ -77,7 +77,7 @@ Note:如果沒有"[]"包起來無法綁定，且[]內需要為該元素的屬性
 
 - [()] => 為雙向綁定
 
-父樣板和組件
+父樣板和元件
 *app.component.ts*
 [source,javascript]
 ----
@@ -112,7 +112,7 @@ image:../image/html_ex4.gif[html_ex4]
 
 === Event handling
 
-Angular 處理事件時，會將事件與組件實例綁定，與傳統 JavaScript 的事件處理不同。
+Angular 處理事件時，會將事件與元件實例綁定，與傳統 JavaScript 的事件處理不同。
 this會指向該元件
 
 *app.component.ts*
@@ -184,7 +184,7 @@ export class UserComponent {
 ==== @Output
 1.傳入事件
 
-使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter +
+使用@Output建立父元件與子元件的溝通，並且把值assign給EventEmitter +
 
 父層
 [source,html]
@@ -192,7 +192,7 @@ export class UserComponent {
 //樣板
 <p>my name is {{myName}} </p>
 <app-child (updateNameFun)="updateName($event)"></app-child>
-//組件
+//元件
 updateName(inputName:string){
     this.myName = inputName; 
 }
@@ -208,8 +208,13 @@ updateName(inputName:string){
     standalone: true,
 })
 export class ChildComponent {
-    @Output() updateNameFun = new EventEmitter<string>();//在angular中，this會幫指向組件，必須用$event才能指向觸發事件
-    //當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入，最後透過EventEmitter將事件發送回去再附加傳入值
+
+    @Output() updateNameFun = new EventEmitter<string>();
+
+    // 在angular中，this會幫忙指向元件，必須用$event才能指向觸發事件
+    // 當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入
+    // 最後透過EventEmitter將事件發送回去再附加傳入值
+    
     addItem(e:any) {
         this.updateNameFun.emit(e.target.value); 
     }
