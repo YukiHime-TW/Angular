@@ -1,10 +1,10 @@
-== Angular 專案結構
-**Angular** 基於 **TypeScript** 開發，應用程式由 **元件 (Component)** 組成。 +
-每個元件包含 **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
+== Angular 元件結構
 
-=== 建立一個新的元件
+在Angular當中，每個元件包含了： **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
 
-`ng generate component item`
+=== 使用Anguler CLI建立一個新的元件
+
+當使用者在 Command Line 中下達 `ng generate component item` 時 +
 該指令會建立以下內容：
 
 . 用於 HTML 的 item.component.html +
@@ -18,9 +18,10 @@ link:./CSSStyle.html[CSS 樣式]
 
 . 測試檔案 item.component.spec.ts
 
-==== 手動建立元件
+NOTE: 一個元件最基本的組成要有一個**TypeScript檔**，其他三項皆為選擇性，使用者可以下達指令時在後面宣告參數來決定是否要生成其他三項，或是修改 angular.json 檔來改變。 + 
+參考: link:./ng_generate只生成ts檔.html[ng generate只生成ts檔]
 
-你也可以手動建立元件。方法如下：
+==== 手動建立元件
 
 建立一個新檔案 <component-name>.component.ts。
 新增元件所需的 import 和 @Component 裝飾器。
@@ -41,7 +42,7 @@ export class ComponentOverviewComponent {
 
 ==== 指定元件的 CSS 選擇器
 
-每個元件都需要一個 CSS 選擇器，用來指示 Angular 在遇到對應標籤時，實例化元件。
+每個元件都需要一個 CSS 選擇器，用來指示 Angular 如何去使用這項元件。
 
 [source, typescript]
 ----
@@ -85,7 +86,7 @@ export class ComponentOverviewComponent {
 })
 ----
 
-Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但你不能在元件中同時擁有這兩個語句。
+Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但你只能二擇一，不能同時做使用。
 
 簡單來說: 每個元件都要設定一個 `template`，但有兩種方式：
 
