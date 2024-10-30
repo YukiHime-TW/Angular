@@ -5,19 +5,19 @@
 |===
 | 命令 | 描述
 
-| https://angular.dev/cli/build[`ng build`]
+| https://angular.dev/cli/build[`ng build`^]
 | **編譯 Angular 專案為生產環境版本**
 
-| https://angular.dev/cli/serve[`ng serve`]
+| https://angular.dev/cli/serve[`ng serve`^]
 | **建構應用程式並啟動開發伺服器**
 
-| https://angular.dev/cli/generate#component-command[`ng generate`]
+| https://angular.dev/cli/generate#component-command[`ng generate`^]
 | **基於後置的sub-command生成相對應的檔案**
 
-| https://angular.dev/cli/test[`ng test`]
+| https://angular.dev/cli/test[`ng test`^]
 | **執行單元測試**
 
-| https://angular.dev/cli/e2e[`ng e2e`]
+| https://angular.dev/cli/e2e[`ng e2e`^]
 | **執行端到端測試**
 |===
 
