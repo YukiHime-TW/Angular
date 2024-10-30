@@ -192,41 +192,8 @@ export class UserComponent {
 ==== @Output
 1.傳入事件
 
-使用@Output建立父元件與子元件的溝通，並且把值assign給EventEmitter +
+使用@Output建立父元件與子元件的溝通
 
-父層
-[source,html]
-----
-//模板
-<p>my name is {{myName}} </p>
-<app-child (updateNameFun)="updateName($event)"></app-child>
-//元件
-updateName(inputName:string){
-    this.myName = inputName; 
-}
-----
-
-子層
-[source,typecript]
-----
-@Component({
-    selector: 'app-child',
-    styles: `.btn { padding: 5px; }`,
-    template: `<input type="text" (change)="addItem($event)" />`,
-    standalone: true,
-})
-export class ChildComponent {
-
-    @Output() updateNameFun = new EventEmitter<string>();
-
-    // 在angular中，this會幫忙指向元件，必須用$event才能指向觸發事件
-    // 當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入
-    // 最後透過EventEmitter將事件發送回去再附加傳入值
-    
-    addItem(e:any) {
-        this.updateNameFun.emit(e.target.value); 
-    }
-}
-----
+image::../image/output.jpg["圖片"]
 
 link:Component_Structure.html[回上一頁]
