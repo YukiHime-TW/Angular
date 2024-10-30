@@ -304,4 +304,7 @@ export class UserComponent {
 
 image::../image/output.jpg["圖片"]
 
+=== 補充:
+link:Controlflow.html[資料流]
+
 link:Component_Structure.html[回上一頁]
