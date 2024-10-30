@@ -1,0 +1,86 @@
+= signals 簡介
+
+== 什麼是signals
+
+Signal 是一個包裝值的物件，可以通知訂閱者其值何時發生變化。它是 Angular 16 中引入的特性，用於提供更細粒度的變更檢測和更好的性能。
+
+== 建立一個signals
+
+建立一個signals只要呼叫他的signals方法即可，方法內可帶入預設值
+
+[source, typescript]
+----
+import { Component } from '@angular/core';
+import {signal} from '@angular/core';
+import {count} from 'rxjs';
+
+@Component({
+  selector: 'app-test1',
+  standalone: true,
+  // 直接將count當作方法呼叫即可取值
+  template: `
+    <div>{{ count() }}</div> 
+  `,
+})
+export class Test1Component {
+  count: WritableSignal<number> = signal(0); // 直接呼叫signal並設定預設值為O
+}
+
+----
+
+由於 count 是一個物件，我們無法直接改變它，我們需要count自帶的方法才可變更值。
+
+=== set
+
+直接將要改變的值傳送進去
+
+[source, typescript]
+----
+count.set(100);
+
+----
+
+
+=== update
+
+如果要先拿到過去的資料來進行加減異動並更新的話有以下兩種方式
+
+.set
+[source, typescript]
+----
+count.set(count() + 100);
+
+----
+
+另一項更簡單的方法是使用本身所提供的update方法來做操作
+.set
+[source, typescript]
+----
+count.update(current => current + 100);
+
+----
+
+=== 計算數據(使用computed())
+
+若有多個 signal 要一起計算的話可以使用 `computed()` 方法進行。
+
+
+
+NOTE: **computed()** 會回傳一個 readonly signal 
+
+
+[source, typescript]
+----
+import { signal, computed } from '@angular/core';// 需要import computed
+
+price: WritableSignal<number> = signal(100);
+quantity: WritableSignal<number> = signal(2);
+
+// 創建計算值
+total: Signal<number> = computed(() => this.price() * this.quantity());
+
+console.log(total()); // 輸出: 200
+----
+
+
+`computed()` 在呼叫時需要傳入一個 callback function，在此 function 內的 signal 發生變化時，這個 callback function 就會自動被呼叫，因此我們可以在 signal 有變化時，才去根據來源 signal 產生新結果
