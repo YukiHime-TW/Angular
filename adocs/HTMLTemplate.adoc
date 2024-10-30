@@ -1,6 +1,6 @@
 
 == HTML模板 (Template)
-Template 負責定義元件的 View ，也就是畫面的呈現方式。 +
+Template 負責定義元件的 View ，也就是**畫面**的呈現方式。 +
 開發者能透過 Angular 的模板語法來實現資料的顯示、條件渲染、事件處理等功能，並**動態**的更新畫面。
 
 
@@ -131,15 +131,24 @@ export class AppComponent {
 image:../image/html_ex3.gif[html_ex3]
 
 ==== 雙向綁定(Two-way binding)
-雙向綁定是一種同時做綁定值到元素上也可以對這個元素值進行修改 +
+雙向綁定指的是畫面與元件的一種同步關係。這種同步是雙向的，也就意味著:
+
+- 元件內的資料改變，畫面上的資料更新：當元件中的資料改變時，對應的畫面元素會自動更新以呈現最新的資料。
+- 畫面上的資料改變，元件內的資料更新：當使用者修改畫面上的資料時，對應的元件資料會自動更新。
+
+語法:
 
 - [] => 用於將元件中的資料綁定到模板中的 HTML 屬性上。
 
 - ()=> 用於將模板中的事件綁定到元件中的方法上。
 
-- [()] => 將屬性綁定和事件綁定結合起來，實現雙向數據流。
+- [()] => 將屬性綁定和事件綁定結合起來，實現雙向綁定。
 
-父模板和元件
+實現方式:
+
+- ngModel： ngModel 是 Angular 提供的雙向綁定指令，它會建立一個 FormControl 來管理綁定的值。
+- 髒值檢查： Angular 會定期檢查所有綁定的屬性，一旦發現有變化，就會觸發重新渲染。
+- 事件監聽： Angular 會在綁定的元素上添加事件監聽器，當使用者與元素互動時，就會觸發事件，並更新對應的元件資料。
 
 .app.component.ts
 [source,javascript]
@@ -169,8 +178,124 @@ export class AppComponent {
 <input [(ngModel)]="userName" placeholder="Enter your name">
 <p>Hello, {{ userName }}!</p>
 ----
+
 上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新 userName 屬性
+
+.app.component.html
+[source,html]
+----
+<h1 [style]="color">{{ title }}</h1>
+<input [(ngModel)]="userName" placeholder="Enter your name">
+<p>Hello, {{ userName }}!</p>
+----
+
+.app.component.ts
+[source,javascript]
+----
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms'; // 需要import FormsModule
+
+@Component({
+    selector: 'app-root',
+    standalone: true,
+    imports: [FormsModule],
+    templateUrl: './app.component.html',
+    styleUrl: './app.component.css'
+})
+
+export class AppComponent {
+    title = 'test-app';
+    color = "color: #26b72a";
+
+    userName = '';
+}
+----
+
+
 image:../image/html_ex4.gif[html_ex4]
+
+NOTE: ngModel 是 Angular 中最常用的雙向綁定指令，但它並不是唯一建立雙向綁定的方式。可以使用 `@Input()` 和 `@Output()` 這兩種裝飾器來定義雙向綁定的輸入和輸出值。並在模板上使用雙向綁定語法來實現雙向綁定。
+
+使用@Output與@Input建立雙向綁定
+
+父Component
+
+.data-binding.component.ts
+[source,typescript]
+----
+import {Component} from '@angular/core';
+import {ChildComponent} from './child/child.component';
+
+@Component({
+  selector: 'app-data-binding',
+  standalone: true,
+  imports: [
+    ChildComponent // <- 引用子Component
+  ],
+  templateUrl: './data-binding.component.html',
+  styleUrl: './data-binding.component.css'
+})
+export class DataBindingComponent {
+  parentCount: number = 0;
+}
+----
+
+.data-binding.component.html
+[source, html]
+----
+<h1>父組件中的值: {{ parentCount }}</h1>
+
+<!-- 使用 [(count)]="parentCount" 實現雙向綁定 -->
+<app-child [(count)]="parentCount"></app-child>
+----
+
+子Component
+
+.child.component.ts
+[source, typescript]
+----
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  standalone: true,
+  imports: [],
+  templateUrl: './child.component.html',
+  styleUrl: './child.component.css'
+})
+export class ChildComponent {
+  // 使用 @Input 接收外部傳入的值
+  @Input() count: number = 0;
+
+  // 使用 @Output 發送事件通知父組件值已更改
+  // 命名規則: [properties名稱]Change
+  @Output() countChange = new EventEmitter<number>();
+
+  increment() {
+    this.count++;
+    // 發出更新事件
+    this.countChange.emit(this.count);
+  }
+
+  decrement() {
+    this.count--;
+    // 發出更新事件
+    this.countChange.emit(this.count);
+  }
+}
+----
+
+.child.component.html
+[source, html]
+----
+<h2>計數器: {{ count }}</h2>
+<button (click)="increment()">+1</button>
+<button (click)="decrement()">-1</button>
+----
+
+.使用@Output與@Input綁定
+image::../image/two-way-bind-with-input-and-output.gif[使用@Output與@Input綁定後]
+
 
 === Change Detection
 
