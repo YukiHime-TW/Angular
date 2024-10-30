@@ -181,37 +181,6 @@ export class AppComponent {
 
 上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新 userName 屬性
 
-.app.component.html
-[source,html]
-----
-<h1 [style]="color">{{ title }}</h1>
-<input [(ngModel)]="userName" placeholder="Enter your name">
-<p>Hello, {{ userName }}!</p>
-----
-
-.app.component.ts
-[source,javascript]
-----
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms'; // 需要import FormsModule
-
-@Component({
-    selector: 'app-root',
-    standalone: true,
-    imports: [FormsModule],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
-})
-
-export class AppComponent {
-    title = 'test-app';
-    color = "color: #26b72a";
-
-    userName = '';
-}
-----
-
-
 image:../image/html_ex4.gif[html_ex4]
 
 NOTE: ngModel 是 Angular 中最常用的雙向綁定指令，但它並不是唯一建立雙向綁定的方式。可以使用 `@Input()` 和 `@Output()` 這兩種裝飾器來定義雙向綁定的輸入和輸出值。並在模板上使用雙向綁定語法來實現雙向綁定。
