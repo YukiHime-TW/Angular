@@ -75,11 +75,11 @@ image::../image/通常Generate出來的.png[沒有額外設定的情況]
 - **projects**: 定義專案及其對應的設定。
 - **architect**: 包含 `build`、`test`、`serve` 等命令的配置。
 - **options**: 配置每個指令的具體參數，例如輸出路徑、資產、樣式、腳本等。
-- **schematics**: `schematics` 是一種用來產生程式碼和模組的工具，它能自動化許多開發過程，比如生成組件、模組、服務等。`schematics` 允許使用 Angular CLI 快速生成組件並將其自動集成到專案中。
+- **schematics**: `schematics` 是一種用來產生程式碼和模組的工具，它能自動化許多開發過程，比如生成元件、模組、服務等。`schematics` 允許使用 Angular CLI 快速生成元件並將其自動集成到專案中。
 
 === 自訂屬性
 
-可以修改 `angular.json` 的設定來自訂 Angular 專案的行為，例如我們可以在schematics內分別針對不同模組設定：
+可以修改 `angular.json` 的設定來自訂 Angular 專案的行為，例如我們可以在schematics內分別針對不同模組設定:
 
 - **inlineTemplate**: 是否將模板嵌入到元件的 TypeScript 檔案中。
 - **inlineStyle**: 是否將樣式嵌入到元件的 TypeScript 檔案中。
@@ -91,7 +91,7 @@ image::../image/通常Generate出來的.png[沒有額外設定的情況]
 
 == 額外補充 selector prefixs
 
-Angular 團隊建議為專案內定義的所有自訂元件使用簡短、一致的前綴。這樣命名空間化選擇器可以立即明確某個組件的來源。
+Angular 團隊建議為專案內定義的所有自訂元件使用簡短、一致的前綴。這樣命名空間化選擇器可以立即明確某個元件的來源。
 
 預設情況下，Angular CLI 使用 app-。
 

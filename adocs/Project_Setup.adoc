@@ -18,9 +18,8 @@ ng serve --open
 ----
 
 這會啟動開發伺服器並自動在瀏覽器中打開應用程式。
-[quote]
-____
+
+[NOTE]
 預設網域通常為http://localhost:4200/
-____
 
 link:index.html[回首頁]

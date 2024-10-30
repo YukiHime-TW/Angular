@@ -114,7 +114,7 @@
 [source,javascript]
 ----
 @defer {
-    <heavy-component />  // 延遲加載的組件
+    <heavy-component />  // 延遲加載的元件
 } @placeholder {
     <loading-spinner />  // 加載時顯示的內容
 } @error {

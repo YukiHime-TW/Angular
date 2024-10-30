@@ -3,10 +3,11 @@
 Template 負責定義元件的 View ，也就是畫面的呈現方式。 +
 開發者能透過 Angular 的模板語法來實現資料的顯示、條件渲染、事件處理等功能，並**動態**的更新畫面。
 
+
 == HTML模板常用的語法
 
 === Interpolation
-用來顯示將Class中的資料呈現在Template上的語法，在HTML模板使用 `{{ }}` 即可取得值。
+用來將Class中的資料呈現在Template上的語法，在HTML模板使用 `{{ }}` 即可取得值。
 
 .app.component.ts
 [source,javascript]
@@ -83,7 +84,7 @@ image:../image/html_ex2.png[html_ex2]
 NOTE: 1. 綁定的目標屬性必須是 HTML 元素所支持的標準屬性，並且沒有使用 `[]` 包覆是無法綁定的。 + 
 2. 若屬性為 自定義屬性 或 未知屬性的話需要加上attr.
 
-=== 事件綁定
+==== 事件綁定
 
 Angular 的事件處理，會在編譯模板時會自動將事件處理方法透過 `bind()` 方法綁定到元件實例上。並且this會指向該元件。
 
@@ -157,19 +158,6 @@ export class AppComponent {
     userName = '';
 }
 ----
-
-.app.component.html
-[source,html]
-----
-<h1 [style]="color">{{ title }}</h1>
-<input [(ngModel)]="userName" placeholder="Enter your name">
-<p>Hello, {{ userName }}!</p>
-----
-上述程式當使用者在輸入框輸入內容時，網頁同時會動態更新 userName 屬性
-image:../image/html_ex4.gif[html_ex4]
-
-
-
 === Change Detection
 
 Change Detection 在以下情況下觸發：
@@ -204,7 +192,7 @@ export class UserComponent {
 ==== @Output
 1.傳入事件
 
-使用@Output建立父與子組件的溝通，並且把值assign給EventEmitter +
+使用@Output建立父元件與子元件的溝通，並且把值assign給EventEmitter +
 
 父層
 [source,html]
@@ -212,7 +200,7 @@ export class UserComponent {
 //模板
 <p>my name is {{myName}} </p>
 <app-child (updateNameFun)="updateName($event)"></app-child>
-//組件
+//元件
 updateName(inputName:string){
     this.myName = inputName; 
 }
@@ -228,8 +216,13 @@ updateName(inputName:string){
     standalone: true,
 })
 export class ChildComponent {
-    @Output() updateNameFun = new EventEmitter<string>();//在angular中，this會幫指向組件，必須用$event才能指向觸發事件
-    //當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入，最後透過EventEmitter將事件發送回去再附加傳入值
+
+    @Output() updateNameFun = new EventEmitter<string>();
+
+    // 在angular中，this會幫忙指向元件，必須用$event才能指向觸發事件
+    // 當這個input觸發change事件後執行addItem並把觸發事件當作參數傳入
+    // 最後透過EventEmitter將事件發送回去再附加傳入值
+    
     addItem(e:any) {
         this.updateNameFun.emit(e.target.value); 
     }
