@@ -79,7 +79,7 @@ my-app/
 
 - `app.module.ts`: 列出此專案使用的所有檔案。此檔案在專案中扮演中央樞紐的角色。
 - `app.component.ts`: 又被稱為元件類別，內含此專案主要頁面的相關邏輯。
-- `app.component.html`: 內含 AppComponent 所使用的網頁 html，作為元件模板（Template）。
+- `app.component.html`: 內含 AppComponent 所使用的網頁 html，作為元件模板(Template)。
 - `app.component.css`: 內含 AppComponent 裡面的樣式，讓樣式定義只影響特定模組。
 
 Angular 的元件由三部分構成：模板、樣式、類別。例如，`app.component.ts`、`app.component.html`、以及 `app.component.css` 一同構成 AppComponent。

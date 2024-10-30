@@ -194,7 +194,7 @@ export class UserComponent {
 <app-child (updateNameFun)="updateName($event)"></app-child>
 //組件
 updateName(inputName:string){
-    this.myName = inputName;
+    this.myName = inputName; 
 }
 ----
 

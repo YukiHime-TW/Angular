@@ -25,7 +25,7 @@ link:./CSSStyle.html[CSS 樣式]
 建立一個新檔案 <component-name>.component.ts。
 新增元件所需的 import 和 @Component 裝飾器。
 
-[source, javascript]
+[source, typescript]
 ----
 import { Component } from '@angular/core';
 
@@ -43,7 +43,7 @@ export class ComponentOverviewComponent {
 
 每個元件都需要一個 CSS 選擇器，用來指示 Angular 在遇到對應標籤時，實例化元件。
 
-[source, javascript]
+[source, typescript]
 ----
 @Component({
     selector: 'app-component-overview',
@@ -54,7 +54,7 @@ export class ComponentOverviewComponent {
 
 樣板是用來渲染元件的 HTML，可以透過 templateUrl 引用外部檔案，或直接使用 template 在元件中定義。
 
-[source, javascript]
+[source, typescript]
 ----
 @Component({
     selector: 'app-component-overview',
@@ -62,9 +62,9 @@ export class ComponentOverviewComponent {
 })
 ----
 
-如果樣板跨多行，可以使用反引號（``）包起來：
+如果樣板跨多行，可以使用反引號(``)包起來：
 
-[source, javascript]
+[source, typescript]
 ----
 @Component({
     selector: 'app-component-overview',
@@ -77,7 +77,7 @@ export class ComponentOverviewComponent {
 
 要把樣板定義為外部檔案，就要把 `templateUrl` 新增到 `@Component` 裝飾器中。
 
-[source,javascript]
+[source,typescript]
 ----
 @Component({
     selector: 'app-component-overview',
@@ -96,7 +96,7 @@ Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但
 
 如同上方設定樣板，你可以透過以下方式宣告樣式：
 
-[source,javascript]
+[source,typescript]
 ----
 @Component({
     selector: 'app-component-overview',
@@ -106,7 +106,7 @@ Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但
 
 若要設定多個樣式檔案，可以用陣列：
 
-[source,javascript]
+[source,typescript]
 ----
 @Component({
     selector: 'app-component-overview',

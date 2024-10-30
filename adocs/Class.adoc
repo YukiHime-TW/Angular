@@ -20,34 +20,36 @@ export class ItemComponent {
 ----
 
 這個元件被稱為 `ItemComponent`，他的選擇器(Selector)是 `app-item` 。 +
-選擇器在 `一般情況` 可以當作是HTML的客製化標籤，並且將他放到其他的模板裡。 +
+選擇器在 **一般情況** 可以當作是HTML的客製化標籤，並且將他放到其他的模板裡。 +
 當瀏覽器渲染到選擇器時，就會把這個元件的HTML模板和CSS樣式一起渲染出來。
 
 Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
-而 Angular 的元件也讓專案更易於做單元測試、讓程式碼更易於解讀。
+而 Angular 的元件也讓專案更容易於做單元測試。
 
 === Component 裝飾器
 
 常見的屬性包括：
 
-1. `templateUrl`: Angular 元件樣板檔案的 URL。如果提供了它，就不要再用 `template` 來提供行內樣板了。
-2. `template`: Angular 元件的行內樣板。如果提供了它，就不要再用 `templateUrl` 提供樣板了。
-3. `selector`: 元件的選擇器。
-4. `providers`: 提供此元件的服務。
-5. `imports`: 載入的其他元件或模組。
-6. `standalone`: 若為 `true`，此元件為獨立元件，不依賴其他模組。
-7. `encapsulation`: 設定樣式隔離的範圍。
+. `templateUrl`: Angular 元件樣板檔案的 URL。如果提供了它，就不要再用 `template` 來提供行內樣板了。
+. `template`: Angular 元件的行內樣板。如果提供了它，就不要再用 `templateUrl` 提供樣板了。
+. `styleUrls`: Angular 元件的樣式表檔案的 URL 陣列。如果提供了它，就不要再用 `styles` 來提供行內樣式了。
+. `styles`: Angular 元件的行內樣式表。如果提供了它，就不要再用 `styleUrls` 提供樣式表了。
+. `selector`: 元件的選擇器。
+. `providers`: 提供此元件的服務。
+. `imports`: 載入的其他元件或模組。
+. `standalone`: 若為 `true`，此元件為獨立元件，不依賴其他模組。
+. `encapsulation`: 設定樣式隔離的範圍。
 
 === Selector進階說明
 
-在Component裝飾器中，Select是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
+在Component裝飾器中，selector是一個 `css選擇器` ，除了能定義Component在HTML中使用的標籤名稱之外，也決定了這個Component如何被使用。
 
 === Selector的類型
 
 |===
 | 類型 | 描述 | 範例
 | Type Selector | Compoent會像 HTML 標籤一樣被使用。 | `app-menu-list` 
-| Attribute Selector | Compoent將作為屬性（attribute selector）。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。 | `[dropzone]` `[type="reset"]`
+| Attribute Selector | Compoent將作為屬性(attribute selector)。也就是說，這個元件會附加到一個現有的 HTML 元素上，透過該屬性來應用此元件的行為或樣式。 | `[dropzone]` `[type="reset"]`
 | Class Selector| Components會使用 CSS Class 的方式附加到一個現有的HTML元素上 | `.app-menu-list` 
 |===
 
@@ -62,7 +64,7 @@ export class AppComponent {
 }
 ----
 
-定義了組件的屬性，在html中可使用{{ title }}來取得組件的屬性值
+定義了元件的屬性，在html中可使用{{ title }}來取得元件的屬性值
 
 [source,html]
 ----
@@ -101,7 +103,7 @@ export class AppComponent {
 </button>
 ----
 
-- 定義組件的生命週期:
+- 定義元件的生命週期:
 
 [source,typescript]
 ----
@@ -116,11 +118,12 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        // 當組件銷毀時執行
+        // 當元件銷毀時執行
         console.log('Component destroyed');
     }
 
     fetchData() {
+        // 普通的function
         return { message: 'I love systex' };
     }
 }
@@ -140,18 +143,28 @@ export class AppComponent implements OnInit, OnDestroy {
 Angular 會按以下順序呼叫並執行這些鉤子方法：
 
 |===
+
 | 鉤子方法 | 用途 | 時機
+
+|  `ngOnInit()` | 在 Angular 第一次顯示資料繫結和設定指令/元件的輸入屬性之後，初始化指令/元件。 | 在第一輪 `ngOnChanges()` 完成之後呼叫，只調用一次。 +
+**即使沒有呼叫過 `ngOnChanges()`，也仍然會呼叫 `ngOnInit()`(比如當樣板中沒有繫結任何輸入屬性時)。**
+
 |  `ngOnChanges()` | 當 Angular 設定或重新設定資料繫結的輸入屬性時回應。該方法接受當前和上一屬性值的 SimpleChanges 物件。 +
 **這發生得比較頻繁，所以你在這裡執行的任何操作都會顯著影響效能。** | 如果元件繫結過輸入屬性，那麼在 `ngOnInit()` 之前以及所繫結的一個或多個輸入屬性的值發生變化時都會呼叫。 +
-**如果你的元件沒有輸入屬性，或者你使用它時沒有提供任何輸入屬性，那麼框架就不會呼叫 ngOnChanges()。**   
-|  `ngOnInit()` | 在 Angular 第一次顯示資料繫結和設定指令/元件的輸入屬性之後，初始化指令/元件。 | 在第一輪 `ngOnChanges()` 完成之後呼叫，只調用一次。 +
-**即使沒有呼叫過 `ngOnChanges()`，也仍然會呼叫 `ngOnInit()`（比如當樣板中沒有繫結任何輸入屬性時）。**
+**如果你的元件沒有輸入屬性，或者你使用它時沒有提供任何輸入屬性，那麼框架就不會呼叫 ngOnChanges()。**  
+
 |  `ngDoCheck()` | 檢測並回應對元件的輸入屬性的變化。 | 在每次變更檢測運行之後呼叫，並在 `ngOnChanges()` 和 `ngOnInit()` 之後呼叫。
+
 |  `ngAfterContentInit()` | 當 Angular 把外部內容投影進元件的View之後，呼叫它。 | 在第一次 `ngDoCheck()` 之後呼叫，只調用一次。
+
 |  `ngAfterContentChecked()` | 每次 Angular 完成被投影元件的變更檢測之後，呼叫它。 | 在 `ngAfterContentInit()` 和每次 `ngDoCheck()` 之後呼叫。
+
 |  `ngAfterViewInit()` | 當 Angular 初始化完元件的View及其子View之後，呼叫它。 | 在第一次 `ngAfterContentChecked()` 之後呼叫，只調用一次。
+
 |  `ngAfterViewChecked()` | 每次 Angular 完成元件及其子View的變更檢測之後，呼叫它。 | 在 `ngAfterViewInit()` 和每次 `ngAfterContentChecked()` 之後呼叫。
+
 |  `ngOnDestroy()` | 在 Angular 銷毀元件之前，清理。 | 在 Angular 銷毀指令/元件之前呼叫。
+
 |=== 
 
 === Angular怎麼讓元件具備高度封裝性的?
@@ -160,7 +173,7 @@ Angular 會按以下順序呼叫並執行這些鉤子方法：
 +
     * 自包含的單位 +
     每個 Angular 元件都可以看作是一個獨立的實體。 +
-    元件內部包含自己的模板（HTML）、樣式（CSS）和邏輯（TypeScript）。 +
+    元件內部包含自己的模板(HTML)、樣式(CSS)和邏輯(TypeScript)。 +
     這樣，開發者可以獨立於其他元件進行開發，測試和調試。
 
     * 生命週期管理 +
