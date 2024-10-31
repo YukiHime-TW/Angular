@@ -1,3 +1,5 @@
+= angular.json & 啟動流程
+
 == 專案配置
 
 `angular.json` 中的 `projects` 配置項包含應用程序的具體配置。以 `test-app` 為例：
@@ -17,9 +19,8 @@ project{
 ----
 
 - `projectType`: 項目類型，`application` 表示這是一個應用程式。
-- `schematics`: 項目生成時的默認配置，通常為空。
 - `root`: 專案的根目錄。
-- `sourceRoot`: 源文件的根目錄，這裡為 `src`。
+- `sourceRoot`: 源碼文件的根目錄，這裡為 `src`。
 - `prefix`: 元素選擇器前綴，這裡設置為 `app`。
 
 == architect 設定
@@ -45,11 +46,32 @@ project{
         "styles": ["src/styles.css"],
         "scripts": []
     },
-    "configurations": { ... }
+    "configurations": { 
+        "production": {
+            "budgets": [
+              {
+                "type": "initial",
+                "maximumWarning": "500kB",
+                "maximumError": "1MB"
+              },
+              {
+                "type": "anyComponentStyle",
+                "maximumWarning": "2kB",
+                "maximumError": "4kB"
+              }
+            ],
+            "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+     }
 }
 ----
 
-- `builder`: 指定構建器。這裡使用 `@angular-devkit/build-angular:application`。
+- `builder`: 指定構建器。這裡使用 `@angular-devkit/build-angular:application`。 https://www.npmjs.com/package/@angular-devkit/build-angular?activeTab=readme[建構器選擇]
 - `options`: 設置構建過程中的選項，包括 `outputPath`、`index`、`browser`、`polyfills` 等。
   - `outputPath: 構建輸出的目錄，預設為 `dist/test-app`。
   - `index`: 應用的入口 HTML 文件。
@@ -59,6 +81,7 @@ project{
   - `assets`: 要包含的靜態資源。
   - `styles`: 主樣式文件。
   - `scripts`: 全域腳本配置。
+  - `configurations`: 建構時的一些環境配置(預設是 development )
 
 === serve
 負責應用的伺服器啟動配置。
