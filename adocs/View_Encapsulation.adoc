@@ -154,7 +154,7 @@ Angular 還將 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` �
 +
 image:../image/shadow-dom-encapsulation.png[ViewEncapsulation.ShadowDom]
 +
-在這個例子中，`ShadowDomEncapsulationComponent` 包含兩個 `NoEncapsulationComponent` 和 一個 `EmulatedEncapsulationComponent`。
+在這個例子中，`ShadowDomEncapsulationComponent` 包含一個 `NoEncapsulationComponent` 和 一個 `EmulatedEncapsulationComponent`。
 +
 `ShadowDomEncapsulationComponent` 元件新增的樣式在該元件的整個 Shadow DOM 中都可用，在 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 中也是如此。
 +
