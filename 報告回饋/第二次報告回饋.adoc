@@ -5,6 +5,6 @@
 . FormControl要加上官方連結
 . 英文發音要清楚
 . 資料綁定的第一張圖要放大一點
-. 有參考官方文件要放reference連結
+. 有參考官方文件的地方要放reference連結
 . 講話不要結巴，放輕鬆
 . @input、@output的scope問題、事件監聽器會不會有命名
