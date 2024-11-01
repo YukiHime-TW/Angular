@@ -112,7 +112,6 @@ total: Signal<number> = computed(() => this.price() * this.quantity());
 console.log(total()); // 輸出: 200
 ----
 
-
 `computed()` 在呼叫時需要傳入一個 callback function，在此 function 內的 signal 發生變化時，這個 callback function 就會自動被呼叫，因此我們可以在 signal 有變化時，才去根據來源 signal 產生新結果
 
 link:index.html[回首頁]

@@ -1,0 +1,51 @@
+== Forms
+你可以使用 `ReactiveFormsModule` 或 `FormsModule` 來處理表單的資料繫結和驗證。
+
+== Reactive Forms
+
+. 在 component 中定義這個表單擁有的屬性: 
++
+[source,typescript]
+----
+export class UserComponent {
+	profileForm = new FormGroup({
+		name: new FormControl(''),
+		email: new FormControl(''),
+	});
+
+	getUser(){
+		console.log(this.profileForm);
+	}
+}
+----
+
+. 在 template 中: 
++
+[source,html]
+----
+<p>user page</p>
+<p>my name is {{username}}</p>
+<form [formGroup]="profileForm">
+	<label>
+		Name
+		<input type="text" formControlName="name" />
+	</label>
+	<label>
+		Email
+		<input type="email" formControlName="email" />
+	</label>
+	<button type="submit" (click)="getUser()">Submit</button>
+</form>
+
+<!-- 要提交表單，則在 form 標籤上加上 (ngSubmit)="handleSubmit()" -->
+----
+
+=== 資料流
+
+. 使用者在輸入欄位中輸入一個值
+. 表單輸入元素觸發一個 `input` 事件，並攜帶最新的值。
+. 監聽輸入事件的 `ControlValueAccessor` 會立即將新值傳遞給 `FormControl` 實例。
+. `FormControl` 實例透過 `valueChanges` 可觀察對象(Observable）發送新值。
+. 所有訂閱 `valueChanges` 的訂閱者接收到新的值。
+
+link:Tools.html[回上一頁]

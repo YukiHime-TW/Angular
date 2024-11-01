@@ -10,7 +10,6 @@
 * link:Component_Structure.html[元件結構詳解]
 * link:Routing.html[設定路由]
 * link:Tools.html[工具介紹]
-* link:Signals.html[Signal介紹]
 
 == 雜項 踩雷紀錄
 

@@ -1,0 +1,27 @@
+== Validators
+
+. 在 component 中匯入 Validators:
++
+[source,typescript]
+----
+import { ReactiveFormsModule, Validators } from '@angular/forms';
+----
+
+. 增加表單驗證:
++
+[source,typescript]
+----
+profileForm = new FormGroup({
+	name: new FormControl('', Validators.required), //第二個參數開始增加驗證方式
+	email: new FormControl('', [Validators.required, Validators.email]),
+});
+----
+
+. 在template 中使用表單驗證:
++
+[source,html]
+----
+<button type="submit" [disabled]="!profileForm.valid">Submit</button>
+----
+
+link:Tools.html[回上一頁]

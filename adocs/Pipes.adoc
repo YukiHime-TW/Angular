@@ -1,0 +1,62 @@
+== Pipes
+
+Pipes 是一個純函式，作用於 template (`{{}}`) 中，不會產生副作用。Angular 也提供一些內建的 pipe，下面是使用 Angular 提供的 pipe 和自定義 pipe 的範例。
+
+自定義pipe
++
+[source,typescript]
+----
+import {Pipe, PipeTransform} from '@angular/core';
+
+@Pipe({
+	standalone: true,
+	name: 'star',
+})
+export class StarPipe implements PipeTransform {
+	transform(value: string): string {
+		return `⭐️ ${value} ⭐️`;
+	}
+}
+----
+
+使用pipe
++
+[source,typescript]
+----
+import { Component, inject } from '@angular/core';
+import { ChildComponent } from './child/child.component';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CarService } from './service/car.service';
+import { DecimalPipe, DatePipe, CurrencyPipe } from '@angular/common'; //匯入
+import { StarPipe } from './pipe/star.pipe';
+
+@Component({
+	selector: 'app-root',
+	template: `
+		<nav>
+			<a routerLink="/">Home</a> |
+			<a routerLink="/user">User</a>
+			<br/>
+		</nav> 
+		<ul>
+			<li>Number with "decimal" {{ num | number : '3.2-2' }}</li>
+			<li>Date with "date" {{ birthday | date : 'medium' }}</li>
+			<li>Currency with "currency" {{ cost | currency }}</li>
+			<li>Custom Pipe with "star" {{ wrappedstring | star }}</li>
+		</ul> 
+		<router-outlet />
+	`,
+	standalone: true,
+	imports: [ChildComponent, RouterOutlet, RouterLink, DecimalPipe, DatePipe, CurrencyPipe, StarPipe],
+})
+
+export class AppComponent {
+	num = 103.1234;
+	birthday = new Date(2023, 3, 2);
+	cost = 4560.34;
+	wrappedstring = 'come with stars';
+}
+----
+
+image::../image/pipe.jpg["圖片"]
