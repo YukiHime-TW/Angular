@@ -78,8 +78,7 @@ h3[_ngcontent-pmm-6] {
 
 [WARNING]
 `ViewEncapsulation.Emulated` 和 `ViewEncapsulation.None` 元件的樣式也會新增到每個 `ViewEncapsulation.ShadowDom` 元件的 Shadow DOM 宿主中。 +
-這意味著帶有 `ViewEncapsulation.None` 的元件的樣式將影響 Shadow DOM 中的對應元素。 +
-這種方法乍一看似乎有違直覺，但如果沒有它，帶有 `ViewEncapsulation.None` 的元件將在使用 `ViewEncapsulation.ShadowDom` 的元件內渲染不同的效果，因為其樣式將不可用。
+這意味著帶有 `ViewEncapsulation.None` 的元件的樣式將影響 Shadow DOM 中的對應元素。
 
 === 例子
 
@@ -155,12 +154,12 @@ Angular 還將 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` �
 +
 image:../image/shadow-dom-encapsulation.png[ViewEncapsulation.ShadowDom]
 +
-在這個例子中，`ShadowDomEncapsulationComponent` 包含一個 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent`。
+在這個例子中，`ShadowDomEncapsulationComponent` 包含兩個 `NoEncapsulationComponent` 和 一個`EmulatedEncapsulationComponent`。
 +
 `ShadowDomEncapsulationComponent` 元件新增的樣式在該元件的整個 Shadow DOM 中都可用，在 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 中也是如此。
 +
-`EmulatedEncapsulationComponent` 具有特化的『範圍化』樣式，因此該元件樣板的樣式不受影響。
+`EmulatedEncapsulationComponent` 具有特化的 **範圍化** 樣式，因此該元件樣板的樣式不受影響。
 +
-由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式之後新增到 Shadow Host 中的，因此 h2 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色，這可能不是元件作者的本意。
+由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式之後新增到 Shadow Host 中的，因此 `h2` 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色。
 
 link:Class.html[回上一頁]
