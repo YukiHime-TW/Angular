@@ -1,9 +1,9 @@
 == Forms
 你可以使用 `ReactiveFormsModule` 或 `FormsModule` 來處理表單的資料繫結和驗證。
 
-== Reactive Forms
+=== Reactive Forms
 
-. 在 component 中定義這個表單擁有的屬性: 
+- 在 component 中定義這個表單擁有的屬性: 
 +
 [source,typescript]
 ----
@@ -19,7 +19,7 @@ export class UserComponent {
 }
 ----
 
-. 在 template 中: 
+- 在 template 中: 
 +
 [source,html]
 ----
@@ -40,7 +40,7 @@ export class UserComponent {
 <!-- 要提交表單，則在 form 標籤上加上 (ngSubmit)="handleSubmit()" -->
 ----
 
-=== 資料流
+==== 資料流
 
 . 使用者在輸入欄位中輸入一個值
 . 表單輸入元素觸發一個 `input` 事件，並攜帶最新的值。

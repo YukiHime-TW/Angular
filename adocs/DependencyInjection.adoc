@@ -15,7 +15,7 @@ Angular 可以在執行期間注入你要的 service 或 resource。
 - `any` : 在每個延遲加載的模組中提供一個唯一的實例，而所有提前加載的模組則共享一個實例。 **這個選項已被棄用。**
 - `null` : 等同於 `undefined`，不會自動注入在任何地方，你必須加入在providers陣列裡面，在 `@NgModule` 或 `@Component`、 `@Directive` 上
 
-===== 範例
+=== 範例
 
 .Service
 
@@ -77,3 +77,5 @@ export class AppComponent {
 	}
 }
 ----
+
+link:Tools.html[回上一頁]

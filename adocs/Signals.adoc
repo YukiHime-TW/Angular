@@ -67,9 +67,7 @@ export class Test1Component {
 [source, typescript]
 ----
 count.set(100);
-
 ----
-
 
 ==== update
 
@@ -79,7 +77,6 @@ count.set(100);
 [source, typescript]
 ----
 count.set(count() + 100);
-
 ----
 
 另一項更簡單的方法是使用本身所提供的update方法來做操作
@@ -87,17 +84,13 @@ count.set(count() + 100);
 [source, typescript]
 ----
 count.update(current => current + 100);
-
 ----
 
 ==== 計算數據(使用computed())
 
 若有多個 signal 要一起計算的話可以使用 `computed()` 方法進行。
 
-
-
 NOTE: **computed()** 會回傳一個 readonly signal 
-
 
 [source, typescript]
 ----
@@ -114,4 +107,4 @@ console.log(total()); // 輸出: 200
 
 `computed()` 在呼叫時需要傳入一個 callback function，在此 function 內的 signal 發生變化時，這個 callback function 就會自動被呼叫，因此我們可以在 signal 有變化時，才去根據來源 signal 產生新結果
 
-link:index.html[回首頁]
+link:Tools.html[回上一頁]
