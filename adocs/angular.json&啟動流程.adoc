@@ -205,4 +205,6 @@ export class AppComponent {
 image:../image/test-app_ex.png[test-app_ex]
 
 == 流程總結
-`ng serve` => `angular.json` => `webpack` => `index.html` => `main.ts` => `app.component`
+`ng serve` => `angular.json` => `webpack` => `index.html` => `main.ts` => `app.component.ts`
+
+link:Directory_Structure.html[回上一頁]
