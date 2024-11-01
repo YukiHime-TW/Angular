@@ -13,5 +13,7 @@
 . ngOnChange 初始化父層的東西要再研究
 . shadow DOM 會去覆蓋外層的樣式? 要再補充相關證據
 . 甚麼東西會生成SimpleChange?
+. ngOnChange跟雙向資料繫結的關係?
+. `@switch` 沒有fallthough (break;)
 
 == 第三次報告回饋
