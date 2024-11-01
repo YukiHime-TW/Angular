@@ -205,6 +205,9 @@ image::../image/subsequent_updates.png[Angular 元件初始化後的生命週期
 [NOTE]
 來源: https://angular.dev/guide/components/lifecycle#execution-order[Angular 官方文件^]
 
+[NOTE]
+`SimpleChanges` 這個物件會在子元件帶有`@Input()`的屬性發生變化時，由Angular自動產生，並傳遞給`ngOnChanges()`方法。
+
 === Angular怎麼讓元件具備高度封裝性的?
 
 . 元件的獨立性
