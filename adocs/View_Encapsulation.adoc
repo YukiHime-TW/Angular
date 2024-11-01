@@ -127,7 +127,7 @@ image:../image/emulated-encapsulation.png[ViewEncapsulation.Emulated]
 +
 只有直接在該元件樣板中的元素才會對應其樣式。由於來自 `EmulatedEncapsulationComponent` 的樣式是特化的，因此它們會覆蓋來自 `NoEncapsulationComponent` 的全域樣式。
 +
-在此範例中，`EmulatedEncapsulationComponent` 包含著 `NoEncapsulationComponent`，但 `NoEncapsulationComponent` 仍然如預期般生效了，因為 `EmulatedEncapsulationComponent` 的『範圍化』樣式與其樣板中的元素並不對應。
+在此範例中，`EmulatedEncapsulationComponent` 包含著 `NoEncapsulationComponent`，但 `NoEncapsulationComponent` 仍然如預期般生效了，因為 `EmulatedEncapsulationComponent` 的 **範圍化** 樣式與其樣板中的元素並不對應。
 
 . `ViewEncapsulation.ShadowDom` 模式
 +
