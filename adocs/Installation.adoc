@@ -5,8 +5,8 @@
 * **Node.js** +
 Angular 需要 **Node.js** 的最新版本或 **LTS** 版本進行開發。 +
 可以在 CMD 中輸入 `node -v` 檢查安裝是否成功。 +
-https://nodejs.org/zh-tw/download/prebuilt-installer[Node.js 下載] +
-https://angular.dev/reference/versions[Angular & Node.js版本相容性]
+https://nodejs.org/zh-tw/download/prebuilt-installer[Node.js 下載^] +
+https://angular.dev/reference/versions[Angular & Node.js版本相容性^]
 
 * **npm 套件管理器** +
 Angular、Angular CLI 和應用程式依賴 **npm** 套件管理器進行管理。 +
