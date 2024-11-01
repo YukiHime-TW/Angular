@@ -43,6 +43,14 @@ export class UserComponent {
 <!-- 要提交表單，則在 form 標籤上加上 (ngSubmit)="handleSubmit()" -->
 ----
 
+==== 資料流
+
+1. 使用者在輸入欄位中輸入一個值
+2. 表單輸入元素觸發一個 `input` 事件，並攜帶最新的值。
+3. 監聽輸入事件的 `ControlValueAccessor` 會立即將新值傳遞給 `FormControl` 實例。
+4. `FormControl` 實例透過 `valueChanges` 可觀察對象（Observable）發送新值。
+5. 所有訂閱 `valueChanges` 的訂閱者接收到新的值。
+
 === Validators
 
 . 在 component 中匯入 Validators:
