@@ -154,12 +154,13 @@ Angular 還將 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` �
 +
 image:../image/shadow-dom-encapsulation.png[ViewEncapsulation.ShadowDom]
 +
-在這個例子中，`ShadowDomEncapsulationComponent` 包含兩個 `NoEncapsulationComponent` 和 一個`EmulatedEncapsulationComponent`。
+在這個例子中，`ShadowDomEncapsulationComponent` 包含兩個 `NoEncapsulationComponent` 和 一個 `EmulatedEncapsulationComponent`。
 +
 `ShadowDomEncapsulationComponent` 元件新增的樣式在該元件的整個 Shadow DOM 中都可用，在 `NoEncapsulationComponent` 和 `EmulatedEncapsulationComponent` 中也是如此。
 +
 `EmulatedEncapsulationComponent` 具有特化的 **範圍化** 樣式，因此該元件樣板的樣式不受影響。
 +
-由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式之後新增到 Shadow Host 中的，因此 `h2` 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色。
+由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式 ( `NoEncapsulationComponent` 在 `<head>` 中新增的) 之後新增到 Shadow Host 中的，因此 `h2` 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。 +
+結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色。
 
 link:Class.html[回上一頁]
