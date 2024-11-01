@@ -6,7 +6,7 @@
 
 === Reactive Forms
 
-. 在 component 中定義這個表單擁有的屬性：
+. 在 component 中定義這個表單擁有的屬性: 
 +
 [source,typescript]
 ----
@@ -22,7 +22,7 @@ export class UserComponent {
 }
 ----
 
-. 在 template 中：
+. 在 template 中: 
 +
 [source,html]
 ----

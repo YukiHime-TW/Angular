@@ -2,7 +2,7 @@
 類別裡面包含了元件的相關邏輯，例如資料處理、事件處理等。 +
 類別會放在 `app.component.ts` 檔案裡，而 `app` 就是元件的名稱。 +
 當建立一個元件時，他會帶有 `@Component()` 裝飾器，裡面會有檔案的路徑指向，告訴Angular要去哪裡找HTML模板和CSS樣式。 +
-一個元件的基本寫法如下：
+一個元件的基本寫法如下: 
 
 [source,typescript]
 ----
@@ -28,7 +28,7 @@ Angular 的元件具備高度封裝性，讓專案結構看起來更直覺。 +
 
 === Component 裝飾器
 
-常見的屬性包括：
+常見的屬性包括: 
 
 . `templateUrl`: Angular 元件樣板檔案的 URL。如果提供了它，就不要再用 `template` 來提供行內樣板了。
 . `template`: Angular 元件的行內樣板。如果提供了它，就不要再用 `templateUrl` 提供樣板了。
@@ -155,7 +155,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
 image::../image/execution_order.png[Angular 初始化元件的執行順序]
 
-Angular 初始化元件時會按以下順序呼叫並執行這些鉤子方法：
+Angular 初始化元件時會按以下順序呼叫並執行這些鉤子方法: 
 
 |===
 

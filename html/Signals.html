@@ -467,21 +467,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 <li>
 <p>觸發變更偵測
-當 ngZone 偵測到上述所說到的行為時，會執行以下步驟：</p>
-<div class="literalblock">
-<div class="content">
-<pre>標記變更：將應用標記為「需要變更偵測」，準備執行檢查流程。</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>執行變更偵測：Angular 的變更偵測系統會逐層遍歷 Component 階層，檢查每個 Component 的資料綁定是否發生變化。</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>更新 UI：當資料改變時，Angular 會重新渲染受影響的部分 UI，讓視圖與資料保持同步。</pre>
-</div>
+當 ngZone 偵測到上述所說到的行為時，會執行以下步驟:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>標記變更: 將應用標記為「需要變更偵測」，準備執行檢查流程。</p>
+</li>
+<li>
+<p>執行變更偵測: Angular 的變更偵測系統會逐層遍歷 Component 階層，檢查每個 Component 的資料綁定是否發生變化。</p>
+</li>
+<li>
+<p>更新 UI: 當資料改變時，Angular 會重新渲染受影響的部分 UI，讓視圖與資料保持同步。</p>
+</li>
+</ol>
 </div>
 </li>
 <li>
@@ -494,7 +492,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>ngZone提供了一個統一的變更偵測機制來管理應用程式的變更，並且變更是會自動觸發的，不需要開發者自行手動處理。</p>
 </div>
 <div class="paragraph">
-<p>ngZone的缺點：攔截範圍過大，由於 NgZone 只是攔截了「可能會需要變更偵測的行為」，並且逐層遍歷 Component 查看每個資料綁定，但如果當下這個行為沒有需要重新渲染的變更，就額外浪費了一次檢查。</p>
+<p>ngZone的缺點: 攔截範圍過大，由於 NgZone 只是攔截了「可能會需要變更偵測的行為」，並且逐層遍歷 Component 查看每個資料綁定，但如果當下這個行為沒有需要重新渲染的變更，就額外浪費了一次檢查。</p>
 </div>
 <div class="paragraph">
 <p>那有沒有一種方式就是「當我們真的有改變需要渲染的資料時，才進行渲染」?那就是signal</p>
@@ -603,7 +601,7 @@ console.log(total()); // 輸出: 200</code></pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-01 10:14:43 +0800
+Last updated 2024-11-01 10:19:28 +0800
 </div>
 </div>
 </body>

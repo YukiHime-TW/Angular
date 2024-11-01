@@ -1,11 +1,11 @@
 == Angular 元件結構
 
-在Angular當中，每個元件包含了： **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
+在Angular當中，每個元件包含了:  **HTML 模板**、**CSS 樣式**和帶有 `@Component()` 裝飾器的 **TypeScript 類別**。
 
 === 使用Anguler CLI建立一個新的元件
 
 當使用者在 Command Line 中下達 `ng generate component item` 時 +
-該指令會建立以下內容：
+該指令會建立以下內容: 
 
 . 用於 HTML 的 item.component.html +
 link:./HTMLTemplate.html[HTML 模板]
@@ -63,7 +63,7 @@ export class ComponentOverviewComponent {
 })
 ----
 
-如果樣板跨多行，可以使用反引號(``)包起來：
+如果樣板跨多行，可以使用反引號(``)包起來: 
 
 [source, typescript]
 ----
@@ -88,14 +88,14 @@ export class ComponentOverviewComponent {
 
 Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但你只能二擇一，不能同時做使用。
 
-簡單來說: 每個元件都要設定一個 `template`，但有兩種方式：
+簡單來說: 每個元件都要設定一個 `template`，但有兩種方式: 
 
 . `template` 是一個直接寫在元件內的 HTML。
 . `templateUrl` 是一個外部檔案的位址。
 
 ==== 宣告元件的樣式
 
-如同上方設定樣板，你可以透過以下方式宣告樣式：
+如同上方設定樣板，你可以透過以下方式宣告樣式: 
 
 [source,typescript]
 ----
@@ -105,7 +105,7 @@ Angular 元件需要一個用 `template` 或 `templateUrl` 定義的樣板。但
 })
 ----
 
-若要設定多個樣式檔案，可以用陣列：
+若要設定多個樣式檔案，可以用陣列: 
 
 [source,typescript]
 ----

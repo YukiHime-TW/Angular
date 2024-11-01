@@ -110,7 +110,7 @@
 
 ==== @defer 延遲加載
 
-1.基本概念：
+1.基本概念: 
 [source,javascript]
 ----
 @defer {
@@ -122,7 +122,7 @@
 }
 ----
 
-2.觸發方式：
+2.觸發方式: 
 
 [source,javascript]
 ----

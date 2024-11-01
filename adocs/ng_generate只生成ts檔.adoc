@@ -24,7 +24,7 @@ image::../image/通常Generate出來的.png[沒有額外設定的情況]
 
 === 結構
 
-`angular.json` 的主要結構包含：
+`angular.json` 的主要結構包含: 
 
 - **$schema**: 定義 JSON 結構的參考，讓工具能夠檢查檔案格式。
 - **version**: Angular 配置檔案的版本號。

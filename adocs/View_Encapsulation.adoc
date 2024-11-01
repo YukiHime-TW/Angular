@@ -6,7 +6,7 @@
 
 === ViewEncapsulation 模式
 
-Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
+Angular 中的 `ViewEncapsulation` 主要有以下幾種模式: 
 
 |===
 | 模式 | 說明

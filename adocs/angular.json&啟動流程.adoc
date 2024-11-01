@@ -2,7 +2,7 @@
 
 == project配置
 
-`angular.json` 中的 `projects` 配置項包含應用程序的具體配置。以 `test-app` 為例：
+`angular.json` 中的 `projects` 配置項包含應用程序的具體配置。以 `test-app` 為例: 
 
 [source,json]
 ----
@@ -28,7 +28,7 @@ project{
 `architect` 包含不同的建置任務，包括 `build`、`serve`、`test` 等。
 
 === build
-負責應用的構建，包含以下選項：
+負責應用的構建，包含以下選項: 
 
 [source,json]
 ----
