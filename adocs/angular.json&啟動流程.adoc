@@ -1,6 +1,6 @@
 = angular.json & 啟動流程
 
-== 專案配置
+== project配置
 
 `angular.json` 中的 `projects` 配置項包含應用程序的具體配置。以 `test-app` 為例：
 
