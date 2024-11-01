@@ -436,12 +436,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>angular.json &amp; 啟動流程</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_project配置">project配置</h2>
+<h2 id="_angular_json_啟動流程">angular.json &amp; 啟動流程</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_project配置">project配置</h3>
 <div class="paragraph">
 <p><code>angular.json</code> 中的 <code>projects</code> 配置項包含應用程序的具體配置。以 <code>test-app</code> 為例:</p>
 </div>
@@ -476,15 +477,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_architect_設定">architect 設定</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_architect_設定">architect 設定</h3>
 <div class="paragraph">
 <p><code>architect</code> 包含不同的建置任務，包括 <code>build</code>、<code>serve</code>、<code>test</code> 等。</p>
 </div>
-<div class="sect2">
-<h3 id="_build">build</h3>
+<div class="sect3">
+<h4 id="_build">build</h4>
 <div class="paragraph">
 <p>負責應用的構建，包含以下選項:</p>
 </div>
@@ -567,8 +566,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </ul>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_serve">serve</h3>
+<div class="sect3">
+<h4 id="_serve">serve</h4>
 <div class="paragraph">
 <p>負責應用的伺服器啟動配置。</p>
 </div>
@@ -600,10 +599,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_angular啟動流程">Angular啟動流程</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_angular啟動流程">Angular啟動流程</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -724,10 +721,8 @@ export class AppComponent {
 </ol>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_流程總結">流程總結</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_流程總結">流程總結</h3>
 <div class="paragraph">
 <p><code>ng serve</code> &#8658; <code>angular.json</code> &#8658; <code>webpack</code> &#8658; <code>index.html</code> &#8658; <code>main.ts</code> &#8658; <code>app.component.ts</code></p>
 </div>
@@ -737,9 +732,10 @@ export class AppComponent {
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-01 10:18:51 +0800
+Last updated 2024-11-01 10:22:59 +0800
 </div>
 </div>
 </body>

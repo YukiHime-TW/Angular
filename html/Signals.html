@@ -436,20 +436,19 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>signals 簡介</h1>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_什麼是signals">什麼是signals</h2>
+<h2 id="_signals_簡介">signals 簡介</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_什麼是signals">什麼是signals</h3>
 <div class="paragraph">
 <p>Signal 是 Angular 16 引入的一種新的狀態管理機制，它提供了一種更細粒度、更具反應式的方式來管理應用程式中的狀態。</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_為什麼需要signal">為什麼需要Signal</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_為什麼需要signal">為什麼需要Signal</h3>
 <div class="paragraph">
 <p>Angular的變更偵測: Angular 在偵測是否有變更的時候會使用 ngZone 來進行偵測， ngZone 會去偵測 <code>可能會需要變更偵測的行為</code>
 ，例如DOM事件、HTTP 請求、 <code>setTimeout()</code> 等，一旦偵測到變更，就會觸發變更偵測機制，重新渲染 UI。</p>
@@ -498,10 +497,8 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>那有沒有一種方式就是「當我們真的有改變需要渲染的資料時，才進行渲染」?那就是signal</p>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_建立一個signal">建立一個signal</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_建立一個signal">建立一個signal</h3>
 <div class="paragraph">
 <p>建立一個 signal 只要呼叫他的 <code>signal()</code> 方法即可，方法內可帶入預設值</p>
 </div>
@@ -527,8 +524,8 @@ export class Test1Component {
 <div class="paragraph">
 <p>由於 count 是一個物件，我們無法直接改變它，我們需要count自帶的方法才可變更值。</p>
 </div>
-<div class="sect2">
-<h3 id="_set">set</h3>
+<div class="sect3">
+<h4 id="_set">set</h4>
 <div class="paragraph">
 <p>直接將要改變的值傳送進去</p>
 </div>
@@ -538,8 +535,8 @@ export class Test1Component {
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_update">update</h3>
+<div class="sect3">
+<h4 id="_update">update</h4>
 <div class="paragraph">
 <p>如果要先拿到過去的資料來進行加減異動並更新的話有以下兩種方式</p>
 </div>
@@ -559,8 +556,8 @@ export class Test1Component {
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_計算數據使用computed">計算數據(使用computed())</h3>
+<div class="sect3">
+<h4 id="_計算數據使用computed">計算數據(使用computed())</h4>
 <div class="paragraph">
 <p>若有多個 signal 要一起計算的話可以使用 <code>computed()</code> 方法進行。</p>
 </div>
@@ -599,9 +596,10 @@ console.log(total()); // 輸出: 200</code></pre>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2024-11-01 10:19:28 +0800
+Last updated 2024-11-01 10:23:02 +0800
 </div>
 </div>
 </body>

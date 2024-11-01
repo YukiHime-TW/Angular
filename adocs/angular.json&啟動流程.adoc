@@ -1,6 +1,6 @@
-= angular.json & 啟動流程
+== angular.json & 啟動流程
 
-== project配置
+=== project配置
 
 `angular.json` 中的 `projects` 配置項包含應用程序的具體配置。以 `test-app` 為例: 
 
@@ -23,11 +23,11 @@ project{
 - `sourceRoot`: 源碼文件的根目錄，這裡為 `src`。
 - `prefix`: 元素選擇器前綴，這裡設置為 `app`。
 
-== architect 設定
+=== architect 設定
 
 `architect` 包含不同的建置任務，包括 `build`、`serve`、`test` 等。
 
-=== build
+==== build
 負責應用的構建，包含以下選項: 
 
 [source,json]
@@ -83,7 +83,7 @@ project{
   - `scripts`: 全域腳本配置。
   - `configurations`: 建構時的一些環境配置(預設是 development )
 
-=== serve
+==== serve
 負責應用的伺服器啟動配置。
 
 [source,json]
@@ -105,7 +105,7 @@ project{
 - `builder`: 指定開發伺服器建置器。
 - `configurations`: 不同的伺服器配置環境，包含 `production` 和 `development`。
 
-== Angular啟動流程
+=== Angular啟動流程
 
 1. Angular CLI指令啟動伺服器
 +
@@ -204,7 +204,7 @@ export class AppComponent {
 +
 image:../image/test-app_ex.png[test-app_ex]
 
-== 流程總結
+=== 流程總結
 `ng serve` => `angular.json` => `webpack` => `index.html` => `main.ts` => `app.component.ts`
 
 link:Directory_Structure.html[回上一頁]
