@@ -22,7 +22,7 @@ Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
 
 使用 `ViewEncapsulation.Emulated` 時，Angular會預先處理所有元件的樣式，以便它們僅應用於元件的View。
 
-在正在執行的Angular應用程式中的DOM中，使用Emulated模式的元件的樣式看起來像這樣:
+在正在執行的Angular應用程式中的DOM中，使用Emulated模式的元件的樣板看起來像這樣:
 
 [source,html]
 ----
@@ -34,7 +34,7 @@ Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
 </hero-details>
 ----
 
-會有兩種屬性 `_nghost` 和 `_ngcontent`，這些屬性是Angular用來標記元件的樣式的。
+會有兩種屬性 `_nghost` 和 `_ngcontent`，這些屬性是Angular用來標記元件的樣式。
 
 |===
 | 屬性 | 說明
@@ -43,7 +43,7 @@ Angular 中的 `ViewEncapsulation` 主要有以下幾種模式：
 |===
 
 [NOTE]
-Angular會自動處理這些屬性，你不需要手動添加它們。
+Angular會自動生成這些Attribute Selector的Component附加到已有的HTML元素上，這樣就能透過這些屬性把樣式跟行為附加到元素上，你不需要手動添加它們。
 
 它們以生成的元件樣式為目標，這些樣式會被注入到 DOM 的 `<head>` 部分:
 
@@ -59,7 +59,7 @@ h3[_ngcontent-pmm-6] {
 }
 ----
 
-這些樣式經過後期處理，以便每個 CSS 選擇器都使用適當的 `_nghost` 或 `_ngcontent` 屬性進行擴充。這些修改後的選擇器可以確保樣式以隔離和有針對性的方式應用於元件的檢視。
+這些樣式經過後期處理，使每個 CSS 選擇器都使用適當的 `_nghost` 或 `_ngcontent` 屬性進行擴充。這些修改後的選擇器可以確保樣式以隔離和有針對性的方式應用於元件的檢視。
 
 === 混合封裝樣式
 

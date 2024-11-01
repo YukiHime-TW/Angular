@@ -43,10 +43,10 @@ image::../image/DOMTree.png[DOM Tree]
 
 **Shadow DOM** 是 **Web Components**(網頁元件)三大標準之一，其他兩個標準為 **HTML Templates** 和 **Custom Elements**(註：**HTML Imports** 已過時，不再建議使用)。
 
-**Web 元件的關鍵屬性** 是「**封裝**」，它允許開發者將標記結構(markup)、樣式(style)和行為(behavior)封裝起來，並與頁面上的其他代碼獨立。這意味著 Web 元件具備以下優點：
+**Web 元件的關鍵屬性** 是「**封裝**」，它允許開發者將標記結構(markup)、樣式(style)和行為(behavior)封裝起來，並與頁面上的其他程式碼獨立。這代表Web 元件具備以下優點：
 
-- 不會影響頁面上的其他代碼。
-- 不會被外部代碼干擾。
+- 不會影響頁面上的其他程式碼。
+- 不會被外部程式碼干擾。
 - 提升程式碼的可讀性與可維護性，並保持簡潔。
 
 這種封裝性質，讓 **Web Components** 成為現代化網頁應用程式開發中的重要技術。
@@ -56,13 +56,13 @@ image::../image/DOMTree.png[DOM Tree]
 - **Isolated DOM (隔離性)**: Shadow DOM 是 DOM 中的 DOM，它擁有自己的 HTML 元素、CSS 樣式與 JavaScript 程式碼，與外部的 DOM 隔離。
 - **Scoped CSS & Simplifies CSS (範圍限定的 CSS)**: Shadow DOM 中的 CSS 作用範圍僅限於它內部的節點樹，避免了外部的樣式影響，可以簡化選擇器，並避免 ID 或 Class 名稱的衝突。
 - **Composition (組合性)**: 你可以為 Shadow DOM 設計基於標記的 API，使其更靈活且可重用。
-- **Productivity (提升生產力)**: 開發者不需要考慮全局影響，只專注於 Shadow DOM 的功能，使程式開發更高效。
+- **Productivity (提升生產力)**: 開發者不需要考慮全域影響，只專注於 Shadow DOM 的功能，使程式開發更高效。
 
 基於這些特性，開發者可以創建類似 `<input>`、`<video>` 或 `<audio>` 的自訂標籤 (**Custom Elements**)，並充分利用 Shadow DOM 進行封裝與隔離。
 
 === Shadow DOM 的專有名詞
 
-在學習 Shadow DOM 時，有幾個專有名詞需要了解：
+在學習 Shadow DOM 時，有幾個專有名詞需要了解:
 
 - **Shadow Host**: Shadow DOM 的宿主元素，即 Shadow DOM 的根節點。
 - **Shadow Tree**: Shadow DOM 的節點樹，包含了 Shadow DOM 的所有節點。
@@ -87,78 +87,49 @@ let shadowRootClosed = element.attachShadow({mode: 'closed'});
 
 建立 Shadow DOM 時，還有以下兩個限制：
 
-. 無法針對已經包含內建 Shadow DOM 的元素再附加 Shadow DOM，例如 `<input>`。
-. 無法對 `<img>` 元素附加 Shadow DOM。
-    .. 瀏覽器原生行為: `<img>` 標籤是一個自閉合元素 (self-closing element)，本身不擁有子節點。由於 Shadow DOM 需要宿主元素來附加其 DOM 樹，`<img>` 無法提供這一點，因此無法附加 Shadow DOM。
-    .. 顯示內容的限制: `<img>` 標籤用來顯示圖片，其內容由 `src` 屬性指向的圖片資源決定。Shadow DOM 的主要特性之一是能夠封裝標記結構、樣式和行為。如果對 `<img>` 附加 Shadow DOM，將無法控制該標籤顯示的圖片或其行為，這違背了 Shadow DOM 的封裝概念。
-    .. DOM 兼容性: 大多數元素在 DOM 結構中都可以包含子元素，而 `<img>` 元素被設計為不能有子元素，導致對 `<img>` 附加 Shadow DOM 的不兼容性。
-    .. 已內建的 Shadow DOM: 某些瀏覽器已經在 `<img>` 等元素中實現了內建的 Shadow DOM 行為，例如用於圖像加載和錯誤處理。這使得將另一個 Shadow DOM 附加到這些元素上不僅技術上不可能，還會導致行為上的衝突。
+. 無法對已經內建 Shadow DOM 的元素再附加 Shadow DOM，例如 `<input>`。
+. 無法對沒有子節點的元素附加 Shadow DOM，例如 `<img>`。
 
 === 簡單範例
 
-以下範例建立兩個 `<div>`，並讓 `id="shadowDiv1"` 的 `<div>` 裡的 `<p>` 元素套用 `shadowrootClass`，因此裡面的文字會顯示為紅色；而 `id="shadowDiv2"` 的 `<div>` 採用附加 Shadow DOM 方式寫入的 HTML 內容，雖然也指定 `<p>` 元素套用 `shadowrootClass`，但不會顯示紅色，這可見 Shadow DOM 的隔離性。
-
 [source,html]
 ----
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Shadow DOM</title>
+    <title>Shadow DOM Sample</title>
     <style>
-        .shadowrootClass {
-            color: #f00;
+        p {
+            color: blue;
         }
     </style>
 </head>
+
 <body>
-<div id="shadowDiv1"><p class="shadowrootClass">Hello, Shadow DOM world!</p></div>
-<div id="shadowDiv2"></div>
+    <div id="shadow-host"></div>
+    <div id="normal-host"></div>
     <script>
+        const shadowHost = document.getElementById('shadow-host');
+        const shadowRoot = shadowHost.attachShadow({ mode: 'open' });
+        const shadowContent = document.createElement('p');
+        shadowContent.textContent = `這是 Shadow DOM 內的文字，應顯示為紅色。`;
+        shadowContent.style.color = 'red';
+        shadowRoot.appendChild(shadowContent);
 
-        //選擇shadowDiv2當成shadow host
-        var shadowHost = document.querySelector('＃shadowDiv2');
-
-        //在此節點上附件shadow root
-        var shadowRoot = shadowHost.attachShadow({mode: 'open'});
-
-        shadowRoot.innerHTML = '<p class="shadowrootClass">測試自建一個shadow DOM</p>';
-
+        const normalHost = document.getElementById('normal-host');
+        const normalContent = document.createElement('p');
+        normalContent.textContent = `這是 Shadow DOM 外的文字，應顯示為藍色。`;
+        normalHost.appendChild(normalContent);
     </script>
 </body>
-</html> 
+
+</html>
 ----
 
 呈現結果如下：
 
 image::../image/ShadowDOMSample.png[Shadow DOM Example]
-
-在這個範例中，雖然兩個 `<p>` 都套用了相同的 CSS 樣式類別，但 `id="shadowDiv2"` 的 `<p>` 會顯示為預設顏色，因為它的 CSS 作用範圍是 Shadow DOM，不會受到全域 CSS 影響。
-
-=== 總結
-
-- **Shadow DOM** 提供有效的封裝性質，幫助開發者在建立元件時隔離樣式和行為。
-- **開放模式** 允許外部程式碼可操作 Shadow DOM，而 **關閉模式** 則禁止這種操作，提升了安全性。
-- Shadow DOM 讓Web 元件開發變得更加靈活和高效，避免樣式衝突和行為干擾。
-
-通過利用 Shadow DOM，開發者能提高開發效率、維護性與可讀性，並創建更強大和可重用的 web 元件。
-
-=== 補充: Shadow DOM 與 Custom Element 的差異
-
-|===
-| 特性 | Shadow DOM | Custom Element
-| **定義** | 一種技術，用於將 DOM 樹附加到標準 DOM 中，實現封裝和隱私。 | 一種技術，允許開發者定義自己的 HTML 元素。
-| **目的** | 隱藏元件內部的結構和樣式，防止外部樣式影響，並且避免樣式衝突。 | 擴展 HTML 語言，創建自定義的元素和行為。
-| **操作方式** | 使用 `Element.attachShadow()` 方法創建 Shadow DOM。| 使用 `customElements.define()` 方法註冊自定義元素。
-| **作用範圍** | 封裝樣式和行為，只能在 Shadow DOM 內部存取。| 可以在全局範圍內使用，並且可以包含 Shadow DOM。
-| **支援性** | 需瀏覽器支持 Shadow DOM。| 需瀏覽器支持 Custom Elements。
-| **範例** | 將樣式和結構隱藏在自定義元素的 Shadow DOM 中。 | 創建一個新的 `<my-element>` 標籤，擁有特定行為和屬性。
-|===
-
-==== 總結
-
-- **Shadow DOM** 提供封裝性，使樣式和行為不受外部影響，適合需要隱藏實現細節的元件。
-- **Custom Element** 則允許開發者創建可重用的 HTML 元素，增強語言的靈活性和可擴展性。
-
-兩者通常一起使用，以便創建強大、可維護的網頁元件，實現更好的開發體驗和用戶界面。
 
 link:Class.html[回上一頁]
