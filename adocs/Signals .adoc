@@ -9,7 +9,7 @@ Signal 是 Angular 16 引入的一種新的狀態管理機制，它提供了一�
 Angular的變更偵測: Angular 在偵測是否有變更的時候會使用 ngZone 來進行偵測， ngZone 會去偵測 `可能會需要變更偵測的行為` 
 ，例如DOM事件、HTTP 請求、 `setTimeout()` 等，一旦偵測到變更，就會觸發變更偵測機制，重新渲染 UI。
 
-運作過程: 
+ngZone運作過程: 
 
 . 初始渲染: 當 Angular 應用啟動時，會進行一次全局變更偵測，檢查每個 Component 並初始化它們的資料綁定，以便初始渲染。
 
