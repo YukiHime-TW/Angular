@@ -2,14 +2,18 @@
 
 == 目錄
 
+=== 基礎
 * link:Introduction.html[簡介]
 * link:Installation.html[安裝前置作業]
 * link:CLI_Commands.html[常用指令與 CLI 指南]
 * link:Project_Setup.html[專案建立與啟動]
 * link:Directory_Structure.html[目錄結構介紹]
 * link:Component_Structure.html[元件結構詳解]
+
+=== 進階
 * link:Routing.html[設定路由]
 * link:Tools.html[工具介紹]
+* link:link:angular.json&啟動流程.html[angular.json & 啟動流程]
 
 == 雜項 踩雷紀錄
 

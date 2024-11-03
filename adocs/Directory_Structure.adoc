@@ -73,8 +73,6 @@ my-app/
 |tsconfig.spec.json |用來設定應用程式測試的TypeScript配置
 |===
 
-** 補充: link:angular.json&啟動流程.html[angular.json & 啟動流程]
-
 == 熟悉你的 Angular 程式
 
 主要使用的程式原始檔在 `src/app` 資料夾內。由 CLI 自動產生的主要檔案如下: 
