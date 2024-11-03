@@ -45,7 +45,7 @@ export class UserComponent {
 . 使用者在輸入欄位中輸入一個值
 . 表單輸入元素觸發一個 `input` 事件，並攜帶最新的值。
 . 監聽輸入事件的 `ControlValueAccessor` 會立即將新值傳遞給 `FormControl` 實例。
-. `FormControl` 實例透過 `valueChanges` 可觀察對象(Observable）發送新值。
+. `FormControl` 實例透過 `valueChanges` 可觀察對象(Observable)發送新值。
 . 所有訂閱 `valueChanges` 的訂閱者接收到新的值。
 
 link:Tools.html[回上一頁]
