@@ -163,4 +163,7 @@ image:../image/shadow-dom-encapsulation.png[ViewEncapsulation.ShadowDom]
 由於 `ShadowDomEncapsulationComponent` 中的樣式是在全域樣式 *( `NoEncapsulationComponent` 在 `<head>` 中新增的)* 之後新增到 Shadow Host 中的，因此 `h2` 樣式會覆蓋 `NoEncapsulationComponent` 中的樣式。 +
 結果是 `NoEncapsulationComponent` 中的 `<h2>` 元素被著色為藍色而不是紅色。
 
+[NOTE]
+來源: link:https://v17.angular.io/guide/view-encapsulation[Angular 官方文件^]
+
 link:Class.html[回上一頁]
