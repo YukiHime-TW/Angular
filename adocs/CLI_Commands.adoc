@@ -21,4 +21,67 @@
 | **執行端到端測試**
 |===
 
+== 補充: generate 指令
+`ng generate` 指令可以用來生成 Angular 應用程式中的各種檔案，例如元件、服務、模組等。以下是一些常用的子指令：
+
+[cols="1,3", options="header"]
+|===
+| 子指令 | 描述
+
+| https://angular.dev/cli/generate/app-shell[`app-shell`^]
+| **生成一個Server Side的應用程式**
+
+| https://angular.dev/cli/generate/application[`application`^]
+| **生成應用程式**
+
+| https://angular.dev/cli/generate/class[`class`^]
+| **生成類別**
+
+| https://angular.dev/cli/generate#service-command[`component`^]
+| **生成元件**
+
+| https://angular.dev/cli/generate/config[`config`^]
+| **生成Config檔**
+
+| https://angular.dev/cli/generate/directive[`directive`^]
+| **生成指令**
+
+| https://angular.dev/cli/generate/enum[`enum`^]
+| **生成列舉**
+
+| https://angular.dev/cli/generate/environments[`environments`^]
+| **生成環境檔案**
+
+| https://angular.dev/cli/generate/guard[`guard`^]
+| **生成一個路由守衛**
+
+| https://angular.dev/cli/generate/interceptor[`interceptor`^]
+| **生成攔截器**
+
+| https://angular.dev/cli/generate/interface[`interface`^]
+| **生成介面**
+
+| https://angular.dev/cli/generate/library[`library`^]
+| **生成函式庫**
+
+| https://angular.dev/cli/generate/module[`module`^]
+| **生成模組**
+
+| https://angular.dev/cli/generate/pipes[`pipe`^]
+| **生成管道**
+
+| https://angular.dev/cli/generate/resolver[`resolver`^]
+| **生成路由解析器**
+
+| https://angular.dev/cli/generate/service[`service`^]
+| **生成服務**
+
+| https://angular.dev/cli/generate/service-worker[`service-worker`^]
+| **生成Service Worker**
+
+| https://angular.dev/cli/generate/web-worker[`web-worker`^]
+| **生成Web Worker**
+
+|===
+
 link:index.html[回首頁]
