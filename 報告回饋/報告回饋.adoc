@@ -5,7 +5,7 @@
 == 第二次報告回饋 (2024/11/1)
 
 . Angular的安裝版本不需要-g參數  **TODO:** 江明諺
-. CLI command要再詳細解釋sub-command下的參數作用或產生什麼檔案 **TODO:** 江明諺
+. [line-through]#CLI command要再詳細解釋sub-command下的參數作用或產生什麼檔案# **TODO:** 江明諺 (Finished a part by 雲丸)
 . FormControl要加上官方連結
 . 英文發音要清楚
 . 資料綁定的第一張圖要放大一點
