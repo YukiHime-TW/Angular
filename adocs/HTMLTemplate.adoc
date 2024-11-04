@@ -358,7 +358,7 @@ test(){ // 此層的事件
 
 ==== 觸發流程
 
-image::../image/output.jpg["圖片"]
+image::../image/output.png["圖片"]
 
 === 補充:
 link:Controlflow.html[控制流]
