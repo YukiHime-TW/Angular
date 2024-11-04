@@ -44,7 +44,7 @@ Angular定義了四種資料綁定的方式，其中前面所講的 `{{ }}` 語�
 下圖分別表示了不同的資料綁定的形式、元件和DOM的溝通方向。
 
 .資料綁定的四種類型
-image::../image/databinding_Image Upscaler.jpg[四種資料綁定, 1000, 1000]
+image::../image/databinding_Image Upscaler.jpg[四種資料綁定]
 
 來源資料: link:https://v17.angular.io/guide/architecture-components#data-binding[Angular17 Architecture-Components]
 
