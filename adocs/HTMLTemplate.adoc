@@ -298,10 +298,65 @@ export class UserComponent {
 }
 ----
 
-==== @Output
-1.傳入事件
+=== @Output
 
 使用@Output建立父元件與子元件的溝通
+
+==== 流程
+
+image::../image/output1.jpg["圖片"]
+
+1. 使用"@Output"客製化新事件
+
+[source,typescript]
+----
+
+@Output() updateNameFun = new EventEmitter<string>();
+
+----
+2. 在該元件上註冊此事件的監聽
+
+[source,typescript]
+----
+<app-child (updateNameFun)="updateName($event)"></app-child>
+----
+
+這樣此元件就會與這個事件綁定。
+
+image::../image/eventlisten.jpg["圖片"]
+
+NOTE: 此事件只能綁定在"@Output定義的元件上"
+
+3. 執行自定義事件的發射
+
+藉由@Output的宣告為事件發射器，故需要透過此物件來做事件傳遞(emit)
+
+[source,typescript]
+----
+
+  addItem(e: Event) {
+    if (e.target instanceof HTMLInputElement) { //可以順便檢查null和型別
+      console.log(e.target)
+      this.updateNameFun.emit(e.target.value);
+   }
+}
+
+----
+
+NOTE: 也可以在"其子類"上透過注入的方式使用發射器
+
+[source, typescript]
+----
+export class ChildplusComponent {
+  constructor(@Optional() public parent: ChildComponent) {} //注入使用@Output宣告的元件
+test(){ // 此層的事件
+  this.parent.updateNameFun.emit('fire')
+}
+}
+----
+
+
+==== 觸發流程
 
 image::../image/output.jpg["圖片"]
 
