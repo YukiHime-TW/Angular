@@ -16,7 +16,7 @@
 . Angular的安裝版本不需要-g參數  **TODO:** 江明諺
 . CLI command要再詳細解釋sub-command下的參數作用或產生什麼檔案 **TODO:** 江明諺 **(Finished a part by 雲丸)**
 . FormControl要加上官方連結 
-. 資料綁定的第一張圖要放大一點 **補完生成html再檢查大小**
+. 資料綁定的第一張圖要放大一點 **補完生成html再檢查大小** (Finished by ㄨㄅ)
 . 有參考官方文件的地方要放reference連結 **自己去補** (Finished by ㄨㄅ)
 . @input、@output的scope問題、事件監聽器會不會有命名、圖要畫線
 . ngOnChange 初始化父層的東西要再研究
