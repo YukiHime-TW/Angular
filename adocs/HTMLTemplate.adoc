@@ -300,7 +300,8 @@ export class UserComponent {
 
 === @Output
 
-使用@Output建立父元件與子元件的溝通
+可以自定義事件透過使用@Output裝飾器與指派給他EventEmitter
+https://angular.dev/guide/components/outputs[官方說明^]
 
 ==== 流程
 
